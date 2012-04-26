@@ -24,7 +24,7 @@ import javax.swing.JLabel;
  */
 public class fileChooser extends javax.swing.JFrame {
 
-    
+    //vedi le modifiche??
     public fileChooser(String clientUsername,JLabel imageLabel,Requests toCon,int idUser,int use) {
         
         initComponents();
