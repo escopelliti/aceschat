@@ -33,6 +33,7 @@ public class fileChooser extends javax.swing.JFrame {
         this.idUser = idUser;
         this.toCon = toCon;
         this.use = use;
+        //modifica di albert
 
     }
     
