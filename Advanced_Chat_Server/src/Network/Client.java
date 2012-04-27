@@ -295,7 +295,7 @@ public class Client{
 }
     
     
-//   
+//     ULTIMO METODO REVISIONATO :)
 //    il primo elemento del vector deve essere l'id del user che fa la richiesta il secondo la email oppure l'username dell utente che vuole aggiungere;
      public void Friendship(Object payload) throws SQLException, IOException{
 
