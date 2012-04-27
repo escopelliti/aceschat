@@ -76,7 +76,7 @@ public class Client{
 
         try{ 
         
-            updateInfo = con.prepareStatement("SELECT User.idUser FROM User WHERE User.idUser != ? AND (User.Email = ? OR User.Username = ?)");
+            updateInfo = con.prepareStatement("SELECT User.IdUser FROM User WHERE User.IdUser != ? AND (User.Email = ? OR User.Username = ?)");
             updateInfo.setInt(1, new_user_info.getIdPerson());
             updateInfo.setString(2, new_user_info.getEmail());
             updateInfo.setString(3,new_user_info.getUsername());
@@ -86,8 +86,8 @@ public class Client{
 
                 updateInfo = con.prepareStatement("UPDATE `AdvancedChat`.`User`,`AdvancedChat`.`Person` SET `User`.`Username`=?,"
                                             + "`User`.`Email`=?,`Name`=?, `Surname`=?,`Birthday`=?, "
-                                            + "`City`=?, `Nation`=?, `Sex`=?, `Job`=? WHERE `User`.`idUser` = ? AND"
-                                            + " `Person`.`idPerson`=?");
+                                            + "`City`=?, `Nation`=?, `Sex`=?, `Job`=? WHERE `User`.`IdUser` = ? AND"
+                                            + " `Person`.`IdPerson`=?");
                 updateInfo.setString(1, new_user_info.getUsername());
                 updateInfo.setString(2, new_user_info.getEmail());
                 updateInfo.setString(3, new_user_info.getName());
@@ -108,7 +108,7 @@ public class Client{
             else{
 
                 response = new Packet(666, "\nAggiornamento delle informazioni personali non riuscito.\n"
-                                        + "Username già utilizzat da un altro utente.");
+                                        + "Username già utilizzato da un altro utente.");
 
                 this.out.writeObject(response);
 
