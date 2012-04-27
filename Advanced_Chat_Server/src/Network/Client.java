@@ -22,7 +22,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Set;
 import java.util.Vector;
 import javax.swing.ImageIcon;
 
@@ -137,8 +139,8 @@ public class Client{
         
         this.out.writeObject(response);
     }
-
-    
+//METODO NON ANCORA REVISIONATO
+//proporrei una piccola modifica al db, secondo me è inutle avere le tue tabelle per l'abuse
     public void signAbuse(Object payload) throws SQLException, IOException{
 
             Vector sign = (Vector) payload;
@@ -227,7 +229,7 @@ public class Client{
                 this.out.writeObject(new Packet(1,mess.remove(mess.size() - 1)));
             }
     }
-
+//mi faccio restituire solo la lista degli user amici 
     public void FriendList(Object payload) throws SQLException, IOException{
 
         Integer id;
@@ -243,19 +245,20 @@ public class Client{
             id = (Integer)payload;
             list = new Vector();
             con = Database.getCon();
-
-            query = con.prepareStatement("SELECT Username,Email,Level FROM User,Friends WHERE Friends.idUser=? AND User.idUser = Friends.idFriend ORDER BY Username ASC");
+            
+//la query mi restituisce gli username degli amici di un dato id 
+            query = con.prepareStatement("SELECT Username FROM User,Friend WHERE Friend.IdUser=? AND User.IdUser = Friends.IdFriend ORDER BY Username ASC");
             query.setInt(1, id);
             rs = query.executeQuery();
 
             while(rs.next()){
 
                 list.add(i,rs.getString("Username"));
-//                list.add(i+1,rs.getString("Email"));
-//                list.add(i+2,rs.getInt("Level"));
-//                i = i + 3;
                 i++;
             }
+
+            //possiamo invocare direttamente la funzione delle informazioni personali o una simile con meno info
+            
             //dobbiamo prendere le info sull'immagine personale dalla tabella corrispondente;
             //inserirla nel vettore: ma prima deve essere caricata ovviamente;
             //bisogna fare un ciclo per sistemare il vettore da sparare nella socket;
@@ -284,7 +287,7 @@ public class Client{
             PreparedStatement update;
 
             //il primo elemento della lista deve essere id dell'user che fa la richiesta ; il secondo lo status in cui vuole andare
-            update = con.prepareStatement("UPDATE `AdvancedChat`.`Status` SET `code` = ? WHERE `Status`.`idUser` = ?");
+            update = con.prepareStatement("UPDATE `AdvancedChat`.`Status` SET `IdStatus` = ? WHERE `Status`.`IdUser` = ?");
             update.setObject(1,info.get(1));
             update.setObject(2,info.get(0));
             update.execute();
@@ -292,41 +295,43 @@ public class Client{
 }
     
     
-    
-//    il primo elemento di vector deve essere l'id user il secondo la mail dell utente che vuole aggiungere;
+//   
+//    il primo elemento del vector deve essere l'id del user che fa la richiesta il secondo la email oppure l'username dell utente che vuole aggiungere;
      public void Friendship(Object payload) throws SQLException, IOException{
 
                 Vector info = (Vector) payload;
                 Connection con = Database.getCon();
                 ResultSet rs;
                 PreparedStatement query;
-                int idFriend = 0;
+                int IdFriend = 0;
                 Packet response;
 
                 try{
 
-                query = con.prepareStatement("SELECT idUser FROM User WHERE Username = ?");
+                query = con.prepareStatement("SELECT IdUser FROM User WHERE Username = ? OR Email = ?");
                 query.setObject(1,info.get(1));
+                query.setObject(2,info.get(1));
+                    
                 rs = query.executeQuery();
+
                 if(rs.next()){
 
-                    idFriend = rs.getInt("idUser");
+                    IdFriend = rs.getInt("IdUser");
 
-                    query = con.prepareStatement("SELECT IdUser FROM Friends WHERE IdUser = ? AND IdFriend= ?");
+                    query = con.prepareStatement("SELECT IdUser FROM Friend WHERE IdUser = ? AND IdFriend= ?");
                     query.setObject(1,info.get(0));
-                    query.setObject(2,idFriend);
+                    query.setObject(2,IdFriend);
                     rs = query.executeQuery();
 
                     if(!rs.next()){
 
-                        query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Friends` () VALUES (? , ?)");
+                        query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Friend` () VALUES (? , ?)");
                         query.setObject(1,info.get(0));
-                        query.setInt(2,idFriend);
+                        query.setInt(2,IdFriend);
                         query.execute();
-
-                        query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Friends` () VALUES (? , ?)");
+                        query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Friend` () VALUES (? , ?)");
+                        query.setInt(1,IdFriend);
                         query.setObject(2,info.get(0));
-                        query.setInt(1,idFriend);
                         query.execute();
 
                         response = new Packet(666,"L'aggiunta dell'utente da te selezionato è avvenuta con successo!");
