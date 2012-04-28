@@ -12,6 +12,7 @@
 package GUI;
 
 import Networking.Requests;
+import User.User;
 import fileManager.fileOperation;
 import java.io.File;
 import java.io.IOException;
@@ -24,23 +25,22 @@ import javax.swing.JLabel;
  */
 public class fileChooser extends javax.swing.JFrame {
 
-    //vedi le modifiche??
-    public fileChooser(String clientUsername,JLabel imageLabel,Requests toCon,int idUser,int use) {
+
+    public fileChooser(User client,JLabel imageLabel,Requests toCon,int use) {
         
         initComponents();
-        this.clientUsername = clientUsername;
+        this.client = client;
         this.imageLabel = imageLabel;
-        this.idUser = idUser;
         this.toCon = toCon;
         this.use = use;
-        //modifica di albert
+        
 
     }
     
-    public fileChooser(Requests toCon,int idUser,int use,String receiver) {
+    public fileChooser(Requests toCon,User client,int use,String receiver) {
         
         initComponents();
-        this.idUser = idUser;
+        this.client = client;
         this.toCon = toCon;
         this.use = use;
         this.receiver = receiver;
@@ -119,7 +119,7 @@ private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         }
         catch(IOException ex){
             
-            new userDialog("Si è verificato un problema. Riprova più tardi");
+            new userDialog("Si è verificato un problema. Riprova più tardi").setVisible(true);
         }
         
         dispose();
@@ -131,14 +131,14 @@ private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         
         ImageIcon icon = fileOperation.loadImage(imageFile);
         this.imageLabel.setIcon(icon);            
-        toCon.sendImage(imageFile,this.idUser);//forse dobbiamo metterla nel DB
+        toCon.sendImage(imageFile,this.client.getIdPerson());//forse dobbiamo metterla nel DB
         
     }
 
     
     private void loadFile(File selectedFile) throws IOException{
         
-        toCon.send(selectedFile,this.receiver,this.clientUsername);
+        toCon.send(selectedFile,this.receiver,this.client.getUsername());
         //carichiamo il filmessagee e
         //con request mandiamo una richiesta di invio file;
     }
@@ -150,9 +150,8 @@ private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_exitButtonActionPerformed
 
     private String receiver;
-    private String clientUsername;
     private int use;
-    private int idUser;
+    private User client;
     private Requests toCon;
     private JLabel imageLabel;
     // Variables declaration - do not modify//GEN-BEGIN:variables

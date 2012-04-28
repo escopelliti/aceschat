@@ -40,7 +40,6 @@ public class ChatSession {
             conv.setVisible(true);
             convList.put(mess.get(0).toString(), conv);
             conv.append(mess.get(1).toString());
-            System.out.println(mess);
             conv.writingFile(mess.get(0).toString(),mess.get(1).toString(), mess.get(0).toString());
         }
 

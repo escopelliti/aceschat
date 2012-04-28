@@ -267,7 +267,7 @@ public class Message extends javax.swing.JFrame {
 
     private void sendFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendFileActionPerformed
         //0 identifica un uso del file chooser per mandare un file
-        new fileChooser(this.client.getUsername(),this.request,this.client.getIdPerson(),0,this.toContact).setVisible(true);
+        new fileChooser(this.request,this.client,0,this.toContact).setVisible(true);
         
     }//GEN-LAST:event_sendFileActionPerformed
 
