@@ -899,7 +899,7 @@ public void run(){
 
     private void photoLoadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_photoLoadButtonActionPerformed
 
-        new fileChooser(userImageLabel,toCon,loggedUser.getIdPerson(),1).setVisible(true);
+        new fileChooser(this.loggedUser,userImageLabel,toCon,1).setVisible(true);
     }//GEN-LAST:event_photoLoadButtonActionPerformed
 
     private void addFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFriendButtonActionPerformed

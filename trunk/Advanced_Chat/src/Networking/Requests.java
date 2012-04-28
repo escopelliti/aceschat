@@ -32,6 +32,8 @@ public class Requests {
     private Socket socket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
+    
+    
 
     public Requests(String ip,String port) throws UnknownHostException, IOException{
 
