@@ -6,8 +6,12 @@
 package fileManager;
 
 import java.awt.Image;
+import java.io.BufferedOutputStream;
+import java.io.FileNotFoundException;
 import java.util.Properties;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -35,6 +39,28 @@ public class fileOperation {
             return value;
 
         }
+        
+        
+        public void writeFile(File file) throws FileNotFoundException, IOException{
+            
+            FileInputStream fis;
+            FileOutputStream fos;
+            int c;
+            
+            fis = new FileInputStream(file);
+            fos = new FileOutputStream(new File("./"+file.getName()));
+            c = fis.read();
+            
+            while (c != -1){
+                c = fis.read();
+                fos.write(c);
+            }
+            
+            fis.close();
+            fos.close();
+            
+        }
+        
 
         public String getOS(){       //metodo che mi dice se il sistema ospitante è Microsoft o altro;
 
