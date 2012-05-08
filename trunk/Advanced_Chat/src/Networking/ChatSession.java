@@ -7,6 +7,8 @@ package Networking;
 
 import GUI.Message;
 import User.User;
+import fileManager.fileOperation;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Vector;
@@ -30,7 +32,11 @@ public class ChatSession {
     
     public void messaging(Vector mess) throws IOException{
 
-        boolean flag = isThere(mess.get(0).toString());
+        boolean flag;
+        Object load;
+        fileOperation fo;
+        load = mess.get(1);
+        flag = isThere(mess.get(0).toString());
         
         if(!flag){
             
@@ -39,16 +45,33 @@ public class ChatSession {
             conv = new Message(this.user,mess.get(0).toString(),this.toCon);
             conv.setVisible(true);
             convList.put(mess.get(0).toString(), conv);
-            conv.append(mess.get(1).toString());
-            conv.writingFile(mess.get(0).toString(),mess.get(1).toString(), mess.get(0).toString());
+            
+            if(load.getClass().equals("String")){
+                
+                conv.append(mess.get(1).toString());//se non è una stringa facciamo visualizzare la finestra con la comunicazione che è un file
+                conv.writingFile(mess.get(0).toString(),mess.get(1).toString(), mess.get(0).toString());
+            }
+            else{
+                
+                conv.append("Hai ricevuto un file da "+mess.get(0).toString()+".");
+                fo = new fileOperation();
+                fo.writeFile((File) load);
+            }
         }
 
         else{
 
             Message conv = convList.get(mess.get(0));
-            conv.append(mess.get(1).toString());
-            conv.writingFile(mess.get(0).toString(),mess.get(1).toString(), mess.get(0).toString());
-
+            if(load.getClass().equals("String")){
+                conv.append(mess.get(1).toString());
+                conv.writingFile(mess.get(0).toString(),mess.get(1).toString(), mess.get(0).toString());
+            }
+            else{
+                
+                conv.append("Hai ricevuto un file da "+mess.get(0).toString()+".");
+                fo = new fileOperation();
+                fo.writeFile((File) load);
+            }
         }
 
 
