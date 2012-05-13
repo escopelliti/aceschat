@@ -649,12 +649,6 @@ public class Client{
         
     }
     
-    
-
-
-    
-    
-
 
     private ObjectInputStream in;
     private ObjectOutputStream out;
