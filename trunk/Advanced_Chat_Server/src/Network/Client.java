@@ -369,7 +369,7 @@ public class Client{
             Connection connection = Database.getCon();
             PreparedStatement query;
 
-            query = connection.prepareStatement("INSERT INTO `AdvancedChat`.`Interests`() VALUES (?,?)");
+            query = connection.prepareStatement("INSERT INTO `AdvancedChat`.`Interest`() VALUES (?,?)");
             query.setInt(1,id);
 
             while(index < personalInterests.length){
@@ -574,7 +574,7 @@ public class Client{
         String response;
 
         try{
-            //controllo se la email che vogli registrare è nella blacklist
+//controllo se la email che vogli registrare è nella blacklist
             query = con.prepareStatement("SELECT Email FROM BlackList WHERE Email = ? ");
             query.setString(1, new_user.getEmail());         
             rs = query.executeQuery();
@@ -585,7 +585,7 @@ public class Client{
                 query.setString(1,new_user.getUsername());
                 query.setString(2, new_user.getEmail());
                 rs = query.executeQuery();
-            
+//inserimento dei dati      
                 if(!rs.next()){
 
                     query = con.prepareStatement("INSERT INTO `AdvancedChat`.`User` (`Username`,`Password`,`Email`) VALUES (? , MD5(?) , ?)");
