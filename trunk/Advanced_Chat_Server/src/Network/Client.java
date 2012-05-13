@@ -574,77 +574,78 @@ public class Client{
         String response;
 
         try{
-            
-            query = con.prepareStatement("SELECT * FROM BlackList");
+            //controllo se la email che vogli registrare è nella blacklist
+            query = con.prepareStatement("SELECT Email FROM BlackList WHERE Email = ? ");
+            query.setString(1, new_user.getEmail());         
             rs = query.executeQuery();
 
-            if(rs.next()){
-
-                query = con.prepareStatement("SELECT User.idUser FROM User,BlackList WHERE User.Email = ? AND BlackList.Email = ? OR User.Username = ? ");
-                query.setString(1, new_user.getEmail());
+            if(!rs.next()){
+//controllo se la e-mail o l'username ci sono gia in user
+                query = con.prepareStatement("SELECT IdUser FROM User WHERE Username = ? OR Email = ? ");
+                query.setString(1,new_user.getUsername());
                 query.setString(2, new_user.getEmail());
-                query.setString(3,new_user.getUsername());
                 rs = query.executeQuery();
+            
+                if(!rs.next()){
 
+                    query = con.prepareStatement("INSERT INTO `AdvancedChat`.`User` (`Username`,`Password`,`Email`) VALUES (? , MD5(?) , ?)");
+                    query.setString(1,new_user.getUsername());
+                    query.setString(2,new_user.getPassword());
+                    query.setString(3,new_user.getEmail());
+                    query.execute();
+                    
+                    query = con.prepareStatement("SELECT idUser FROM User WHERE Username = ?" );
+                    query.setString(1,new_user.getUsername());
+                    rs = query.executeQuery();
+                    rs.next();
+                    new_user.setIdPerson(rs.getInt("idUser"));
+                    
+                    query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Person` (`idPerson`,`Name`,`Surname`,`Birthday`,`City`,`Nation`,`Sex`,`Job`) VALUES (? , ? , ? , ? , ? , ? , ?, ?)");
+                    query.setInt(1,new_user.getIdPerson());
+                    query.setString(2,new_user.getName());
+                    query.setString(3,new_user.getSurname());
+                    query.setString(4,new_user.getBirthday());
+                    query.setString(5,new_user.getCity());
+                    query.setString(6,new_user.getNation());
+                    query.setString(7,new_user.getSex());
+                    query.setString(8,new_user.getJob());
+                    query.execute();
+
+                    setPersonalInterests(new_user.getInterests(),new_user.getIdPerson());
+
+                    query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Login` ( `IdUser` , `Ip` ) VALUES ( ? , ? )");
+                    query.setInt(1, new_user.getIdPerson());
+                    query.setString(2,this.clientSocket.getInetAddress().toString());
+                    query.execute();
+
+                    query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Status` (`IdUser`,`IdStatus`) VALUES ( ? , ? ) ");
+                    query.setInt(1,new_user.getIdPerson());
+                    query.setInt(2,1);
+                    query.execute();
+
+                    query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Activations` (`IdUser`,`ActivationStatus`) VALUES ( ? , 1)");
+                    query.setInt(1, new_user.getIdPerson());
+                    query.execute();
+
+                    this.out.writeObject(new_user);
+//                while(!ServerAccept.setUserLog(new_user.getIdPerson(),toRegister));
+               }
+               else{
+
+                    response = "Username e/o email già utilizzati da un altro utente.";
+                   this.out.writeObject(response);
+
+                }
+                      
             }
+            
             else{
 
-                query = con.prepareStatement("SELECT User.idUser FROM User WHERE User.Email = ? OR User.Username = ? ");
-                query.setString(1, new_user.getEmail());
-                query.setString(2,new_user.getUsername());
-                rs = query.executeQuery();
-
-            }
-
-            if(!rs.next()){
-
-                query = con.prepareStatement("INSERT INTO `AdvancedChat`.`User` (`Username`,`Password`,`Email`) VALUES (? , MD5(?) , ?)");
-                query.setString(1,new_user.getUsername());
-                query.setString(2,new_user.getPassword());
-                query.setString(3,new_user.getEmail());
-                query.execute();
-
-                query = con.prepareStatement("SELECT idUser FROM User WHERE Username = ?" );
-                query.setString(1,new_user.getUsername());
-                rs = query.executeQuery();
-                rs.next();
-                new_user.setIdPerson(rs.getInt("idUser"));
-
-                query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Person` (`idPerson`,`Name`,`Surname`,`Birthday`,`City`,`Nation`,`Sex`,`Job`) VALUES (? , ? , ? , ? , ? , ? , ?, ?)");
-                query.setInt(1,new_user.getIdPerson());
-                query.setString(2,new_user.getName());
-                query.setString(3,new_user.getSurname());
-                query.setString(4,new_user.getBirthday());
-                query.setString(5,new_user.getCity());
-                query.setString(6,new_user.getNation());
-                query.setString(7, new_user.getSex());
-                query.setString(8,new_user.getJob());
-                query.execute();
-
-                setPersonalInterests(new_user.getInterests(),new_user.getIdPerson());
-
-                query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Login` ( ) VALUES ( ? , ? , CURRENT_TIMESTAMP)");
-                query.setInt(1, new_user.getIdPerson());
-                query.setString(2,this.clientSocket.getInetAddress().toString());
-                query.execute();
-
-                query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Status` (`idUser`) VALUES ( ? ) ");
-                query.setInt(1,new_user.getIdPerson());
-                query.execute();
-
-                query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Activations` ( ) VALUES ( ? , CURRENT_TIMESTAMP ,1)");
-                query.setInt(1, new_user.getIdPerson());
-                query.execute();
-
-                this.out.writeObject(new_user);
-//                while(!ServerAccept.setUserLog(new_user.getIdPerson(),toRegister));
-            }
-        else{
-
-                response = "Username e/o email già utilizzati da un altro utente.";
+                response = "La e-mail da te inserita è presente nella nostra blacklist.";
                 this.out.writeObject(response);
+             }
 
-        }
+           
         }
         catch(Exception ex){
                 this.out.writeChars(ex.getMessage());
