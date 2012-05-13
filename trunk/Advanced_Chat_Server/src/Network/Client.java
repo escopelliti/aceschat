@@ -382,8 +382,59 @@ public class Client{
 
     }
  
-         
     
+    private void setPersonalInterests(String[] personalInterests,int id) throws SQLException{
+
+            int index = 0;
+            Connection connection = Database.getCon();
+            PreparedStatement query;
+
+            query = connection.prepareStatement("INSERT INTO `AdvancedChat`.`Interest`() VALUES (?,?)");
+            query.setInt(1,id);
+
+            while(index < personalInterests.length){
+
+                if(personalInterests[index] != null){
+
+                    query.setString(2,personalInterests[index]);
+                    query.execute();
+
+                }
+
+                index++;
+            }
+
+    }
+    
+    
+    public void setPersonalImage(Object payload) throws FileNotFoundException, IOException{
+        
+            Vector imageInfo;
+            Integer idUser;
+            File image;
+            InputStream reader;
+            
+            imageInfo = (Vector) payload;
+            idUser = (Integer) imageInfo.get(0);
+            image = (File) imageInfo.get(1);
+            reader = new FileInputStream(image);
+            
+            if(fileOperation.exist("Utenti/"+idUser+"/Immagini"))
+                
+                fileOperation.writeFile(idUser, reader);
+            
+            else{
+                
+                fileOperation.createDirectory("Utenti/"+idUser+"/Immagini");
+                fileOperation.writeFile(idUser, reader);
+                
+            }
+            
+            //mandiamo un messaggio in cui diciamo che i cambiamenti saranno visibili al prossimo accesso
+            //o in alternativa codifichiamo il cambio immagine; la prima soluzione è più veloce ma meno
+            //carina
+    }
+        
 //     ULTIMO METODO REVISIONATO :)
 //    il primo elemento del vector deve essere l'id del user che fa la richiesta il secondo la email oppure l'username dell utente che vuole aggiungere;
      public void Friendship(Object payload) throws SQLException, IOException{
@@ -453,60 +504,7 @@ public class Client{
                 }
     }
     
-    
-    private void setPersonalInterests(String[] personalInterests,int id) throws SQLException{
-
-            int index = 0;
-            Connection connection = Database.getCon();
-            PreparedStatement query;
-
-            query = connection.prepareStatement("INSERT INTO `AdvancedChat`.`Interest`() VALUES (?,?)");
-            query.setInt(1,id);
-
-            while(index < personalInterests.length){
-
-                if(personalInterests[index] != null){
-
-                    query.setString(2,personalInterests[index]);
-                    query.execute();
-
-                }
-
-                index++;
-            }
-
-    }
-    
-    
-    public void setPersonalImage(Object payload) throws FileNotFoundException, IOException{
-        
-            Vector imageInfo;
-            Integer idUser;
-            File image;
-            InputStream reader;
-            
-            imageInfo = (Vector) payload;
-            idUser = (Integer) imageInfo.get(0);
-            image = (File) imageInfo.get(1);
-            reader = new FileInputStream(image);
-            
-            if(fileOperation.exist("Utenti/"+idUser+"/Immagini"))
-                
-                fileOperation.writeFile(idUser, reader);
-            
-            else{
-                
-                fileOperation.createDirectory("Utenti/"+idUser+"/Immagini");
-                fileOperation.writeFile(idUser, reader);
-                
-            }
-            
-            //mandiamo un messaggio in cui diciamo che i cambiamenti saranno visibili al prossimo accesso
-            //o in alternativa codifichiamo il cambio immagine; la prima soluzione è più veloce ma meno
-            //carina
-    }
-    
-    
+   
     private ImageIcon getImage(int idUser) throws IOException{
         
         final String path;
@@ -525,10 +523,6 @@ public class Client{
         return icon;
     }
     
-    
-    
-    
-    
     public void logMe(Object payload) throws SQLException, IOException{
 
         User user;
@@ -541,7 +535,7 @@ public class Client{
         String[] interests = new String[6];
         int index = 0;
         int flag = 0;
-        
+//la password gli arriva gia criptata in md5 ho glielo faccio fare alla query?    
         query = con.prepareStatement("SELECT * FROM `User` WHERE Username = ? AND Password = ?");
         query.setObject(1, v.get(0));
         query.setObject(2, v.get(1));
@@ -553,7 +547,7 @@ public class Client{
             if(rs.next()){
 
                 user = new User();
-                user.setIdPerson(rs.getInt("idUser"));
+                user.setIdPerson(rs.getInt("IdUser"));
                 user.setUsername(rs.getString("Username"));
                 user.setEmail(rs.getString("Email"));
                 user.setWarning(rs.getInt("Warning"));
@@ -565,13 +559,13 @@ public class Client{
  
                     if(!rs.next()){
                         
-                        query = con.prepareStatement("SELECT * FROM `Activations` WHERE idUser = ? AND Activation_status = 1");
+                        query = con.prepareStatement("SELECT * FROM `Activation` WHERE idUser = ? AND ActivationStatus = 1");
                         query.setInt(1, user.getIdPerson());
                         rs = query.executeQuery();
                
                         if(rs.next()){
                             
-                            query = con.prepareStatement("SELECT * FROM `Person` WHERE idPerson = ?");
+                            query = con.prepareStatement("SELECT * FROM `Person` WHERE IdPerson = ?");
                             query.setInt(1, user.getIdPerson());
                             rs = query.executeQuery();
                    
@@ -587,7 +581,7 @@ public class Client{
                         
                         }
                             
-                        query = con.prepareStatement("SELECT * FROM `Interests` WHERE idUser = ?");
+                        query = con.prepareStatement("SELECT * FROM `Interest` WHERE IdUser = ?");
                         query.setInt(1, user.getIdPerson());
                         rs = query.executeQuery();
                           
@@ -604,11 +598,11 @@ public class Client{
                             user.setInterests("Nessuno");
                 
                         
-                        query = con.prepareStatement("UPDATE `AdvancedChat`.`Status` SET `code` = 1 WHERE `Status`.`idUser` = ?");
+                        query = con.prepareStatement("UPDATE `AdvancedChat`.`Status` SET `IdStatus` = 1 WHERE `Status`.`IdUser` = ?");
                         query.setInt(1,user.getIdPerson());
                         query.execute();
                         
-                        query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Login`(`idUser`,`ip`) VALUE (?,?)");
+                        query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Login`(`IdUser`,`Ip`) VALUE (?,?)");
                         query.setInt(1,user.getIdPerson());
                         query.setString(2,this.clientSocket.getInetAddress().toString());
                         query.execute();
