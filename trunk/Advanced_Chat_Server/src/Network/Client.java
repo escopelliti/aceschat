@@ -137,65 +137,75 @@ public class Client{
         
         this.out.writeObject(response);
     }
-//METODO NON ANCORA REVISIONATO
-//proporrei una piccola modifica al db, secondo me è inutile avere le tue tabelle per l'abuse
+    
+    //nel vettore arriva 0)id di chi sta segnlando 1)l'username da segnalare2)testo dell'offesa
     public void signAbuse(Object payload) throws SQLException, IOException{
 
             Vector sign = (Vector) payload;
             Connection con = Database.getCon();
-            int idOffending;
-            int level,warning;
-            String email;
+            int idOffending,idAbuse,warning;
             PreparedStatement abuse;
             ResultSet rs;
             Packet response;
 
             try{
 
-                abuse = con.prepareStatement("SELECT idUser FROM `AdvancedChat`.`User` WHERE Username = ?");
+                abuse = con.prepareStatement("SELECT IdUser FROM `AdvancedChat`.`User` WHERE Username = ?");
                 abuse.setObject(1,sign.get(1));
                 rs = abuse.executeQuery();
                 rs.next();
-                idOffending = rs.getInt("idUser");
+                idOffending = rs.getInt("IdUser");
 
-                abuse = con.prepareStatement("SELECT * FROM Abuse WHERE idSender = ? AND idOffending = ?");
+                abuse = con.prepareStatement("SELECT * FROM Offense WHERE IdSender = ? AND IdOffending = ?");
                 abuse.setObject(1,sign.get(0));
                 abuse.setInt(2,idOffending);
                 rs = abuse.executeQuery();
 
                 if(!rs.next()){
-
-                    abuse = con.prepareStatement("INSERT INTO `AdvancedChat`.`Abuse` (`idSender`,`idOffending`,`Offense`) VALUES (?,?,?)");
+//aggiungo in offense
+                    abuse = con.prepareStatement("INSERT INTO `AdvancedChat`.`Offense` (`IdSender`,`IdOffending`) VALUES (?,?)");
                     abuse.setObject(1, sign.get(0));
                     abuse.setInt(2, idOffending);
-                    abuse.setObject(3, sign.get(2));
                     abuse.execute();
-
-                    abuse = con.prepareStatement("SELECT Warning,Level,Email FROM User WHERE idUser = ?");
+//aggiungo in abuse ma prima mi serve l'idabuse
+                    abuse = con.prepareStatement("SELECT IdAbuse FROM Offense WHERE IdSender = ? AND IdOffending=?");
+                    abuse.setObject(1, sign.get(0));
+                    abuse.setInt(2, idOffending); 
+                    rs = abuse.executeQuery();
+                    rs.next();
+                    idAbuse = rs.getInt("IdUser");    
+                    abuse = con.prepareStatement("INSERT INTO `AdvancedChat`.`Abuse` () VALUES (?,?");
+                    abuse.setObject(1, idAbuse);
+                    abuse.setObject(2, sign.get(2));
+//procedimento penale
+                    abuse = con.prepareStatement("SELECT Warning FROM User WHERE IdUser = ?");
                     abuse.setInt(1,idOffending);
                     rs = abuse.executeQuery();
                     rs.next();
-                    level = rs.getInt("Level");
                     warning = rs.getInt("Warning");
-                    email = rs.getString("Email");
 
-                    abuse = con.prepareStatement("UPDATE `AdvancedChat`.`User` SET `Warning` = ? WHERE `User`.`idUser` = ?");
-                    abuse.setInt(1, (warning+1));
-                    abuse.setInt(2,idOffending);
-                    abuse.execute();
-
-                    abuse = con.prepareStatement("UPDATE `AdvancedChat`.`User` SET `Level` = ? WHERE `User`.`idUser` = ?");
-                    abuse.setInt(2,(level-1));
-                    abuse.setInt(2,idOffending);
-                    abuse.execute();
-
-                    if((level - 1)== 0){
-
-                        abuse = con.prepareStatement("INSERT INTO `AdvancedChat`.`BlackList` (`Email`) VALUES (?)");
-                        abuse.setString(1, email);
-                        abuse.execute();
+                    if(warning==3){
+        
+                     //metodo di declassamento livello
+                    responder.downLevel(idOffending);
+                    
+                     }
+                      
+                    else{
+                    //devo aumentare il warning
+                    responder.upWarning(idOffending);
 
                     }
+//                        
+//                    abuse = con.prepareStatement("UPDATE `AdvancedChat`.`User` SET `Warning` = ? WHERE `User`.`idUser` = ?");
+//                    abuse.setInt(1, (warning+1));
+//                    abuse.setInt(2,idOffending);
+//                    abuse.execute();
+//
+//                    abuse = con.prepareStatement("UPDATE `AdvancedChat`.`User` SET `Level` = ? WHERE `User`.`idUser` = ?");
+//                    abuse.setInt(2,(level-1));
+//                    abuse.setInt(2,idOffending);
+//                    abuse.execute();
 
                     response = new Packet(666,"Segnalazione avvenuta con successo!");
                     this.out.writeObject(response);
@@ -353,6 +363,11 @@ public class Client{
                     query.setInt(1, new_user.getIdPerson());
                     query.execute();
 
+                    query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Level` (`IdUser`,`Level`) VALUES ( ? , 1)");
+                    query.setInt(1, new_user.getIdPerson());
+                    query.execute();
+
+                    
                     this.out.writeObject(new_user);
                     this.responder.addMe(new Vector(),new_user.getUsername());
                     generalView.enqueueEvent("L'utente "+new_user.getUsername()+" <"+new_user.getEmail()+"> si è registrato con successo. - IP: "+new_user.getIp());
