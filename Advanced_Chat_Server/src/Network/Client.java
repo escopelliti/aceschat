@@ -453,29 +453,26 @@ public class Client{
                 query = con.prepareStatement("SELECT IdUser FROM User WHERE Username = ? OR Email = ?");
                 query.setObject(1,info.get(1));
                 query.setObject(2,info.get(1));
-                    
                 rs = query.executeQuery();
-
                 if(rs.next()){
 
-                    IdFriend = rs.getInt("IdUser");
+                    IdFriend = rs.getInt(1);
 
                     query = con.prepareStatement("SELECT IdUser FROM Friend WHERE IdUser = ? AND IdFriend= ?");
                     query.setObject(1,info.get(0));
                     query.setObject(2,IdFriend);
                     rs = query.executeQuery();
-
+                    
+                   
                     if(!rs.next()){
-
-                        query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Friend` () VALUES (? , ?)");
+                        query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Friend` (`IdUser`,`IdFriend`) VALUES (? , ?)");
                         query.setObject(1,info.get(0));
                         query.setInt(2,IdFriend);
                         query.execute();
-                        query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Friend` () VALUES (? , ?)");
+                        query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Friend` (`IdUser`,`IdFriend`) VALUES (? , ?)");
                         query.setInt(1,IdFriend);
                         query.setObject(2,info.get(0));
                         query.execute();
-
                         response = new Packet(666,"L'aggiunta dell'utente da te selezionato è avvenuta con successo!");
                         this.out.writeObject(response);
 
@@ -650,7 +647,7 @@ public class Client{
         
     }
     
-
+    
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private String clientUsername;
