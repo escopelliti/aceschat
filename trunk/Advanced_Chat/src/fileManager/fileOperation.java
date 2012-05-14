@@ -45,17 +45,20 @@ public class fileOperation {
             
             FileInputStream fis;
             FileOutputStream fos;
-            int c;
+            int i = 0;
             
             fis = new FileInputStream(file);
             fos = new FileOutputStream(new File("./"+file.getName()));
-            c = fis.read();
             
-            while (c != -1){
-                c = fis.read();
-                fos.write(c);
-            }
+            byte[] buf = new byte[1024];
+      // riga per riga leggo il file originale per 
+      // scriverlo nello stram del file destinazione
+            while((i=fis.read(buf))!=-1) {
+                fos.write(buf, 0, i);
+      }
             
+            
+            fos.flush();
             fis.close();
             fos.close();
             
