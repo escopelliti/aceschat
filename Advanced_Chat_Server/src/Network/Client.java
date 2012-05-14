@@ -245,7 +245,7 @@ public class Client{
             con = Database.getCon();
             
 //la query mi restituisce gli username degli amici di un dato id 
-            query = con.prepareStatement("SELECT Username FROM User,Friend WHERE Friend.IdUser=? AND User.IdUser = Friend.IdFriend ORDER BY Username ASC");
+            query = con.prepareStatement("SELECT Username FROM User,Friend,Status WHERE Friend.IdUser = ? AND User.IdUser = Friend.IdFriend AND Friend.IdFriend = Status.IdUser AND Status.IdStatus > 0 ORDER BY Username ASC");
             query.setInt(1, id);
             rs = query.executeQuery();
 
