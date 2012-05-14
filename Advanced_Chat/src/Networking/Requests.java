@@ -238,8 +238,9 @@ public class Requests {
         toSend.add(0,sender);
         toSend.add(1,file);
         toSend.add(2,receiver);//lo modificheremo in un vettore di destinatari
-        packet = new Packet(11,toSend);
+        packet = new Packet(8,toSend);
         this.out.writeObject(packet);
+        this.out.flush();
     }
     
 public void logout(int id) throws IOException{

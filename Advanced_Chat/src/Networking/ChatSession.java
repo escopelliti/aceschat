@@ -46,7 +46,7 @@ public class ChatSession {
             conv.setVisible(true);
             convList.put(mess.get(0).toString(), conv);
             
-            if(load.getClass().equals("String")){
+            if(load.getClass().getName().equals("java.lang.String")){
                 
                 conv.append(mess.get(1).toString());//se non è una stringa facciamo visualizzare la finestra con la comunicazione che è un file
                 conv.writingFile(mess.get(0).toString(),mess.get(1).toString(), mess.get(0).toString());
@@ -62,7 +62,7 @@ public class ChatSession {
         else{
 
             Message conv = convList.get(mess.get(0));
-            if(load.getClass().equals("String")){
+            if(load.getClass().getName().equals("java.lang.String")){
                 conv.append(mess.get(1).toString());
                 conv.writingFile(mess.get(0).toString(),mess.get(1).toString(), mess.get(0).toString());
             }

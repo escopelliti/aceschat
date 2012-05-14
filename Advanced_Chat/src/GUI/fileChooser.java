@@ -139,8 +139,7 @@ private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private void loadFile(File selectedFile) throws IOException{
         
         toCon.send(selectedFile,this.receiver,this.client.getUsername());
-        //carichiamo il filmessagee e
-        //con request mandiamo una richiesta di invio file;
+        
     }
 
 private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
