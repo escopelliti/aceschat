@@ -222,11 +222,14 @@ public class Client{
             Vector mess;
             
             mess = this.responder.getVector(username);
-            while(!mess.isEmpty()){
+            while(!mess.isEmpty())
                         
                 this.out.writeObject(new Packet(1,mess.remove(mess.size() - 1)));
-            }
+            
+            this.out.flush();     
+            
     }
+    
 //mi faccio restituire solo la lista degli user amici 
     public void FriendList(Object payload) throws SQLException, IOException{
 
@@ -255,12 +258,7 @@ public class Client{
                 i++;
             }
 
-            //possiamo invocare direttamente la funzione delle informazioni personali o una simile con meno info
             
-            //dobbiamo prendere le info sull'immagine personale dalla tabella corrispondente;
-            //inserirla nel vettore: ma prima deve essere caricata ovviamente;
-            //bisogna fare un ciclo per sistemare il vettore da sparare nella socket;
-
             packet = new Packet(6,list);
             this.out.writeObject(packet);
             }
@@ -449,7 +447,7 @@ public class Client{
                 Packet response;
 
                 try{
-
+                    
                 query = con.prepareStatement("SELECT IdUser FROM User WHERE Username = ? OR Email = ?");
                 query.setObject(1,info.get(1));
                 query.setObject(2,info.get(1));
