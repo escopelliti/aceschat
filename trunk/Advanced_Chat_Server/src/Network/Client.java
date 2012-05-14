@@ -356,7 +356,7 @@ public class Client{
                     query.execute();
 
                     this.out.writeObject(new_user);
-//                while(!ServerAccept.setUserLog(new_user.getIdPerson(),toRegister));
+                    this.responder.addMe(new Vector(),new_user.getUsername());
                }
                else{
 
@@ -376,7 +376,8 @@ public class Client{
            
         }
         catch(Exception ex){
-                this.out.writeChars(ex.getMessage());
+            
+                this.out.writeChars("Abbiamo dei problemi tecnici. Riprova più tardi.");
         }
 
 
