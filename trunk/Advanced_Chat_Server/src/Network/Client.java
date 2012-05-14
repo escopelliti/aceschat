@@ -189,7 +189,7 @@ public class Client{
                     abuse.setInt(2,idOffending);
                     abuse.execute();
 
-                    if((level-1)== 0){
+                    if((level - 1)== 0){
 
                         abuse = con.prepareStatement("INSERT INTO `AdvancedChat`.`BlackList` (`Email`) VALUES (?)");
                         abuse.setString(1, email);
@@ -240,7 +240,7 @@ public class Client{
 
         try{
 
-            id = (Integer)payload;
+            id = (Integer) payload;
             list = new Vector();
             con = Database.getCon();
             
@@ -351,12 +351,13 @@ public class Client{
                     query.setInt(2,1);
                     query.execute();
 
-                    query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Activations` (`IdUser`,`ActivationStatus`) VALUES ( ? , 1)");
+                    query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Activation` (`IdUser`,`ActivationStatus`) VALUES ( ? , 1)");
                     query.setInt(1, new_user.getIdPerson());
                     query.execute();
 
                     this.out.writeObject(new_user);
                     this.responder.addMe(new Vector(),new_user.getUsername());
+                    generalView.enqueueEvent("L'utente "+new_user.getUsername()+" <"+new_user.getEmail()+"> si è registrato con successo. - IP: "+new_user.getIp());
                }
                else{
 
