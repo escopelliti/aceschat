@@ -528,7 +528,7 @@ public class Client{
     public void logMe(Object payload) throws SQLException, IOException{
 
         User user;
-        Vector v = (Vector)payload;
+        Vector v = (Vector) payload;
         Connection con = Database.getCon();
         PreparedStatement query;
         ResultSet rs;
@@ -557,7 +557,7 @@ public class Client{
                 query = con.prepareStatement("SELECT * FROM `BlackList` WHERE Email = ?");
                 query.setString(1, user.getEmail());
                 rs = query.executeQuery();
- 
+
                     if(!rs.next()){
                         
                         query = con.prepareStatement("SELECT * FROM `Activation` WHERE idUser = ? AND ActivationStatus = 1");
@@ -569,7 +569,7 @@ public class Client{
                             query = con.prepareStatement("SELECT * FROM `Person` WHERE IdPerson = ?");
                             query.setInt(1, user.getIdPerson());
                             rs = query.executeQuery();
-                   
+                  
                         while(rs.next()){
                             
                             user.setName(rs.getString("Name"));
@@ -581,11 +581,11 @@ public class Client{
                             user.setJob(rs.getString("Job"));
                         
                         }
-                            
+ 
                         query = con.prepareStatement("SELECT * FROM `Interest` WHERE IdUser = ?");
                         query.setInt(1, user.getIdPerson());
                         rs = query.executeQuery();
-                          
+ 
                         while(rs.next()){
                                 flag = 1;
                                 interests[index] = rs.getString("Interests");                         
@@ -598,16 +598,16 @@ public class Client{
                         else
                             user.setInterests("Nessuno");
                 
-                        
+
                         query = con.prepareStatement("UPDATE `AdvancedChat`.`Status` SET `IdStatus` = 1 WHERE `Status`.`IdUser` = ?");
                         query.setInt(1,user.getIdPerson());
                         query.execute();
-                        
+
                         query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Login`(`IdUser`,`Ip`) VALUE (?,?)");
                         query.setInt(1,user.getIdPerson());
                         query.setString(2,this.clientSocket.getInetAddress().toString());
                         query.execute();
-                          
+
                         }
                         else{
                         
@@ -623,10 +623,10 @@ public class Client{
                     this.out.writeObject(response);
                         
                 }
-                
+
                 user.setIp(this.clientSocket.getInetAddress().toString());
                 personalImage = getImage(user.getIdPerson());
-                if(!personalImage.equals(null))//da modificare
+                if(!(personalImage == null))//da modificare
                     user.setPersonalImage(personalImage);
                 this.out.writeObject(user);                
                 generalView.enqueueEvent("L'utente "+user.getUsername()+" <"+user.getEmail()+"> ha effettuato l'accesso. - IP: "+user.getIp());
