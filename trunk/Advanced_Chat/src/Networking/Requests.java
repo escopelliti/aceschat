@@ -242,7 +242,19 @@ public class Requests {
         this.out.writeObject(packet);
     }
     
+public void logout(int id) throws IOException{
 
+        Packet packet;   
+        Vector toSend;
+        
+        toSend=new Vector();
+        toSend.add(0,id);
+        toSend.add(1,0);
+        
+        packet = new Packet(2,toSend);
+        this.out.writeObject(packet);
+}
+    
 }
 
 
