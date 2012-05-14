@@ -98,6 +98,12 @@ public class Home extends javax.swing.JFrame implements Runnable{
         jScrollPane7 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
         jPanel7 = new javax.swing.JPanel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        friendList = new javax.swing.JList();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        multichatList = new javax.swing.JTextPane();
+        contactMultiUsers = new javax.swing.JButton();
+        addtoMultiChat = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         friendtoAdd = new javax.swing.JTextField();
         addFriendButton = new javax.swing.JButton();
@@ -183,7 +189,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
             .addGroup(FeedPanelLayout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
         );
 
         userImageLabel.setBackground(new java.awt.Color(212, 165, 122));
@@ -284,11 +290,11 @@ public class Home extends javax.swing.JFrame implements Runnable{
                         .addComponent(emailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(LevelPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                         .addComponent(infoView)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(photoLoadButton))
-                    .addComponent(userImageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
+                    .addComponent(userImageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -340,15 +346,52 @@ public class Home extends javax.swing.JFrame implements Runnable{
 
         jTabbedPane1.addTab("Pagina iniziale", jPanel3);
 
+        friendList.setFont(new java.awt.Font("SansSerif", 1, 18));
+        friendList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                friendListMouseClicked(evt);
+            }
+        });
+        jScrollPane8.setViewportView(friendList);
+
+        jScrollPane9.setViewportView(multichatList);
+
+        contactMultiUsers.setText("Contatta");
+
+        addtoMultiChat.setText("Aggiungi");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 953, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(116, 116, 116)
+                .addComponent(addtoMultiChat, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(127, 127, 127)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(contactMultiUsers, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(237, 237, 237))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 354, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(contactMultiUsers))
+                            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(158, 158, 158)
+                        .addComponent(addtoMultiChat)))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Crea una ChatRoom", jPanel7);
@@ -935,6 +978,10 @@ public void run(){
             }
     }//GEN-LAST:event_inviteButtonActionPerformed
 
+    private void friendListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_friendListMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_friendListMouseClicked
+
     
 //    public void setImage(Object imageFile) throws IOException{
 //        
@@ -1003,8 +1050,10 @@ public void run(){
     private javax.swing.JLabel UsernameLabel;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JButton addFriendButton;
+    private javax.swing.JButton addtoMultiChat;
     private javax.swing.JButton contactButton;
     private javax.swing.JList contactList;
+    private javax.swing.JButton contactMultiUsers;
     private javax.swing.JMenuItem contentsMenuItem;
     private javax.swing.JMenuItem copyMenuItem;
     private javax.swing.JMenuItem cutMenuItem;
@@ -1019,6 +1068,7 @@ public void run(){
     private javax.swing.JTextField friendEmail;
     private javax.swing.JLabel friendImageLabel;
     private javax.swing.JTextField friendLevel;
+    private javax.swing.JList friendList;
     private javax.swing.JTextField friendUsername;
     private javax.swing.JTextField friendtoAdd;
     private javax.swing.JMenu helpMenu;
@@ -1049,6 +1099,8 @@ public void run(){
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
@@ -1057,6 +1109,7 @@ public void run(){
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JTextPane multichatList;
     private javax.swing.JMenuItem pasteMenuItem;
     private javax.swing.JButton photoLoadButton;
     private javax.swing.JButton searchButton;
