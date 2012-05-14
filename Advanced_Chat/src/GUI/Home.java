@@ -873,7 +873,11 @@ public void run(){
     }//GEN-LAST:event_contactButtonActionPerformed
 
     private void disconnectMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disconnectMenuItemActionPerformed
-
+        try {
+            toCon.logout(loggedUser.getIdPerson());
+        } catch (IOException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dispose();
         new InputForm().setVisible(true);
     }//GEN-LAST:event_disconnectMenuItemActionPerformed
