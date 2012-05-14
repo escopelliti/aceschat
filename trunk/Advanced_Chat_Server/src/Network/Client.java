@@ -138,7 +138,7 @@ public class Client{
         this.out.writeObject(response);
     }
 //METODO NON ANCORA REVISIONATO
-//proporrei una piccola modifica al db, secondo me è inutle avere le tue tabelle per l'abuse
+//proporrei una piccola modifica al db, secondo me è inutile avere le tue tabelle per l'abuse
     public void signAbuse(Object payload) throws SQLException, IOException{
 
             Vector sign = (Vector) payload;
@@ -245,7 +245,7 @@ public class Client{
             con = Database.getCon();
             
 //la query mi restituisce gli username degli amici di un dato id 
-            query = con.prepareStatement("SELECT Username FROM User,Friend WHERE Friend.IdUser=? AND User.IdUser = Friends.IdFriend ORDER BY Username ASC");
+            query = con.prepareStatement("SELECT Username FROM User,Friend WHERE Friend.IdUser=? AND User.IdUser = Friend.IdFriend ORDER BY Username ASC");
             query.setInt(1, id);
             rs = query.executeQuery();
 
@@ -328,7 +328,7 @@ public class Client{
                     rs.next();
                     new_user.setIdPerson(rs.getInt("idUser"));
                     
-                    query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Person` (`idPerson`,`Name`,`Surname`,`Birthday`,`City`,`Nation`,`Sex`,`Job`) VALUES (? , ? , ? , ? , ? , ? , ?, ?)");
+                    query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Person` (`IdPerson`,`Name`,`Surname`,`Birthday`,`City`,`Nation`,`Sex`,`Job`) VALUES (? , ? , ? , ? , ? , ? , ?, ?)");
                     query.setInt(1,new_user.getIdPerson());
                     query.setString(2,new_user.getName());
                     query.setString(3,new_user.getSurname());
@@ -553,7 +553,6 @@ public class Client{
                 user.setUsername(rs.getString("Username"));
                 user.setEmail(rs.getString("Email"));
                 user.setWarning(rs.getInt("Warning"));
-                user.setLevel(rs.getInt("Level"));
 
                 query = con.prepareStatement("SELECT * FROM `BlackList` WHERE Email = ?");
                 query.setString(1, user.getEmail());
