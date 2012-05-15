@@ -16,6 +16,7 @@ import User.User;
 import fileManager.fileOperation;
 import java.io.File;
 import java.io.IOException;
+import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -37,7 +38,7 @@ public class fileChooser extends javax.swing.JFrame {
 
     }
     
-    public fileChooser(Requests toCon,User client,int use,String receiver) {
+    public fileChooser(Requests toCon,User client,int use,Vector receiver) {
         
         initComponents();
         this.client = client;
@@ -148,7 +149,7 @@ private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     
 }//GEN-LAST:event_exitButtonActionPerformed
 
-    private String receiver;
+    private Vector receiver;
     private int use;
     private User client;
     private Requests toCon;

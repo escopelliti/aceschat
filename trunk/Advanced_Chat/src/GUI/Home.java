@@ -27,6 +27,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.ListModel;
 
 
 
@@ -50,18 +51,10 @@ public class Home extends javax.swing.JFrame implements Runnable{
     public Home(Requests toCon,User logged) throws IOException {
         
         initComponents();
-
-        this.toCon = toCon;
-        support = toCon;
-        loggedUser = logged;
-        this.newSession = new ChatSession(loggedUser,toCon);
-        icon = new ImageIcon("/home/enrico/Scrivania/stellina.png", null);
+        init(toCon,logged);      
         setMap();
-
         new ClientFetching(this.toCon,this,newSession).start();
-
         setUpdate();
-
         up = new Thread(this);
         up.start();
 
@@ -100,10 +93,10 @@ public class Home extends javax.swing.JFrame implements Runnable{
         jPanel7 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         friendList = new javax.swing.JList();
-        jScrollPane9 = new javax.swing.JScrollPane();
-        multichatList = new javax.swing.JTextPane();
         contactMultiUsers = new javax.swing.JButton();
         addtoMultiChat = new javax.swing.JButton();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        multichatList = new javax.swing.JTextArea();
         jPanel9 = new javax.swing.JPanel();
         friendtoAdd = new javax.swing.JTextField();
         addFriendButton = new javax.swing.JButton();
@@ -346,7 +339,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
 
         jTabbedPane1.addTab("Pagina iniziale", jPanel3);
 
-        friendList.setFont(new java.awt.Font("SansSerif", 1, 18));
+        friendList.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         friendList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 friendListMouseClicked(evt);
@@ -354,11 +347,25 @@ public class Home extends javax.swing.JFrame implements Runnable{
         });
         jScrollPane8.setViewportView(friendList);
 
-        jScrollPane9.setViewportView(multichatList);
-
         contactMultiUsers.setText("Contatta");
+        contactMultiUsers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contactMultiUsersActionPerformed(evt);
+            }
+        });
 
         addtoMultiChat.setText("Aggiungi");
+        addtoMultiChat.setEnabled(false);
+        addtoMultiChat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addtoMultiChatActionPerformed(evt);
+            }
+        });
+
+        multichatList.setColumns(20);
+        multichatList.setEditable(false);
+        multichatList.setRows(5);
+        jScrollPane9.setViewportView(multichatList);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -371,9 +378,9 @@ public class Home extends javax.swing.JFrame implements Runnable{
                 .addComponent(addtoMultiChat, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(127, 127, 127)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(contactMultiUsers, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(237, 237, 237))
+                    .addComponent(contactMultiUsers, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(163, 163, 163))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -383,8 +390,8 @@ public class Home extends javax.swing.JFrame implements Runnable{
                         .addContainerGap()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(23, 23, 23)
+                                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(contactMultiUsers))
                             .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)))
@@ -649,7 +656,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(friendLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(friendUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(327, 327, 327))
+                .addGap(331, 331, 331))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -796,8 +803,35 @@ public class Home extends javax.swing.JFrame implements Runnable{
         loggedUser = n_user;
     }
 
+    private void init(Requests toCon,User logged){
+        
+        int count = 0;
+        this.map = new HashMap();
+        this.index = 0;
+        this.toCon = toCon;
+        support = toCon;
+        this.chatParticipants = new Vector[15];
+        loggedUser = logged;
+        this.newSession = new ChatSession(loggedUser,toCon);
+        icon = new ImageIcon("/home/enrico/Scrivania/stellina.png", null);
+        while(count < this.chatParticipants.length){
+            
+            this.chatParticipants[count] = new Vector();
+            count++;
+        }
+    }
+    
     //dal menu File --> Exit : permette di uscire dal software;
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
+        
+        try{
+            
+            toCon.logout(loggedUser.getIdPerson());
+        }
+        catch(IOException ex){
+            
+            
+        }
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
@@ -864,9 +898,10 @@ public void run(){
     }
 
     
-    public void setContactList(Vector friendList){
+    public void setContactList(Vector friends){
         
-        contactList.setListData(friendList);
+        contactList.setListData(friends);
+        friendList.setListData(friends);
         
     }
     
@@ -894,20 +929,13 @@ public void run(){
     private void contactButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactButtonActionPerformed
 
         if(!contactList.isSelectionEmpty()){
-            
-//        Message conv;
-            try {
-            //instauriamo un oggetto ChatSession e gli passiamo l'user cosi evitiamo static User;
-//            conv = new Message(loggedUser,contactList.getSelectedValue().toString(),toCon);
-//            conv.setVisible(true);
-                newSession.start(contactList.getSelectedValue().toString());
-//            newSession.setConvList(contactList.getSelectedValue().toString(), conv);
-                createXml.genXml("ACES/History/".concat(contactList.getSelectedValue().toString().concat(".xml")));
 
-            } catch (FileNotFoundException ex) {
-            
-                new userDialog("Problema nella generazione della cronologia. Ci scusiamo per l'inconveniente.").setVisible(true);
-            
+            try {
+                
+                Vector chatVector = buildChat(contactList.getSelectedValue().toString(),new Vector());
+                chatVector.add(loggedUser.getUsername());
+                newSession.start(chatVector);
+
             } catch (IOException ex) {
             
                 new userDialog("Ci sono problemi tecnici. Ci scusiamo per l'inconveniente.").setVisible(true);
@@ -915,12 +943,38 @@ public void run(){
             }
     }//GEN-LAST:event_contactButtonActionPerformed
 
+
+    
+    private Vector buildChat(String username,Vector userlist) throws IOException{
+        
+        userlist.add(username);       
+        try{
+            
+            createXml.genXml("ACES/History/".concat(username.concat(".xml")));
+        
+        }
+        
+        catch (FileNotFoundException ex) {
+            
+            new userDialog("Problema nella generazione della cronologia. Ci scusiamo per l'inconveniente.").setVisible(true);
+            
+        }
+  
+        return userlist;
+    }
+    
+    
     private void disconnectMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disconnectMenuItemActionPerformed
+        
         try {
+            
             toCon.logout(loggedUser.getIdPerson());
+            
         } catch (IOException ex) {
+            
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         this.dispose();
         new InputForm().setVisible(true);
     }//GEN-LAST:event_disconnectMenuItemActionPerformed
@@ -978,10 +1032,43 @@ public void run(){
             }
     }//GEN-LAST:event_inviteButtonActionPerformed
 
+    private void contactMultiUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactMultiUsersActionPerformed
+        
+        try{
+            this.chatParticipants[this.index].add(loggedUser.getUsername());
+            newSession.start(this.chatParticipants[this.index]);
+            this.index = this.index + 1;
+            this.multichatList.setText(null);
+        
+        } catch(IOException ex){
+            
+            
+        }
+
+    }//GEN-LAST:event_contactMultiUsersActionPerformed
+
+    
+    private void addtoMultiChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addtoMultiChatActionPerformed
+      
+        if(!friendList.isSelectionEmpty()){
+            
+            multichatList.append( (String) friendList.getSelectedValue()+"\n");
+            try{
+                buildChat(friendList.getSelectedValue().toString(),this.chatParticipants[this.index]);
+            }
+            catch(IOException ex){
+                
+            }
+        }
+        
+    }//GEN-LAST:event_addtoMultiChatActionPerformed
+
     private void friendListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_friendListMouseClicked
-        // TODO add your handling code here:
+        
+        addtoMultiChat.setEnabled(true);
     }//GEN-LAST:event_friendListMouseClicked
 
+    
     
 //    public void setImage(Object imageFile) throws IOException{
 //        
@@ -1024,6 +1111,8 @@ public void run(){
                 return x;
     }
 
+    private Vector[] chatParticipants;
+    private int index;
     private ChatSession newSession;
     private final String tech = "http://www.repubblica.it/rss/tecnologia/rss2.0.xml";
     private final String culture = "http://rss.feedsportal.com/c/32275/f/438644/index.rss";
@@ -1031,7 +1120,7 @@ public void run(){
     private final String gossip = "http://rss.feedsportal.com/c/625/f/8192/index.rss";
     private final String sport = "http://www.repubblica.it/rss/sport/rss2.0.xml";
     private final String nothing = "http://rss.feedsportal.com/c/32275/f/438637/index.rss";
-    private HashMap map = new HashMap();
+    private HashMap map;
     private Icon icon;
     private Thread up;
     private static User loggedUser;
@@ -1109,7 +1198,7 @@ public void run(){
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JTextPane multichatList;
+    private javax.swing.JTextArea multichatList;
     private javax.swing.JMenuItem pasteMenuItem;
     private javax.swing.JButton photoLoadButton;
     private javax.swing.JButton searchButton;

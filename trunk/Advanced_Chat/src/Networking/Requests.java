@@ -88,7 +88,7 @@ public class Requests {
     }
     
     
-    public void send(String message,String receiver,String sender) throws IOException{
+    public void send(String message,Vector receiver,String sender) throws IOException{
 
         Packet packet;
         Vector toSend;
@@ -96,7 +96,7 @@ public class Requests {
         toSend = new Vector();
         toSend.add(0,sender);
         toSend.add(1,message);
-        toSend.add(2,receiver);//lo modificheremo in un vettore di destinatari
+        toSend.add(2,receiver);
         packet = new Packet(8,toSend);
         this.out.writeObject(packet);
     }
@@ -229,7 +229,7 @@ public class Requests {
 
 
     
-    public void send(File file,String receiver,String sender) throws IOException{
+    public void send(File file,Vector receiver,String sender) throws IOException{
 
         Packet packet;
         Vector toSend;
@@ -243,7 +243,7 @@ public class Requests {
         this.out.flush();
     }
     
-public void logout(int id) throws IOException{
+    public void logout(int id) throws IOException{
 
         Packet packet;   
         Vector toSend;
@@ -254,7 +254,7 @@ public void logout(int id) throws IOException{
         
         packet = new Packet(2,toSend);
         this.out.writeObject(packet);
-}
+    }
     
 }
 
