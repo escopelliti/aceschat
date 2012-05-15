@@ -62,7 +62,7 @@ public class ClientFetching extends Thread{
                     case 6: this.thehome.setContactList((Vector) response.getPayload()); break;
                     case 7: this.thehome.setUser((User) response.getPayload()); break;
                     case 666: new userDialog(response.getPayload().toString()).setVisible(true); break;
-           
+                    case 8:/*METODO PER LA RICERCA GENERICA DI UN USER*/;break;
                 }
 
             
