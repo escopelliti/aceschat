@@ -31,13 +31,23 @@ public class serverExecutor {
     
     public void sendMess(Object mess){
         
-        Vector v;
+        Vector received;
         Vector receiver;
+        Vector participants;
+        int count = 0;
                 
-        v = (Vector) mess;
-        receiver = logClient.get(v.get(2).toString());        
-        receiver.add(v);
-      
+        received = (Vector) mess;
+        participants = (Vector) received.get(2);
+        
+        while(count < participants.size()){
+            
+            if(!received.get(0).toString().equals(participants.get(count))){
+                receiver = logClient.get(participants.get(count));        
+                receiver.add(received);
+                
+            }
+            count++;
+        }
     }
     
     
