@@ -139,6 +139,25 @@ public class serverExecutor {
         query.executeQuery();
         
     }
+      
+    
+  
+////            packet = new Packet(6,list);
+////            this.out.writeObject(packet);
+//            }
+////
+//        catch(IOException ex){
+////
+////            packet = new Packet(666, "\nCi sono dei problemi tecnici. Riprova tra qualche minuto.\n");
+////            this.out.writeObject(packet);
+//           }
+//        catch(SQLException ex){
+//
+//            packet = new Packet(666,"\nCi sono dei problemi tecnici. Riprova tra qualche minuto.\n");
+//            this.out.writeObject(packet);
+//        }
+//    }
+    
     
     private Hashtable<String,Vector> logClient;
 }
