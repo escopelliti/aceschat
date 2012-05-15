@@ -36,20 +36,22 @@ public class ChatSession {
         Object load;
         fileOperation fo;
         load = mess.get(1);
-        flag = isThere(mess.get(0).toString());
+        Vector participants = (Vector) mess.get(2);
+        String identifier = doID(participants);
+        flag = isThere(identifier);
         
         if(!flag){
             
 
             Message conv;
-            conv = new Message(this.user,mess.get(0).toString(),this.toCon);
+            conv = new Message(this.user,participants,this.toCon);
             conv.setVisible(true);
-            convList.put(mess.get(0).toString(), conv);
+            convList.put(identifier, conv);
             
             if(load.getClass().getName().equals("java.lang.String")){
                 
-                conv.append(mess.get(1).toString());//se non è una stringa facciamo visualizzare la finestra con la comunicazione che è un file
-                conv.writingFile(mess.get(0).toString(),mess.get(1).toString(), mess.get(0).toString());
+                conv.append(load.toString());//se non è una stringa facciamo visualizzare la finestra con la comunicazione che è un file
+                conv.writingFile(mess.get(0).toString(),load.toString(), mess.get(0).toString());
             }
             else{
                 
@@ -61,10 +63,10 @@ public class ChatSession {
 
         else{
 
-            Message conv = convList.get(mess.get(0));
+            Message conv = convList.get(identifier);
             if(load.getClass().getName().equals("java.lang.String")){
-                conv.append(mess.get(1).toString());
-                conv.writingFile(mess.get(0).toString(),mess.get(1).toString(), mess.get(0).toString());
+                conv.append(load.toString());
+                conv.writingFile(mess.get(0).toString(),load.toString(),mess.get(0).toString());
             }
             else{
                 
@@ -74,28 +76,47 @@ public class ChatSession {
             }
         }
 
-
-
     }
     
     
-    public void start(String username) throws IOException{
+    public String doID(Vector vect){
+        
+        int count = 0;
+        String identifier = "";
+        
+        while(count < vect.size()){
+            
+            identifier = identifier.concat((String) vect.get(count));
+            count++;
+        }
+        
+        return identifier;
+        
+    }
+    
+    
+    
+    public void start(Vector participants) throws IOException{
         
         Message conversation;
         
-        conversation = new Message(this.user,username,this.toCon);
+        conversation = new Message(this.user,participants,this.toCon);
         conversation.setVisible(true);
  
-        setConvList(username, conversation);
+        setConvList(doID(participants), conversation);//IN SOSPESOOOO
         
     }
 
 
-    private void setConvList(String username, Message conversation){
+    
+    
+    private void setConvList(String identifier, Message conversation){
 
-        convList.put(username, conversation);
+        convList.put(identifier, conversation);
     }
 
+    
+    
     private boolean isThere(String toCheck){
 
         if(convList.containsKey(toCheck))

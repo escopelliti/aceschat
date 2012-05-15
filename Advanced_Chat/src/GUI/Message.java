@@ -5,6 +5,7 @@ import Networking.Requests;
 import User.User;
 import XML.createXml;
 import java.io.*;
+import java.util.Vector;
 import org.jdom.Document;
 
 
@@ -28,14 +29,15 @@ import org.jdom.Document;
 public class Message extends javax.swing.JFrame {
 
     /** Costruttore della classe Message; initComponents() costruisce e setta tutti i componenti swing */
-    public Message(User client,String toContact,Requests toCon) throws IOException {
+    public Message(User client,Vector toContact,Requests toCon) throws IOException {
 
         initComponents();
 
         this.client = client;
         this.toContact = toContact;
         this.request = toCon;
-
+        this.participantList.setListData(toContact);
+        this.clientLabel.setText(client.getUsername());
 
 //        setExtendedState(JFrame.MAXIMIZED_BOTH);
 //java.awt.GraphicsEnvironment ge = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -228,9 +230,8 @@ public class Message extends javax.swing.JFrame {
 
                 new userDialog("Chat temporaneamente non disponibile.").setVisible(true);
             }
-        //modifichiamo l'xml,qualora esistesse(col nome del client a cui scrivi (altrimenti la crea)),
         
-        
+
         //svuotiamo la casella di testo del client che scrive
             ClientText.setText(null);
         }
@@ -238,11 +239,28 @@ public class Message extends javax.swing.JFrame {
 
     
     
-    public void writingFile(String client,String text,String toContact) throws IOException{
+    public void writingFile(String client,String text,Vector toContact) throws IOException{
         
-         Document doc = createXml.modifyXml(this.client.getUsername(),ClientText.getText(),createXml.getDocument("ACES/History/"+this.toContact.concat(".xml")));
-         createXml.write(doc,"ACES/History/"+this.toContact.concat(".xml"));
+         String toWrite;
+         int count = 0;
+         
+         while(count < this.toContact.size()){
+             
+            toWrite = (String) toContact.get(count);
+            Document doc = createXml.modifyXml(client,text,createXml.getDocument("ACES/History/"+toWrite.concat(".xml")));
+            createXml.write(doc,"ACES/History/"+toWrite.concat(".xml"));
+            
+            count++;
+         }
     }
+    
+    
+        public void writingFile(String client,String text,String nameFile) throws IOException{
+        
+            Document doc = createXml.modifyXml(client,text,createXml.getDocument("ACES/History/"+nameFile.concat(".xml")));
+            createXml.write(doc,"ACES/History/"+nameFile.concat(".xml"));
+                
+        }
 
     //metodo che invia richiesta al server di decodifica il messaggio di abuso fatto al Client che segnala da parte dal client
     //con cui sta parlando;
@@ -260,7 +278,7 @@ public class Message extends javax.swing.JFrame {
         
     }//GEN-LAST:event_sendFileActionPerformed
 
-    private String toContact;
+    private Vector toContact;
     private User client;
     private Requests request;
     //componenti swing per il form;
