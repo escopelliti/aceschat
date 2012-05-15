@@ -661,6 +661,58 @@ public class Client{
     }
     
     
+    //mi arriva l'username di chi voglio visualizzare le info
+    public void FriendSearch(String username) throws SQLException, IOException{
+        Connection con;
+        PreparedStatement query;
+        ResultSet rs;
+        Packet packet;
+        User user = null;
+        final String path;
+        ImageIcon icon = null;
+        File image;
+        int idUser;
+        Object payload;
+        
+        con = Database.getCon();
+        
+        try{
+            query = con.prepareStatement("SELECT IdUser,Username,Name,Surname,Email,Level,City FROM `Person`,`User`,`Level` WHERE User.Username = ? AND User.IdUser = Person.IdPerson AND Level.IdUser = User.IdUser");
+            query.setString(1, username);
+        
+            rs = query.executeQuery();
+        
+            user.setUsername(rs.getString("Username"));
+            user.setName(rs.getString("Name"));
+            user.setSurname(rs.getString("Surname"));
+            user.setEmail(rs.getString("Email"));
+            user.setLevel(rs.getInt("Level"));
+            user.setCity(rs.getString("City"));
+            //vorrei mettere anche la data di nascita ma non so come fare un cast
+      
+            idUser=rs.getInt("IdUser");
+        
+            icon=getImage(idUser);
+            user.setPersonalImage(icon);
+        
+            packet=new Packet(99999999,user);//numero del protocollo da decidere
+            this.out.writeObject(packet);
+        }
+        
+        catch(IOException ex){
+
+            packet = new Packet(666, "\nCi sono dei problemi tecnici. Riprova tra qualche minuto.\n");
+            this.out.writeObject(packet);
+           }
+        catch(SQLException ex){
+
+            packet = new Packet(666,"\nCi sono dei problemi tecnici. Riprova tra qualche minuto.\n");
+            this.out.writeObject(packet);
+        }
+
+        
+    }
+    
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private String clientUsername;
