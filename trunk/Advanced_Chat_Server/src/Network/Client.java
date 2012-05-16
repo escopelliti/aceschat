@@ -44,17 +44,6 @@ public class Client{
     }
 
 
-
-    public void setClientUsername(String clientUsername) {
-        this.clientUsername = clientUsername;
-    }
-
-    
-    public String getUsername(){
-        
-        return this.clientUsername;
-    }
-    
     
     public ObjectInputStream getIn(){
         
@@ -105,6 +94,7 @@ public class Client{
 
                 response = new Packet(7, new_user_info);//rispediamo l'user e il metodo lo passerà alla Home;
                 this.out.writeObject(response);
+                gv.enqueueEvent("L'utente "+new_user_info.getUsername()+" ha aggiornato le sue informazioni personali.");
             }
             else{
 
@@ -112,7 +102,6 @@ public class Client{
                                         + "Username già utilizzato da un altro utente.");
 
                 this.out.writeObject(response);
-                gv.enqueueEvent("L'utente "+this.clientUsername+" ha aggiornato le sue informazioni personali.");
             }
             }
         catch(IOException ex){
@@ -289,9 +278,9 @@ public class Client{
     }
     
     
-         public void updateStatus(Object Payload) throws SQLException, InterruptedException{
+         public void updateStatus(Object payload) throws SQLException, InterruptedException{
 
-            Vector info = (Vector)Payload;
+            Vector info = (Vector)payload;
             Connection con = Database.getCon();
             PreparedStatement update;
 
@@ -300,9 +289,12 @@ public class Client{
             update.setObject(1,info.get(1));
             update.setObject(2,info.get(0));
             update.execute();
+            String myUsername = getMyUsername((Integer) info.get(0));
+
             switch((Integer) info.get(0)){
                 
-                case 0: gv.enqueueEvent("L'utente "+this.clientUsername+" ha effettuato il logout."); break;
+                case 0: gv.enqueueEvent("L'utente "+myUsername+" ha effettuato il logout."); 
+                        gv.removeLoggedUsers(myUsername); break;
                 
             }
 
@@ -379,8 +371,7 @@ public class Client{
                     this.out.writeObject(new_user);
                     this.responder.addMe(new Vector(),new_user.getUsername());
                     gv.enqueueEvent("L'utente "+new_user.getUsername()+" <"+new_user.getEmail()+"> si è registrato con successo. - IP: "+new_user.getIp());
-                    gv.updateLoggedUsers(new_user.getUsername());
-                    setClientUsername(new_user.getUsername());
+                    gv.addLoggedUsers(new_user.getUsername());
                }
                else{
 
@@ -432,7 +423,7 @@ public class Client{
     }
     
     
-    public void setPersonalImage(Object payload) throws FileNotFoundException, IOException, InterruptedException{
+    public void setPersonalImage(Object payload) throws FileNotFoundException, IOException, InterruptedException, SQLException{
         
             Vector imageInfo;
             Integer idUser;
@@ -455,8 +446,23 @@ public class Client{
                 
             }
             
-            this.out.writeObject(new Packet(666, "Le modifiche saranno visibili al prossimo accesso"));
-            gv.enqueueEvent("L'utente "+this.clientUsername+" ha cambiato l'immagine personale in :"+"'"+image.getName()+"'");
+            this.out.writeObject(new Packet(666, "Le modifiche saranno visibili al prossimo accesso."));
+            gv.enqueueEvent("L'utente "+getMyUsername(idUser)+" ha cambiato l'immagine personale in :"+"'"+image.getName()+"'");
+    }
+    
+    private String getMyUsername(int id) throws SQLException{
+        
+        PreparedStatement query;
+        Connection con = Database.getCon();
+        ResultSet rs;
+        
+        query = con.prepareStatement("SELECT Username FROM `AdvancedChat`.`User` WHERE IdUser = ?");
+        query.setInt(1, id);
+        rs = query.executeQuery();
+        rs.next();
+        
+        return rs.getString("Username");
+        
     }
         
 //     ULTIMO METODO REVISIONATO :)
@@ -467,8 +473,10 @@ public class Client{
                 Connection con = Database.getCon();
                 ResultSet rs;
                 PreparedStatement query;
+                Integer idUser;
                 int IdFriend = 0;
                 Packet response;
+                idUser = (Integer) info.get(0);
 
                 try{
                     
@@ -481,19 +489,19 @@ public class Client{
                     IdFriend = rs.getInt(1);
 
                     query = con.prepareStatement("SELECT IdUser FROM Friend WHERE IdUser = ? AND IdFriend= ?");
-                    query.setObject(1,info.get(0));
+                    query.setInt(1,idUser);
                     query.setObject(2,IdFriend);
                     rs = query.executeQuery();
                     
                    
                     if(!rs.next()){
                         query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Friend` (`IdUser`,`IdFriend`) VALUES (? , ?)");
-                        query.setObject(1,info.get(0));
+                        query.setInt(1,idUser);
                         query.setInt(2,IdFriend);
                         query.execute();
                         query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Friend` (`IdUser`,`IdFriend`) VALUES (? , ?)");
                         query.setInt(1,IdFriend);
-                        query.setObject(2,info.get(0));
+                        query.setInt(2,idUser);
                         query.execute();
                         response = new Packet(666,"L'aggiunta dell'utente da te selezionato è avvenuta con successo!");
                         this.out.writeObject(response);
@@ -504,11 +512,8 @@ public class Client{
 
                         response = new Packet(666, "L'utente è già tuo amico!");
                         this.out.writeObject(response);
-                        query = con.prepareStatement("SELECT Username FROM `AdvancedChat`.`User` WHERE IdUser = ?");
-                        query.setObject(1, info.get(0));
-                        rs = query.executeQuery();
-                        rs.next();
-                        gv.enqueueEvent("L'utente "+rs.getString("Username")+"ha fatto amicizia con "+info.get(1).toString());
+                        
+                        gv.enqueueEvent("L'utente "+getMyUsername(idUser) +"ha fatto amicizia con "+info.get(1).toString());
 
                         }
                     }
@@ -654,8 +659,7 @@ public class Client{
                     user.setPersonalImage(personalImage);
                 this.out.writeObject(user);                
                 gv.enqueueEvent("L'utente "+user.getUsername()+" <"+user.getEmail()+"> ha effettuato l'accesso. - IP: "+user.getIp());
-                gv.updateLoggedUsers(user.getUsername());
-                setClientUsername(user.getUsername());
+                gv.addLoggedUsers(user.getUsername());
                 this.responder.addMe(new Vector(),user.getUsername());
         }
 
@@ -686,7 +690,6 @@ public class Client{
         User user = new User();
         ImageIcon icon = null;
         int idUser;
-        Object payload;
         
         con = Database.getCon();
         
@@ -711,7 +714,6 @@ public class Client{
             packet=new Packet(8,user);
 
             this.out.writeObject(packet);
-            gv.enqueueEvent("Richiesta di ricerca informazioni su "+username+" da parte di "+this.clientUsername);
         }
         
         catch(IOException ex){
@@ -732,7 +734,6 @@ public class Client{
 
     private ObjectInputStream in;
     private ObjectOutputStream out;
-    private String clientUsername;
     private Socket clientSocket;
     private generalView gv;
     private serverExecutor responder;

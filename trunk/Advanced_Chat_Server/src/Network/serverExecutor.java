@@ -60,7 +60,6 @@ public class serverExecutor {
     public void addMe(Vector toAdd, String username){
         
         this.logClient.put(username, toAdd);
- 
     }
     
     
