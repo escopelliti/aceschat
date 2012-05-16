@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -340,7 +341,7 @@ public class SecondPage extends javax.swing.JFrame {
             }
             catch(Exception ex){
 
-                new userDialog(ex.toString());
+                JOptionPane.showMessageDialog(null, ex.toString(), "ACES", JOptionPane.ERROR_MESSAGE);
 
             }
     }//GEN-LAST:event_enterButtonActionPerformed

@@ -7,7 +7,6 @@ package Networking;
 
 
 import GUI.Home;
-import GUI.userDialog;
 import General.MD5;
 import General.Packet;
 import User.User;
@@ -19,6 +18,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -101,6 +101,21 @@ public class Requests {
         this.out.writeObject(packet);
     }
 
+    
+    
+    public void sendAbuse(int idSender,String offense,String offender) throws IOException{
+        
+        Vector toSend;
+        Packet packet;
+        
+        toSend = new Vector();
+        toSend.add(0, idSender);
+        toSend.add(1,offender);
+        toSend.add(2, offense);
+        packet = new Packet(5, toSend);
+        this.out.writeObject(packet);
+        
+    }
 
 
     //vedere perchè mi fa quell'eccezzione cannot be cast
@@ -119,7 +134,7 @@ public class Requests {
 
         if(response.getClass().getName().equals("java.lang.String")){
 
-            new userDialog(response.toString()).setVisible(true);
+            JOptionPane.showMessageDialog(null, response.toString(), "ACES", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         else{
@@ -179,7 +194,7 @@ public class Requests {
 
         if(response.getClass().getName().equals("java.lang.String")){
             
-            new userDialog(response.toString()).setVisible(true);
+            JOptionPane.showMessageDialog(null, response.toString(), "ACES", JOptionPane.ERROR_MESSAGE); 
             return false;
         }
         else{

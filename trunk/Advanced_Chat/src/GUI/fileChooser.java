@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -120,7 +121,7 @@ private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         }
         catch(IOException ex){
             
-            new userDialog("Si è verificato un problema. Riprova più tardi").setVisible(true);
+            JOptionPane.showMessageDialog(null,"Si è verificato un problema. Riprova più tardi." , "ACES", JOptionPane.ERROR_MESSAGE);
         }
         
         dispose();

@@ -7,11 +7,11 @@
 package Networking;
 
 import GUI.Home;
-import GUI.userDialog;
 import General.Packet;
 import User.User;
 import java.io.IOException;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -39,11 +39,11 @@ public class ClientFetching extends Thread{
         }
         catch(IOException ex){
 
-            new userDialog(ex.getMessage());
+            JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
         }
         catch(ClassNotFoundException ex){
 
-            new userDialog(ex.getMessage());
+            JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -61,7 +61,7 @@ public class ClientFetching extends Thread{
                     case 1: this.newSession.messaging((Vector)response.getPayload()); break;
                     case 6: this.thehome.setContactList((Vector) response.getPayload()); break;
                     case 7: this.thehome.setUser((User) response.getPayload()); break;
-                    case 666: new userDialog(response.getPayload().toString()).setVisible(true); break;
+                    case 666: JOptionPane.showMessageDialog(null, response.getPayload().toString(), "ACES", JOptionPane.ERROR_MESSAGE); break;
                     case 8: this.thehome.setInfo((User)response.getPayload());break;
                 }
 

@@ -24,6 +24,7 @@ import XML.createXml;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import javax.swing.JOptionPane;
 
 
 
@@ -486,7 +487,7 @@ public class InputForm extends javax.swing.JFrame {
 
         } catch(Exception ex){
 
-            new userDialog(ex.toString());
+            JOptionPane.showMessageDialog(null, ex.toString(), "ACES", JOptionPane.ERROR_MESSAGE);
 
         }
 
@@ -511,7 +512,7 @@ public class InputForm extends javax.swing.JFrame {
                     }
                     catch (Exception ex){
                         
-                        new userDialog(ex.toString());
+                        JOptionPane.showMessageDialog(null, ex.toString(), "ACES", JOptionPane.ERROR_MESSAGE);
 
     }//GEN-LAST:event_enterButtonActionPerformed
     }
