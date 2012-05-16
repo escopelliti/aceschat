@@ -554,7 +554,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                     .addComponent(inviteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(emailToInvite)
                     .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addComponent(DecorationFunctionPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -708,8 +708,6 @@ public class Home extends javax.swing.JFrame implements Runnable{
 
         jLabel7.setText("Username dell'utente da cercare : ");
 
-        imageLabel.setText("jLabel8");
-
         jLabel9.setText("Username :");
 
         jLabel10.setText("Name : ");
@@ -807,7 +805,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(96, 96, 96)
                 .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Cerca", jPanel5);
@@ -1184,8 +1182,6 @@ private void searchFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {
     
      if(UserSearch1.getText()!=""){
             try {
-                System.out.println("Sono nel try");
-                System.out.println("sto cercando l'user : " + UserSearch1.getText());
                 this.toCon.searchUser(UserSearch1.getText());
             }
             
@@ -1248,7 +1244,6 @@ private void searchFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {
         cityField.setText(user.getCity());
         emailField.setText(user.getEmail());
         levelField.setText(level.toString());
-        
         imageLabel.setIcon(user.getPersonalImage());
     }
 
