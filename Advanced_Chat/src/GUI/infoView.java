@@ -13,6 +13,7 @@ package GUI;
 
 import Networking.Requests;
 import User.User;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -530,7 +531,7 @@ public class infoView extends javax.swing.JFrame {
                 }                                       //il nuovo user qualora tutto sia andato a buon fine;
             catch(Exception err){
 
-                new userDialog(err.toString());
+                JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
             }
 
             this.dispose();                         

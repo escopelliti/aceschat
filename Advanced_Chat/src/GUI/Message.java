@@ -6,6 +6,7 @@ import User.User;
 import XML.createXml;
 import java.io.*;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import org.jdom.Document;
 
 
@@ -228,7 +229,7 @@ public class Message extends javax.swing.JFrame {
             }
             catch(IOException ex){
 
-                new userDialog("Chat temporaneamente non disponibile.").setVisible(true);
+                JOptionPane.showMessageDialog(null, "Chat temporaneamente non disponibile.", "ACES", JOptionPane.ERROR_MESSAGE);
             }
         
 
@@ -266,7 +267,11 @@ public class Message extends javax.swing.JFrame {
     //con cui sta parlando;
     private void abuseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abuseButtonActionPerformed
 
-        
+        if(!participantList.isSelectionEmpty()){
+            
+            new abuseDialog(this.client.getIdPerson(),request,participantList.getSelectedValue().toString()).setVisible(true);
+            
+        }
         //DA IMPLEMENTARE: frame che ti chiede quello che serve (offesa e altro) per inviare la richiesta di segnalazione
         //abuso al server;
 

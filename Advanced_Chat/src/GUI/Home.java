@@ -27,6 +27,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 
 
@@ -955,12 +956,12 @@ public void run(){
         }
         catch(InterruptedException ex){
 
-            new userDialog("Problemi tecnici. Ci scusiamo per l'inconveniente.").setVisible(true);
+            JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
             System.out.println(ex.getMessage());
         }
         catch(IOException ex_){
             
-            new userDialog("Problemi tecnici. Ci scusiamo per l'inconveniente.").setVisible(true);
+            JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
             System.out.println(ex_.getMessage());
         }
     
@@ -1047,7 +1048,7 @@ public void run(){
 
             } catch (IOException ex) {
             
-                new userDialog("Ci sono problemi tecnici. Ci scusiamo per l'inconveniente.").setVisible(true);
+                JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
             }
             }
     }//GEN-LAST:event_contactButtonActionPerformed
@@ -1065,7 +1066,7 @@ public void run(){
         
         catch (FileNotFoundException ex) {
             
-            new userDialog("Problema nella generazione della cronologia. Ci scusiamo per l'inconveniente.").setVisible(true);
+            JOptionPane.showMessageDialog(null,"Problema nella generazione della cronologia. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
             
         }
   
@@ -1081,7 +1082,7 @@ public void run(){
             
         } catch (IOException ex) {
             
-            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
         }
         
         this.dispose();
@@ -1122,7 +1123,7 @@ public void run(){
             }
             catch(IOException ex){
 
-                new userDialog("Ci sono problemi tecnici.\nCi scusiamo per l'inconveniente.").setVisible(true);
+                JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
             }
         }
 
@@ -1137,7 +1138,7 @@ public void run(){
             }
             catch(IOException ex){
 
-                new userDialog("Ci sono problemi tecnici.\nRiprova più tardi").setVisible(true);
+                JOptionPane.showMessageDialog(null,"Problemi tecnici. Riprova più tardi." , "ACES", JOptionPane.ERROR_MESSAGE);
             }
     }//GEN-LAST:event_inviteButtonActionPerformed
 
@@ -1186,7 +1187,7 @@ private void searchFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {
             }
             
             catch (IOException ex) {
-                new userDialog("Ci sono problemi tecnici.\nCi scusiamo per l'inconveniente.").setVisible(true);
+                JOptionPane.showMessageDialog(null,"Problemi tecnici. Riprova più tardi." , "ACES", JOptionPane.ERROR_MESSAGE);
             }
 
             }  
@@ -1228,7 +1229,7 @@ private void searchFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {
 		x = x.concat((message.getTitle()+"\n\n"));
                 }
                 catch(Exception ex){
-                    new userDialog("Impossibile caricare i Feed.\n\nErrore riscontrato:\n".concat(ex.getMessage())).setVisible(true);
+                    JOptionPane.showMessageDialog(null,"Problemi tecnici nel caricamente dei Feed." , "ACES", JOptionPane.ERROR_MESSAGE);
                 }
                 return x;
     }
