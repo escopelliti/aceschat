@@ -7,6 +7,7 @@ package Network;
 
 
 import General.Packet;
+import General.generalView;
 import java.io.IOException;
 import java.net.Socket;
 import java.sql.SQLException;
@@ -24,16 +25,16 @@ public class ServerFetching extends Thread{
 
 
 
-    public ServerFetching(Socket clientSocket,serverExecutor responder) throws IOException{
+    public ServerFetching(Socket clientSocket,serverExecutor responder,generalView gv) throws IOException{
 
             this.socket = clientSocket;           
-            this.accepted = new Client(socket,responder);
+            this.accepted = new Client(socket,responder,gv);
             this.responder = responder;
     }
 
 
 
-    private void fetch() throws IOException, ClassNotFoundException, SQLException{
+    private void fetch() throws IOException, ClassNotFoundException, SQLException, InterruptedException{
 
             Packet request;
 
@@ -44,12 +45,12 @@ public class ServerFetching extends Thread{
                 switch(request.getHeader()){
 
                   case 0: this.accepted.registerMe(request.getPayload()); break;
-                  case 1: this.accepted.Friendship(request.getPayload()); break;
+                  case 1: this.accepted.doFriendship(request.getPayload()); break;
                   case 2: this.accepted.updateStatus(request.getPayload()); break;
                   case 3: this.accepted.sendMail(request.getPayload()); break;
                   case 4: this.accepted.logMe(request.getPayload());  break;
                   case 5: this.accepted.signAbuse(request.getPayload()); break;
-                  case 6: this.accepted.FriendList(request.getPayload()); break;
+                  case 6: this.accepted.getFriendList(request.getPayload()); break;
                   case 7: this.accepted.modifyPersonalInfo(request.getPayload()); break;
                   case 8: responder.sendMess(request.getPayload()); break;
                   case 9: this.accepted.getMyMess((String) request.getPayload()); break;

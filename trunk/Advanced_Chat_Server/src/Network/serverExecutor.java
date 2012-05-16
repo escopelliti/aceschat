@@ -5,7 +5,7 @@
 package Network;
 
 import Database.Database;
-import General.Packet;
+import General.generalView;
 import java.sql.Connection;
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -21,15 +21,15 @@ import java.util.Vector;
 public class serverExecutor {
     
     
-    public serverExecutor(){
+    public serverExecutor(generalView gv){
         
         this.logClient = new Hashtable<String, Vector>();
-        
+        this.gv = gv;
     }
     
     
     
-    public void sendMess(Object mess){
+    public void sendMess(Object mess) throws InterruptedException{
         
         Vector received;
         Vector receiver;
@@ -44,7 +44,7 @@ public class serverExecutor {
             if(!received.get(0).toString().equals(participants.get(count))){
                 receiver = logClient.get(participants.get(count));        
                 receiver.add(received);
-                
+                gv.enqueueEvent("L'utente "+received.get(0).toString()+" ha inviato un messaggio/file a "+participants.get(count).toString());
             }
             count++;
         }
@@ -64,14 +64,11 @@ public class serverExecutor {
     }
     
     
-    public String sendMail(Object payload) throws IOException{
-
-        Vector vect;
+    public String sendMail(Vector vect) throws IOException{
+        
         Mail toSend;
-        Packet response;
         String comunication;
 
-        vect = (Vector) payload;
         toSend = new Mail(vect.get(0).toString(), vect.get(1).toString());
         try{
             toSend.start();
@@ -160,4 +157,5 @@ public class serverExecutor {
     
     
     private Hashtable<String,Vector> logClient;
+    private generalView gv;
 }
