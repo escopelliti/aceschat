@@ -6,6 +6,7 @@
 package Network;
 
 
+import General.generalView;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -20,10 +21,11 @@ import java.util.Vector;
 public class Server extends Thread{
 
    
-    public Server() throws IOException{
-
+    public Server(generalView gv) throws IOException{
+        
+        this.gv = gv;
         this.server_socket = new ServerSocket(8240);        
-        responder = new serverExecutor();
+        responder = new serverExecutor(gv);
     }
 
 
@@ -33,7 +35,7 @@ public class Server extends Thread{
 
         while(true){
             Socket clientSocket = server_socket.accept();                       
-            ServerFetching fetch = new ServerFetching(clientSocket,this.responder);
+            ServerFetching fetch = new ServerFetching(clientSocket,this.responder,this.gv);
             fetch.start();
         }
 
@@ -56,6 +58,7 @@ public class Server extends Thread{
     
     private ServerSocket server_socket;
     private serverExecutor responder;
+    private generalView gv;
     }
 
 

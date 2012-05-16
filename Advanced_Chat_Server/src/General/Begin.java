@@ -143,9 +143,10 @@ public class Begin extends javax.swing.JFrame {
 
             Database.connectDb();
 
-
+            generalView gv = new generalView(this);
+            gv.setVisible(true);
             try {              
-                Server server = new Server();
+                Server server = new Server(gv);
                 server.start();
             } catch (IOException ex) {
                 Logger.getLogger(Begin.class.getName()).log(Level.SEVERE, null, ex);
@@ -160,7 +161,7 @@ public class Begin extends javax.swing.JFrame {
         //controllo credenziali via DB ed eventuale gestione dell'accesso
         startButton.setEnabled(false);
         serverStateField.setText("Running");
-        new generalView(this).setVisible(true);
+        
         this.setVisible(false);
     }//GEN-LAST:event_startButtonActionPerformed
 

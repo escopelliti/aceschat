@@ -42,11 +42,11 @@ public class generalView extends javax.swing.JFrame implements Runnable{
         logoutButton = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        loggedUsers = new javax.swing.JList();
         DecorationFunctionPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         eventList = new javax.swing.JTextArea();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        loggedUsers = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,8 +80,6 @@ public class generalView extends javax.swing.JFrame implements Runnable{
 
         jLabel1.setIcon(new javax.swing.ImageIcon("/home/enrico/NetBeansProjects/Advanced Chat/src/GUI/ACES.png")); // NOI18N
 
-        jScrollPane1.setViewportView(loggedUsers);
-
         DecorationFunctionPanel1.setBackground(new java.awt.Color(15, 64, 133));
 
         javax.swing.GroupLayout DecorationFunctionPanel1Layout = new javax.swing.GroupLayout(DecorationFunctionPanel1);
@@ -97,10 +95,15 @@ public class generalView extends javax.swing.JFrame implements Runnable{
 
         eventList.setColumns(20);
         eventList.setEditable(false);
-        eventList.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        eventList.setFont(new java.awt.Font("SansSerif", 1, 15));
         eventList.setForeground(new java.awt.Color(203, 31, 31));
         eventList.setRows(5);
         jScrollPane2.setViewportView(eventList);
+
+        loggedUsers.setColumns(20);
+        loggedUsers.setEditable(false);
+        loggedUsers.setRows(5);
+        jScrollPane1.setViewportView(loggedUsers);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -112,15 +115,15 @@ public class generalView extends javax.swing.JFrame implements Runnable{
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 479, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 509, Short.MAX_VALUE)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(logoutButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 786, Short.MAX_VALUE)))
                     .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(DecorationFunctionPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -133,17 +136,18 @@ public class generalView extends javax.swing.JFrame implements Runnable{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(36, 36, 36)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -160,7 +164,7 @@ private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         starter.setVisible(true);
 }//GEN-LAST:event_logoutButtonActionPerformed
 
-    public static void enqueueEvent(String incomingEvent) throws InterruptedException{
+    public void enqueueEvent(String incomingEvent) throws InterruptedException{
         
         sem.acquire(1);
         events.add(incomingEvent);
@@ -178,6 +182,13 @@ private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             eventList.append(new_event+"\n"); 
             
         }
+    }
+    
+    
+    public void updateLoggedUsers(String username){
+        
+        this.loggedUsers.append(username+"\n");
+        
     }
     
     
@@ -199,8 +210,8 @@ private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         
     }
     
-    private static Semaphore sem;
-    private static ArrayList<String> events;
+    private Semaphore sem;
+    private ArrayList<String> events;
     private Thread update;
     private Begin starter;
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -212,7 +223,7 @@ private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JPanel jPanel13;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JList loggedUsers;
+    private javax.swing.JTextArea loggedUsers;
     private javax.swing.JButton logoutButton;
     // End of variables declaration//GEN-END:variables
 }
