@@ -33,9 +33,10 @@ import javax.swing.ImageIcon;
 public class Client{
     
 
-    public Client(Socket client,serverExecutor responder) throws IOException{
+    public Client(Socket client,serverExecutor responder,generalView gv) throws IOException{
 
         this.clientSocket = client;
+        this.gv = gv;
         this.responder = responder;
         this.out = new ObjectOutputStream(client.getOutputStream());
         this.in = new ObjectInputStream(client.getInputStream());
@@ -63,7 +64,7 @@ public class Client{
  
     
     
-    public void modifyPersonalInfo(Object payload) throws SQLException, IOException{
+    public void modifyPersonalInfo(Object payload) throws SQLException, IOException, InterruptedException{
 
         User new_user_info;
         Connection con;
@@ -111,7 +112,7 @@ public class Client{
                                         + "Username già utilizzato da un altro utente.");
 
                 this.out.writeObject(response);
-
+                gv.enqueueEvent("L'utente "+this.clientUsername+" ha aggiornato le sue informazioni personali.");
             }
             }
         catch(IOException ex){
@@ -127,15 +128,17 @@ public class Client{
     }
     
     
-    public void sendMail(Object payload) throws IOException{
+    public void sendMail(Object payload) throws IOException, InterruptedException{
         
         String comunication;
         Packet response;
+        Vector vect = (Vector) payload;
         
-        comunication = responder.sendMail(payload);     
+        comunication = responder.sendMail(vect);     
         response = new Packet(666, comunication);
         
         this.out.writeObject(response);
+        gv.enqueueEvent("L'utente "+vect.get(0).toString()+"ha inviato un invito via mail a "+vect.get(1).toString());
     }
     
     //nel vettore arriva 0)id di chi sta segnlando 1)l'username da segnalare2)testo dell'offesa
@@ -241,7 +244,7 @@ public class Client{
     }
     
 //mi faccio restituire solo la lista degli user amici 
-    public void FriendList(Object payload) throws SQLException, IOException{
+    public void getFriendList(Object payload) throws SQLException, IOException{
 
         Integer id;
         Vector list;
@@ -286,7 +289,7 @@ public class Client{
     }
     
     
-         public void updateStatus(Object Payload) throws SQLException{
+         public void updateStatus(Object Payload) throws SQLException, InterruptedException{
 
             Vector info = (Vector)Payload;
             Connection con = Database.getCon();
@@ -297,11 +300,16 @@ public class Client{
             update.setObject(1,info.get(1));
             update.setObject(2,info.get(0));
             update.execute();
+            switch((Integer) info.get(0)){
+                
+                case 0: gv.enqueueEvent("L'utente "+this.clientUsername+" ha effettuato il logout."); break;
+                
+            }
 
-}
+        }
  
             
-        public void registerMe(Object payload) throws SQLException, IOException{
+     public void registerMe(Object payload) throws SQLException, IOException{
 
         User new_user = (User) payload;
         Connection con = Database.getCon();
@@ -370,12 +378,14 @@ public class Client{
                     
                     this.out.writeObject(new_user);
                     this.responder.addMe(new Vector(),new_user.getUsername());
-                    generalView.enqueueEvent("L'utente "+new_user.getUsername()+" <"+new_user.getEmail()+"> si è registrato con successo. - IP: "+new_user.getIp());
+                    gv.enqueueEvent("L'utente "+new_user.getUsername()+" <"+new_user.getEmail()+"> si è registrato con successo. - IP: "+new_user.getIp());
+                    gv.updateLoggedUsers(new_user.getUsername());
+                    setClientUsername(new_user.getUsername());
                }
                else{
 
                     response = "Username e/o email già utilizzati da un altro utente.";
-                   this.out.writeObject(response);
+                    this.out.writeObject(response);
 
                 }
                       
@@ -422,7 +432,7 @@ public class Client{
     }
     
     
-    public void setPersonalImage(Object payload) throws FileNotFoundException, IOException{
+    public void setPersonalImage(Object payload) throws FileNotFoundException, IOException, InterruptedException{
         
             Vector imageInfo;
             Integer idUser;
@@ -445,14 +455,13 @@ public class Client{
                 
             }
             
-            //mandiamo un messaggio in cui diciamo che i cambiamenti saranno visibili al prossimo accesso
-            //o in alternativa codifichiamo il cambio immagine; la prima soluzione è più veloce ma meno
-            //carina
+            this.out.writeObject(new Packet(666, "Le modifiche saranno visibili al prossimo accesso"));
+            gv.enqueueEvent("L'utente "+this.clientUsername+" ha cambiato l'immagine personale in :"+"'"+image.getName()+"'");
     }
         
 //     ULTIMO METODO REVISIONATO :)
 //    il primo elemento del vector deve essere l'id del user che fa la richiesta il secondo la email oppure l'username dell utente che vuole aggiungere;
-     public void Friendship(Object payload) throws SQLException, IOException{
+     public void doFriendship(Object payload) throws SQLException, IOException, InterruptedException{
 
                 Vector info = (Vector) payload;
                 Connection con = Database.getCon();
@@ -495,6 +504,11 @@ public class Client{
 
                         response = new Packet(666, "L'utente è già tuo amico!");
                         this.out.writeObject(response);
+                        query = con.prepareStatement("SELECT Username FROM `AdvancedChat`.`User` WHERE IdUser = ?");
+                        query.setObject(1, info.get(0));
+                        rs = query.executeQuery();
+                        rs.next();
+                        gv.enqueueEvent("L'utente "+rs.getString("Username")+"ha fatto amicizia con "+info.get(1).toString());
 
                         }
                     }
@@ -639,7 +653,9 @@ public class Client{
                 if(!(personalImage == null))//da modificare
                     user.setPersonalImage(personalImage);
                 this.out.writeObject(user);                
-                generalView.enqueueEvent("L'utente "+user.getUsername()+" <"+user.getEmail()+"> ha effettuato l'accesso. - IP: "+user.getIp());
+                gv.enqueueEvent("L'utente "+user.getUsername()+" <"+user.getEmail()+"> ha effettuato l'accesso. - IP: "+user.getIp());
+                gv.updateLoggedUsers(user.getUsername());
+                setClientUsername(user.getUsername());
                 this.responder.addMe(new Vector(),user.getUsername());
         }
 
@@ -660,10 +676,9 @@ public class Client{
         
     }
     
-    
-    //mi arriva l'username di chi voglio visualizzare le info
-    public void searchFriend(String username) throws SQLException, IOException{
-        
+
+    public void searchFriend(String username) throws SQLException, IOException, InterruptedException{
+            
         Connection con;
         PreparedStatement query;
         ResultSet rs;
@@ -687,14 +702,16 @@ public class Client{
             user.setSurname(rs.getString("Surname"));
             user.setEmail(rs.getString("Email"));
             user.setLevel(rs.getInt("Level"));
-            user.setCity(rs.getString("City"));           
+            user.setCity(rs.getString("City"));
             idUser=rs.getInt("IdUser");
 
             icon=getImage(idUser);
             user.setPersonalImage(icon);
-        
+
             packet=new Packet(8,user);
+
             this.out.writeObject(packet);
+            gv.enqueueEvent("Richiesta di ricerca informazioni su "+username+" da parte di "+this.clientUsername);
         }
         
         catch(IOException ex){
@@ -711,10 +728,13 @@ public class Client{
         
     }
     
+    
+
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private String clientUsername;
     private Socket clientSocket;
+    private generalView gv;
     private serverExecutor responder;
     
 }
