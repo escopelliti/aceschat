@@ -54,11 +54,8 @@ public class ServerFetching extends Thread{
                   case 8: responder.sendMess(request.getPayload()); break;
                   case 9: this.accepted.getMyMess((String) request.getPayload()); break;
                   case 10: this.accepted.setPersonalImage(request.getPayload()); break;
-/*da controllare*/case 13: this.accepted.FriendSearch((String)(request.getPayload()));break;
-                  
-                  //case 11: metodo che gestisce l'arrivo di un file da un client per trasferirlo ad 
-                        //un altro client;
-                //  case 12: ClientToServer.createTeam(request.getPayload(),out); break;
+/*da controllare*/case 13: this.accepted.searchFriend((String)(request.getPayload()));break;
+                 // case 12: ClientToServer.createTeam(request.getPayload(),out); break;
 
 
             }

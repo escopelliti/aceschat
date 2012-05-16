@@ -662,40 +662,63 @@ public class Client{
     
     
     //mi arriva l'username di chi voglio visualizzare le info
-    public void FriendSearch(String username) throws SQLException, IOException{
+    public void searchFriend(String username) throws SQLException, IOException{
+        
         Connection con;
         PreparedStatement query;
         ResultSet rs;
         Packet packet;
-        User user = null;
-        final String path;
+        User user = new User();
         ImageIcon icon = null;
-        File image;
         int idUser;
         Object payload;
         
         con = Database.getCon();
         
         try{
-            query = con.prepareStatement("SELECT IdUser,Username,Name,Surname,Email,Level,City FROM `Person`,`User`,`Level` WHERE User.Username = ? AND User.IdUser = Person.IdPerson AND Level.IdUser = User.IdUser");
+            query = con.prepareStatement("SELECT User.IdUser,Username,Name,Surname,Email,Level,City FROM `Person`,`User`,`Level` WHERE User.Username = ? AND User.IdUser = Person.IdPerson AND Level.IdUser = User.IdUser");
             query.setString(1, username);
-        
+            System.out.println("ggggggggggggggggggggggggggggggggggggggg");
             rs = query.executeQuery();
-        
+            System.out.println("fffffffffffffffffffffffgggggggggggggggg");
+            
+            rs.next();
+            
+                System.out.println(rs.getString("Username"));
+            
             user.setUsername(rs.getString("Username"));
+            
+                        
+                System.out.println(rs.getString("Name"));
+            
             user.setName(rs.getString("Name"));
+            
+                System.out.println(rs.getString("Surname"));
+            
             user.setSurname(rs.getString("Surname"));
+            
+                System.out.println(rs.getString("Email"));
+            
             user.setEmail(rs.getString("Email"));
+            
+                System.out.println(rs.getInt("Level"));
+                        
             user.setLevel(rs.getInt("Level"));
-            user.setCity(rs.getString("City"));
-            //vorrei mettere anche la data di nascita ma non so come fare un cast
-      
+            
+                System.out.println(rs.getString("City"));
+            
+            user.setCity(rs.getString("City"));           
+            
             idUser=rs.getInt("IdUser");
-        
+
+                System.out.println(rs.getInt("IdUser"));
+            
+                System.out.println("ho costruito tutto l'user");
+           
             icon=getImage(idUser);
             user.setPersonalImage(icon);
         
-            packet=new Packet(99999999,user);//numero del protocollo da decidere
+            packet=new Packet(8,user);//numero del protocollo da decidere
             this.out.writeObject(packet);
         }
         
