@@ -11,6 +11,8 @@
 package General;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Vector;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -25,6 +27,7 @@ public class generalView extends javax.swing.JFrame implements Runnable{
         initComponents();
         this.starter = starter;
         events = new ArrayList<String>();
+        loggedUsers = new Vector();
         sem = new Semaphore(1);
         
         update = new Thread(this);
@@ -46,7 +49,7 @@ public class generalView extends javax.swing.JFrame implements Runnable{
         jScrollPane2 = new javax.swing.JScrollPane();
         eventList = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
-        loggedUsers = new javax.swing.JTextArea();
+        loggedUsersList = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,10 +103,7 @@ public class generalView extends javax.swing.JFrame implements Runnable{
         eventList.setRows(5);
         jScrollPane2.setViewportView(eventList);
 
-        loggedUsers.setColumns(20);
-        loggedUsers.setEditable(false);
-        loggedUsers.setRows(5);
-        jScrollPane1.setViewportView(loggedUsers);
+        jScrollPane1.setViewportView(loggedUsersList);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -143,9 +143,7 @@ public class generalView extends javax.swing.JFrame implements Runnable{
                                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -163,6 +161,17 @@ private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         this.dispose();
         starter.setVisible(true);
 }//GEN-LAST:event_logoutButtonActionPerformed
+
+    public void addLoggedUsers(String username) throws InterruptedException{
+        
+        this.loggedUsers.add(username);
+    }
+
+    public void removeLoggedUsers(String username) throws InterruptedException{
+        
+        this.loggedUsers.remove(username);
+    }
+    
 
     public void enqueueEvent(String incomingEvent) throws InterruptedException{
         
@@ -185,9 +194,9 @@ private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     }
     
     
-    public void updateLoggedUsers(String username){
+    private void updateLoggedUsers(){
         
-        this.loggedUsers.append(username+"\n");
+        loggedUsersList.setListData(loggedUsers);
         
     }
     
@@ -199,6 +208,7 @@ private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             try{
                 
                 dequeueEvent();
+                updateLoggedUsers();
                 update.sleep(2000);
             }
             catch(InterruptedException ex){
@@ -212,6 +222,7 @@ private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     
     private Semaphore sem;
     private ArrayList<String> events;
+    private Vector loggedUsers;
     private Thread update;
     private Begin starter;
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -223,7 +234,7 @@ private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JPanel jPanel13;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea loggedUsers;
+    private javax.swing.JList loggedUsersList;
     private javax.swing.JButton logoutButton;
     // End of variables declaration//GEN-END:variables
 }
