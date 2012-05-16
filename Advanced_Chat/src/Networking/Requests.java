@@ -210,6 +210,14 @@ public class Requests {
 
     }
 
+    //il metodo deve creare il pachetto da inviare al server fertching
+        
+    public void searchUser(String username) throws IOException{
+        Packet toSend;
+        toSend = new Packet(13,username);
+        this.out.writeObject(toSend);
+             
+    }
 
     public void addFriend(String friend,int id) throws IOException{
 

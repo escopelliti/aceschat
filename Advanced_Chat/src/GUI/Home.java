@@ -129,6 +129,8 @@ public class Home extends javax.swing.JFrame implements Runnable{
         friendEmail = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        UserSearch = new javax.swing.JTextField();
         jPanel13 = new javax.swing.JPanel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
@@ -182,7 +184,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
             .addGroup(FeedPanelLayout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
         );
 
         userImageLabel.setBackground(new java.awt.Color(212, 165, 122));
@@ -287,7 +289,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                         .addComponent(infoView)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(photoLoadButton))
-                    .addComponent(userImageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE))
+                    .addComponent(userImageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -322,7 +324,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(155, 155, 155)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,7 +332,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -339,7 +341,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
 
         jTabbedPane1.addTab("Pagina iniziale", jPanel3);
 
-        friendList.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        friendList.setFont(new java.awt.Font("SansSerif", 1, 18));
         friendList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 friendListMouseClicked(evt);
@@ -394,7 +396,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(contactMultiUsers))
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(158, 158, 158)
                         .addComponent(addtoMultiChat)))
@@ -438,7 +440,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(103, 103, 103)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -454,7 +456,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(52, 52, 52)
                 .addComponent(addFriendButton)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Aggiungi un amico", jPanel9);
@@ -481,7 +483,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 929, Short.MAX_VALUE)
+            .addGap(0, 921, Short.MAX_VALUE)
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -494,7 +496,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
         DecorationFunctionPanel2.setLayout(DecorationFunctionPanel2Layout);
         DecorationFunctionPanel2Layout.setHorizontalGroup(
             DecorationFunctionPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 929, Short.MAX_VALUE)
+            .addGap(0, 921, Short.MAX_VALUE)
         );
         DecorationFunctionPanel2Layout.setVerticalGroup(
             DecorationFunctionPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -538,7 +540,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                     .addComponent(inviteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(emailToInvite)
                     .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addComponent(DecorationFunctionPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -592,8 +594,8 @@ public class Home extends javax.swing.JFrame implements Runnable{
                 .addComponent(userHistoryField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(153, Short.MAX_VALUE))
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+                .addContainerGap(141, Short.MAX_VALUE))
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Cronologia", jPanel11);
@@ -645,7 +647,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                 .addGap(129, 129, 129)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(friendImageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                        .addComponent(friendImageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                         .addGap(136, 136, 136))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -663,7 +665,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(friendImageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(11, 11, 11)
@@ -683,6 +685,13 @@ public class Home extends javax.swing.JFrame implements Runnable{
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/logo2.png"))); // NOI18N
 
+        jButton1.setText("Cerca");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -690,13 +699,23 @@ public class Home extends javax.swing.JFrame implements Runnable{
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(670, Short.MAX_VALUE))
+                .addGap(299, 299, 299)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(UserSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addGap(148, 148, 148))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE))
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(164, Short.MAX_VALUE)
+                .addComponent(UserSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
+                .addComponent(jButton1)
+                .addGap(77, 77, 77))
         );
 
         jTabbedPane1.addTab("Cerca", jPanel5);
@@ -1068,7 +1087,20 @@ public void run(){
         addtoMultiChat.setEnabled(true);
     }//GEN-LAST:event_friendListMouseClicked
 
+    //aggiungere try-catch
+private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     
+     if(!UserSearch.getText().equals("")){
+            try {
+                toCon.searchUser(UserSearch.getText());
+            }
+            
+            catch (IOException ex) {
+                new userDialog("Ci sono problemi tecnici.\nCi scusiamo per l'inconveniente.").setVisible(true);
+            }
+
+            }  
+}//GEN-LAST:event_jButton1ActionPerformed
     
 //    public void setImage(Object imageFile) throws IOException{
 //        
@@ -1136,6 +1168,7 @@ public void run(){
     private javax.swing.JTextPane FeedView;
     private javax.swing.JPanel LevelPanel;
     private javax.swing.JTextPane TitleFieldPanel;
+    private javax.swing.JTextField UserSearch;
     private javax.swing.JLabel UsernameLabel;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JButton addFriendButton;
@@ -1164,6 +1197,7 @@ public void run(){
     private javax.swing.JTextArea historyTextArea;
     private javax.swing.JButton infoView;
     private javax.swing.JButton inviteButton;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
