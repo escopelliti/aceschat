@@ -678,47 +678,22 @@ public class Client{
         try{
             query = con.prepareStatement("SELECT User.IdUser,Username,Name,Surname,Email,Level,City FROM `Person`,`User`,`Level` WHERE User.Username = ? AND User.IdUser = Person.IdPerson AND Level.IdUser = User.IdUser");
             query.setString(1, username);
-            System.out.println("ggggggggggggggggggggggggggggggggggggggg");
             rs = query.executeQuery();
-            System.out.println("fffffffffffffffffffffffgggggggggggggggg");
             
             rs.next();
-            
-                System.out.println(rs.getString("Username"));
-            
+                          
             user.setUsername(rs.getString("Username"));
-            
-                        
-                System.out.println(rs.getString("Name"));
-            
             user.setName(rs.getString("Name"));
-            
-                System.out.println(rs.getString("Surname"));
-            
             user.setSurname(rs.getString("Surname"));
-            
-                System.out.println(rs.getString("Email"));
-            
             user.setEmail(rs.getString("Email"));
-            
-                System.out.println(rs.getInt("Level"));
-                        
             user.setLevel(rs.getInt("Level"));
-            
-                System.out.println(rs.getString("City"));
-            
             user.setCity(rs.getString("City"));           
-            
             idUser=rs.getInt("IdUser");
 
-                System.out.println(rs.getInt("IdUser"));
-            
-                System.out.println("ho costruito tutto l'user");
-           
             icon=getImage(idUser);
             user.setPersonalImage(icon);
         
-            packet=new Packet(8,user);//numero del protocollo da decidere
+            packet=new Packet(8,user);
             this.out.writeObject(packet);
         }
         
