@@ -141,7 +141,7 @@ public class Client{
             Packet response;
 
             try{
-
+                
                 abuse = con.prepareStatement("SELECT IdUser FROM `AdvancedChat`.`User` WHERE Username = ?");
                 abuse.setObject(1,sign.get(1));
                 rs = abuse.executeQuery();
@@ -165,10 +165,11 @@ public class Client{
                     abuse.setInt(2, idOffending); 
                     rs = abuse.executeQuery();
                     rs.next();
-                    idAbuse = rs.getInt("IdUser");    
-                    abuse = con.prepareStatement("INSERT INTO `AdvancedChat`.`Abuse` () VALUES (?,?");
+                    idAbuse = rs.getInt("IdAbuse"); 
+                    abuse = con.prepareStatement("INSERT INTO `AdvancedChat`.`Abuse` () VALUES (?,?)");
                     abuse.setObject(1, idAbuse);
                     abuse.setObject(2, sign.get(2));
+                    abuse.execute();
 //procedimento penale
                     abuse = con.prepareStatement("SELECT Warning FROM User WHERE IdUser = ?");
                     abuse.setInt(1,idOffending);
@@ -176,7 +177,7 @@ public class Client{
                     rs.next();
                     warning = rs.getInt("Warning");
 
-                    if(warning==3){
+                    if(warning == 3){
         
                      //metodo di declassamento livello
                     responder.downLevel(idOffending);
@@ -209,9 +210,10 @@ public class Client{
                     this.out.writeObject(response);
                     }
                 }
-                catch(Exception ex){
-
-                    response = new Packet(666, ex.toString()); //666 è un codice errore che nel ClientFetching
+                catch(SQLException ex){
+                    
+                    System.out.println(ex.getMessage());
+                    response = new Packet(666, "Problemi tecnici. Riprova più tardi."); //666 è un codice errore che nel ClientFetching
                     this.out.writeObject(response);//corrisponde ad aprire una finestra con l'errore; vale per tutti gli
                                                          //altri errori degli altri metodi;
                 }
@@ -244,7 +246,6 @@ public class Client{
         Packet packet;
 
         try{
-
             id = (Integer) payload;
             list = new Vector();
             con = Database.getCon();
@@ -290,8 +291,7 @@ public class Client{
             update.setObject(2,info.get(0));
             update.execute();
             String myUsername = getMyUsername((Integer) info.get(0));
-
-            switch((Integer) info.get(0)){
+            switch((Integer) info.get(1)){
                 
                 case 0: gv.enqueueEvent("L'utente "+myUsername+" ha effettuato il logout."); 
                         gv.removeLoggedUsers(myUsername); break;

@@ -91,68 +91,54 @@ public class serverExecutor {
     }
     
     public void downLevel(int IdUser) throws SQLException{
+        
         Connection con = Database.getCon();
         PreparedStatement query;
         ResultSet rs;
         int level;
         
-        query = con.prepareStatement("SELECT Level FROM `Level` WHERE IdUser= ? ");
-        query.setInt(1,IdUser);
-        rs = query.executeQuery();
-    
-        rs.next();
-        level = rs.getInt("Level");
-        
-        if(level==1){
-            addToBlackList(IdUser);
-            
-        }
-        else{
-        //abassare il livello
-            query = con.prepareStatement("UPDATE `AdvancedChat`.`Level` SET `Level` = Level - 1 WHERE `Level`.`IdUser` = ? ");
+        try{
+            query = con.prepareStatement("SELECT Level FROM `Level` WHERE IdUser= ? ");
             query.setInt(1,IdUser);
-            query.execute();
+            rs = query.executeQuery();    
+            rs.next();
+            level = rs.getInt("Level");
+        
+            if(level==1)
+                addToBlackList(IdUser);
+            else{
+        //abassare il livello
+                query = con.prepareStatement("UPDATE `AdvancedChat`.`Level` SET `Level` = Level - 1 WHERE `Level`.`IdUser` = ? ");
+                query.setInt(1,IdUser);
+                query.execute();
+            }
+        }
+        catch(SQLException ex){
+            
+            System.out.println(ex.getMessage());
         }
             
         
     }
     
     private void addToBlackList(int IdUser) throws SQLException{
+        
         Connection con = Database.getCon();
         PreparedStatement query;
         ResultSet rs;
         String Email;
-        
         query= con.prepareStatement("SELECT Email FROM `User` WHERE IdUser=?");
         query.setInt(1,IdUser);
         rs=query.executeQuery();
     
         rs.next();
         Email = rs.getString("Email");
-        
-        query= con.prepareStatement("INSERT INTO `AdvancedChat`.`BlackList` (Email) VALUES (?)");
+        query = con.prepareStatement("INSERT INTO `AdvancedChat`.`BlackList` (Email) VALUES (?)");
         query.setString(1, Email);
-        query.executeQuery();
+        query.execute();
         
     }
       
-    
-  
-////            packet = new Packet(6,list);
-////            this.out.writeObject(packet);
-//            }
-////
-//        catch(IOException ex){
-////
-////            packet = new Packet(666, "\nCi sono dei problemi tecnici. Riprova tra qualche minuto.\n");
-////            this.out.writeObject(packet);
-//           }
-//        catch(SQLException ex){
-//
-//            packet = new Packet(666,"\nCi sono dei problemi tecnici. Riprova tra qualche minuto.\n");
-//            this.out.writeObject(packet);
-//        }
-//    }
     
     
     private Hashtable<String,Vector> logClient;
