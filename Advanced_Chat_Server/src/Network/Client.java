@@ -566,7 +566,7 @@ public class Client{
         String[] interests = new String[6];
         int index = 0;
         int flag = 0;
-//la password gli arriva gia criptata in md5 ho glielo faccio fare alla query?    
+  
         query = con.prepareStatement("SELECT * FROM `User` WHERE Username = ? AND Password = ?");
         query.setObject(1, v.get(0));
         query.setObject(2, v.get(1));

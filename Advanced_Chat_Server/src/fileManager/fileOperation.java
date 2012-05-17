@@ -100,8 +100,23 @@ public class fileOperation {
         return toDelete.delete();
     }
 
+        
+        public static long fileSize(String path){
+	
+                File f = new File(path);
+                long file_size = 0;
+
+		if (f.exists()) {
+			file_size = f.length();
+			return file_size;
+                }
+
+                else{
+                    return 0;
+                }
+
+        }
+
 }
-
-
 
 
