@@ -50,7 +50,6 @@ public class abuseDialog extends javax.swing.JFrame {
         });
 
         offenseMessage.setColumns(20);
-        offenseMessage.setEditable(false);
         offenseMessage.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         offenseMessage.setForeground(new java.awt.Color(6, 6, 6));
         offenseMessage.setRows(5);
@@ -111,7 +110,7 @@ public class abuseDialog extends javax.swing.JFrame {
                 
                 JOptionPane.showMessageDialog(null, ex.toString(), "ACES", JOptionPane.ERROR_MESSAGE);
             }
-            
+            dispose();
         }
     }//GEN-LAST:event_confirmButtonActionPerformed
 
