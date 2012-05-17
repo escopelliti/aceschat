@@ -67,7 +67,7 @@ public class serverExecutor {
             count++;
         }
     }
-    
+    //nuovi metodi implementati
     private void addMessToDb(String sender, String text, Vector participants) throws SQLException{
         Connection con = Database.getCon();
         PreparedStatement query;
