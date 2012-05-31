@@ -46,7 +46,7 @@ public class ServerFetching extends Thread{
 
                   case 0: this.accepted.registerMe(request.getPayload()); break;
                   case 1: this.accepted.doFriendship(request.getPayload()); break;
-                  case 2: this.accepted.updateStatus(request.getPayload()); break;
+                  case 2: this.accepted.updateStatus(request.getPayload());break;
                   case 3: this.accepted.sendMail(request.getPayload()); break;
                   case 4: this.accepted.logMe(request.getPayload());  break;
                   case 5: this.accepted.signAbuse(request.getPayload()); break;
