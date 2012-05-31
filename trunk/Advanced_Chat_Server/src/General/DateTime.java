@@ -14,24 +14,6 @@ import java.util.GregorianCalendar;
  */
 public class DateTime {
 
-    //mi restituisce un array di interi comprendenti tutte le informazioni di data e ora;
-    public static String[] getDateTime(){
-
-
-         String g = null;
-         Calendar calendar = new GregorianCalendar();
-         String[] datetime = new String[6];
-         datetime[3] = g.valueOf(calendar.get(Calendar.HOUR)).concat(":");
-         datetime[4] = g.valueOf(calendar.get(Calendar.MINUTE)).concat(":");
-         datetime[5] = g.valueOf(calendar.get(Calendar.SECOND));
-         datetime[0] = g.valueOf(calendar.get(Calendar.DAY_OF_MONTH)).concat("-");
-         datetime[1] = g.valueOf(calendar.get(Calendar.MONTH)+1).concat("-");
-         datetime[2] = g.valueOf(calendar.get(Calendar.YEAR)).concat(" ");
-
-         return datetime;
-
-    }
-
     //vedere quale dei due metodi è meglio usare   (quello su e questo giù)
        public static String getDate(){
                 Calendar c = Calendar.getInstance();
@@ -46,42 +28,32 @@ public class DateTime {
                 return date;
     }
 
+    
+    
+     public static String getDateTime(){
 
 
-    public static String concatDateTime(){
+         String g = null;
+         String date="";
+         Calendar calendar = new GregorianCalendar();
+         String[] datetime = new String[6];
+         datetime[3] = g.valueOf(calendar.get(Calendar.HOUR_OF_DAY)).concat(":");
+         datetime[4] = g.valueOf(calendar.get(Calendar.MINUTE)).concat(":");
+         datetime[5] = g.valueOf(calendar.get(Calendar.SECOND));
+         datetime[2] = g.valueOf(calendar.get(Calendar.DAY_OF_MONTH)).concat(" ");
+         datetime[1] = g.valueOf(calendar.get(Calendar.MONTH)+1).concat("-");
+         datetime[0] = g.valueOf(calendar.get(Calendar.YEAR)).concat("-");
 
-        String formatted = "";
-        String[] datetime = getDateTime();
-        for(int index = 0;index < datetime.length;index++){
+         for(int index = 0;index < datetime.length;index++){
 
-            formatted = formatted.concat(datetime[index]);
+            date = date.concat(datetime[index]);
 
         }
+         
+         return date;
 
-        formatted = formatted.concat(" "+getAmPm());
-        return formatted;
-
+    
+        
     }
-
-
-
-    public static String getAmPm(){   //mi dice se l'ora è pomeridiana o meno;
-
-        String x = null;
-        Calendar calendar = new GregorianCalendar();
-        int value = calendar.get(Calendar.AM_PM);
-         if(value == 1){
-             x = "P.M.";
-        }
-            else{
-
-             x = "A.M.";
-
-            }
-
-        return x;
-
-    }
-
 
 }
