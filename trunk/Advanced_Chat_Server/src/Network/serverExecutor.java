@@ -77,6 +77,7 @@ public class serverExecutor {
     //metodo per ricavare l'id user partendo dall'username sarebbe meglio spostarlo da qualche altra parte dato che fa solo una query
     
     private int selectId(String username) throws SQLException{
+        
         Connection con = Database.getCon();
         PreparedStatement query ;
         ResultSet rs;
