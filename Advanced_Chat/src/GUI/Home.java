@@ -751,24 +751,25 @@ public class Home extends javax.swing.JFrame implements Runnable{
         });
 
         nLoginField.setEditable(false);
-        nLoginField.setFont(new java.awt.Font("SansSerif", 1, 12));
+        nLoginField.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         nLoginField.setForeground(new java.awt.Color(6, 6, 6));
-        nLoginField.setEnabled(false);
 
         nFriendsField.setEditable(false);
         nFriendsField.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         nFriendsField.setForeground(new java.awt.Color(6, 6, 6));
-        nFriendsField.setEnabled(false);
 
         nMessField.setEditable(false);
-        nMessField.setFont(new java.awt.Font("SansSerif", 1, 12));
+        nMessField.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         nMessField.setForeground(new java.awt.Color(6, 6, 6));
-        nMessField.setEnabled(false);
 
         dateTimeField.setEditable(false);
-        dateTimeField.setFont(new java.awt.Font("SansSerif", 1, 12));
+        dateTimeField.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         dateTimeField.setForeground(new java.awt.Color(6, 6, 6));
-        dateTimeField.setEnabled(false);
+        dateTimeField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dateTimeFieldActionPerformed(evt);
+            }
+        });
 
         friendsLabel.setText("Amici : ");
         friendsLabel.setFocusCycleRoot(true);
@@ -1058,11 +1059,7 @@ public void run(){
    
     private void contactListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contactListMouseClicked
 
-        //visualizziamo solo la lista delle stringhe degli amici del client, se c'è una richiesta
-        //particolare allora facciamo vedere le informazioni personali dell'amico;la richiesta particolare
-        //avviene quando clicchiamo su un elemento della lista;
-        //metodo uguale al cerca amico che mi restituisce le info personali dell'utente preciso;
-        //metodo che mi setta le informazioni che voglio;
+       contactButton.setEnabled(true);
         
         
 
@@ -1228,14 +1225,20 @@ private void searchFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {
 }//GEN-LAST:event_searchFriendButtonActionPerformed
 
     private void statisticButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statisticButtonActionPerformed
+
         try {
             this.toCon.statistic(loggedUser.getIdPerson());
+           
         } 
         
         catch (IOException ex) {
         
         }
     }//GEN-LAST:event_statisticButtonActionPerformed
+
+    private void dateTimeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateTimeFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dateTimeFieldActionPerformed
     
 //    public void setImage(Object imageFile) throws IOException{
 //        
@@ -1293,6 +1296,7 @@ private void searchFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {
     }
 
      public void setStatistic(Vector vector) {
+       
      nFriendsField.setText(vector.get(0).toString());
      nLoginField.setText(vector.get(1).toString());
      nMessField.setText(vector.get(2).toString());
