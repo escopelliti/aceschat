@@ -279,6 +279,11 @@ public class Requests {
         this.out.writeObject(packet);
     }
     
+    public void statistic(int IdUser) throws IOException{
+        Packet packet;
+        packet = new Packet(15,IdUser);
+        this.out.writeObject(packet);
+    }
 }
 
 

@@ -63,6 +63,7 @@ public class ClientFetching extends Thread{
                     case 7: this.thehome.setUser((User) response.getPayload()); break;
                     case 666: JOptionPane.showMessageDialog(null, response.getPayload().toString(), "ACES", JOptionPane.ERROR_MESSAGE); break;
                     case 8: this.thehome.setInfo((User)response.getPayload());break;
+                    case 9: this.thehome.setStatistic((Vector)response.getPayload());break;
                 }
 
             
