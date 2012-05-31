@@ -57,7 +57,7 @@ public class ServerFetching extends Thread{
                   case 10: this.accepted.setPersonalImage(request.getPayload()); break;
 /*da controllare*/case 13: this.accepted.searchFriend((String)(request.getPayload()));break;
                  // case 12: ClientToServer.createTeam(request.getPayload(),out); break;
-
+                  case 15: this.accepted.statistic((Integer)request.getPayload());break;
 
             }
 

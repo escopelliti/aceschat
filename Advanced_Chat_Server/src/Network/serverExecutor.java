@@ -232,13 +232,24 @@ public class serverExecutor {
         query = con.prepareStatement("INSERT INTO `AdvancedChat`.`BlackList` (Email) VALUES (?)");
         query.setString(1, Email);
         query.execute();
-        
-        
+      
+   
+        disableMe(IdUser);
+      
         
     }
-      
+   
+    //aggiorna la tabella Activation  
+    private void disableMe(int IdUser) throws SQLException{
+        Connection con = Database.getCon();
+        PreparedStatement query;
+        
+        query=con.prepareStatement("UPDATE `AdvancedChat`.`Activation` SET `ActivationStatus` = 0 WHERE `IdUser` = ? ");
+        query.setInt(1,IdUser);
+        query.execute();  
+    }
     
-    
+        
     private Hashtable<String,Vector> logClient;
     private generalView gv;
 }

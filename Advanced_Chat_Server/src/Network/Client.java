@@ -6,6 +6,7 @@
 package Network;
 
 import Database.Database;
+import General.Operations.Statistics;
 import General.Packet;
 import General.generalView;
 import User.User;
@@ -233,51 +234,6 @@ public class Client{
             this.out.flush();     
             
     }
-    
-//mi faccio restituire solo la lista degli user amici 
-    public void getFriendList(Object payload) throws SQLException, IOException{
-
-        Integer id;
-        Vector list;
-        int i = 0;
-        Connection con;
-        PreparedStatement query;
-        ResultSet rs;
-        Packet packet;
-
-        try{
-            id = (Integer) payload;
-            list = new Vector();
-            con = Database.getCon();
-            
-//la query mi restituisce gli username degli amici di un dato id 
-            query = con.prepareStatement("SELECT Username FROM User,Friend,Status WHERE Friend.IdUser = ? AND User.IdUser = Friend.IdFriend AND Friend.IdFriend = Status.IdUser AND Status.IdStatus > 0 ORDER BY Username ASC");
-            query.setInt(1, id);
-            rs = query.executeQuery();
-
-            while(rs.next()){
-
-                list.add(i,rs.getString("Username"));
-                i++;
-            }
-
-            
-            packet = new Packet(6,list);
-            this.out.writeObject(packet);
-            }
-
-        catch(IOException ex){
-
-            packet = new Packet(666, "\nCi sono dei problemi tecnici. Riprova tra qualche minuto.\n");
-            this.out.writeObject(packet);
-           }
-        catch(SQLException ex){
-
-            packet = new Packet(666,"\nCi sono dei problemi tecnici. Riprova tra qualche minuto.\n");
-            this.out.writeObject(packet);
-        }
-    }
-    
     
          public void updateStatus(Object payload) throws SQLException, InterruptedException{
 
@@ -730,7 +686,70 @@ public class Client{
         
     }
     
+    //mi faccio restituire solo la lista degli user amici 
+    public void getFriendList(Object payload) throws SQLException, IOException{
+
+        Integer id;
+        Vector list;
+        int i = 0;
+        Connection con;
+        PreparedStatement query;
+        ResultSet rs;
+        Packet packet;
+
+        try{
+            id = (Integer) payload;
+            list = new Vector();
+            con = Database.getCon();
+            
+//la query mi restituisce gli username degli amici di un dato id 
+            query = con.prepareStatement("SELECT Username FROM User,Friend,Status WHERE Friend.IdUser = ? AND User.IdUser = Friend.IdFriend AND Friend.IdFriend = Status.IdUser AND Status.IdStatus > 0 ORDER BY Username ASC");
+            query.setInt(1, id);
+            rs = query.executeQuery();
+
+            while(rs.next()){
+
+                list.add(i,rs.getString("Username"));
+                i++;
+            }
+
+            
+            packet = new Packet(6,list);
+            this.out.writeObject(packet);
+            }
+
+        catch(IOException ex){
+
+            packet = new Packet(666, "\nCi sono dei problemi tecnici. Riprova tra qualche minuto.\n");
+            this.out.writeObject(packet);
+           }
+        catch(SQLException ex){
+
+            packet = new Packet(666,"\nCi sono dei problemi tecnici. Riprova tra qualche minuto.\n");
+            this.out.writeObject(packet);
+        }
+    }
     
+    public void statistic(int idUser) throws SQLException, IOException{
+        Statistics stat = new Statistics();
+        Vector statistics;
+        int i=0;
+        Packet packet;  
+    
+        statistics= new Vector();
+        //elemento 0 = numero di amici
+        statistics.add(0,stat.countFriends(idUser));
+        //elemento 1 = numero di login
+        statistics.add(1,stat.countLogin(idUser));
+        //elemento 2 = numero di messaggi
+        statistics.add(2,stat.countMessage(idUser));
+        //elemento 3 = giorni dalla registrazione
+        statistics.add(3,stat.timeInAces(idUser));
+         
+        packet = new Packet(9,statistics);
+        this.out.writeObject(packet);         
+        
+    }
 
     private ObjectInputStream in;
     private ObjectOutputStream out;
