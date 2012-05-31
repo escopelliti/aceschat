@@ -22,10 +22,10 @@ import org.jdom.output.XMLOutputter;
  *
  * @author enrico
  */
-public class createXml {
+public class XML {
 
         /*metodo che crea il file XML con il filepath all'apertura della conversazione con solo root*/
-        public static void genXml(String filepath) throws FileNotFoundException, IOException{
+        public void genXml(String filepath) throws FileNotFoundException, IOException{
 
             if(!fileOperation.exist(filepath)){
                 FileOutputStream file = new FileOutputStream(filepath);
@@ -36,7 +36,7 @@ public class createXml {
             outputter.setFormat(Format.getPrettyFormat());
             outputter.output(document,file);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(createXml.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(XML.class.getName()).log(Level.SEVERE, null, ex);
         }
             }
         }
@@ -45,7 +45,7 @@ public class createXml {
 
 
     //metodo per scrivere il file di configurazione per connettersi al server
-    public static void writeXml(String filepath,String ip,String porta) throws IOException{
+    public void writeXml(String filepath,String ip,String porta) throws IOException{
 
         
         Element root = new Element("server");
@@ -63,7 +63,7 @@ public class createXml {
             outputter.setFormat(Format.getPrettyFormat());          
             outputter.output(document, new FileOutputStream(filepath));
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(createXml.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(XML.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
@@ -73,7 +73,7 @@ public class createXml {
 
 
     //metodo per creare il file con le credenziali; è creato al momento della registrazione in qualsiasi caso;
-    public static void writeXml(String filepath,String username,String password,String remember) throws IOException{
+    public void writeXml(String filepath,String username,String password,String remember) throws IOException{
 
         Element root = new Element("credenziali");
         Document document = new Document(root);
@@ -93,14 +93,14 @@ public class createXml {
             outputter.setFormat(Format.getPrettyFormat());
             outputter.output(document, new FileOutputStream(filepath));
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(createXml.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(XML.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
 
     //permette di modificare il file XML in particolare quello che riguarda le conversazioni;aggiungie via via i messaggi dai vari client
-    public static Document modifyXml(String username,String text,Document doc){
+    public Document modifyXml(String username,String text,Document doc){
         
                 if(doc != null) {
                     Element root = doc.getRootElement();
@@ -114,7 +114,7 @@ public class createXml {
     }
 
     //vera e propria creazione/modifica del file;
-    public static void write(Document doc,String filepath) throws IOException{
+    public void write(Document doc,String filepath) throws IOException{
 
             XMLOutputter outputter = new XMLOutputter();
             BufferedWriter out = null;
@@ -126,7 +126,7 @@ public class createXml {
     }
 
 
-    public static Document getDocument(String filepath){
+    public Document getDocument(String filepath){
 
             File file = new File(filepath);
             SAXBuilder saxbuilder = new SAXBuilder();
@@ -141,7 +141,7 @@ public class createXml {
     }
 
 
-    public static ArrayList readXml(String filepath){
+    public ArrayList readXml(String filepath){
 
         ArrayList list = new ArrayList();
         Document doc = getDocument(filepath);

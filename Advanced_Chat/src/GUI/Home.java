@@ -15,7 +15,7 @@ import Networking.ChatSession;
 import Networking.ClientFetching;
 import Networking.Requests;
 import User.User;
-import XML.createXml;
+import XML.XML;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -1091,7 +1091,7 @@ public void run(){
         userlist.add(username);       
         try{
             
-            createXml.genXml("ACES/History/".concat(username.concat(".xml")));
+            new XML().genXml("ACES/History/".concat(username.concat(".xml")));
         
         }
         
@@ -1110,23 +1110,21 @@ public void run(){
         try {
             
             toCon.logout(loggedUser.getIdPerson());
-            
-        } catch (IOException ex) {
+            this.dispose();
+            new InputForm().setVisible(true);
+        } catch (Exception ex) {
             
             JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
-        }
-        
-        this.dispose();
-        new InputForm().setVisible(true);
+        } 
     }//GEN-LAST:event_disconnectMenuItemActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
 
         if(!userHistoryField.getText().equals("")){
-
+            XML xml = new XML();
             int index = 0;
             if(fileOperation.exist("ACES/History/"+userHistoryField.getText()+".xml")){
-                ArrayList conversation = createXml.readXml("ACES/History/" + userHistoryField.getText()+".xml");
+                ArrayList conversation = xml.readXml("ACES/History/" + userHistoryField.getText()+".xml");
 
                 while( index < conversation.size()){
 

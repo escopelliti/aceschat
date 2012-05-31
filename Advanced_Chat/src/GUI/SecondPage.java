@@ -15,7 +15,7 @@ import fileManager.fileOperation;
 import General.MD5;
 import Networking.Requests;
 import User.User;
-import XML.createXml;
+import XML.XML;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
@@ -374,16 +374,16 @@ public class SecondPage extends javax.swing.JFrame {
 
         if(application.getOS().equals("Windows")/* || application.getOS().equals("WINDOWS")*/){
             try {
-                createXml.writeXml("ACES\\credentials.xml", usernameField.getText(), pswField.getPassword().toString(),getRememberMe());
-                createXml.writeXml("ACES\\config.xml", ipField.getText(), portField.getText());
+                new XML().writeXml("ACES\\credentials.xml", usernameField.getText(), pswField.getPassword().toString(),getRememberMe());
+                new XML().writeXml("ACES\\config.xml", ipField.getText(), portField.getText());
              } catch (IOException ex) {
                 Logger.getLogger(SecondPage.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         else{
             try {
-                createXml.writeXml("ACES/config.xml", ipField.getText(), portField.getText());
-                createXml.writeXml("ACES/credentials.xml", usernameField.getText(), pswField.getText(),getRememberMe());
+                new XML().writeXml("ACES/config.xml", ipField.getText(), portField.getText());
+                new XML().writeXml("ACES/credentials.xml", usernameField.getText(), pswField.getText(),getRememberMe());
             } catch (IOException ex) {
                 Logger.getLogger(SecondPage.class.getName()).log(Level.SEVERE, null, ex);
                 }

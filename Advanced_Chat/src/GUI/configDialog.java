@@ -12,7 +12,7 @@
 package GUI;
 
 import fileManager.fileOperation;
-import XML.createXml;
+import XML.XML;
 
 /**
  *
@@ -136,13 +136,17 @@ public class configDialog extends javax.swing.JDialog {
 
         if(!ipField.getText().equals("") && !portField.getText().equals("")){
             
+            fileOperation fo = new fileOperation();
             InputForm.setConfiguration(ipField.getText(),portField.getText());
 
             try{
-                if(new fileOperation().getOS().equals("Windows"))
-                    createXml.writeXml("ACES\\config.xml", ipField.getText(), portField.getText());
-                else createXml.writeXml("ACES/config.xml",ipField.getText(), portField.getText());
-                }
+                if(fo.getOS().equals("Windows"))
+                          
+                    new XML().writeXml("ACES\\config.xml", ipField.getText(), portField.getText());
+                else{
+                    fo.createDirectory("ACES");
+                    new XML().writeXml("ACES/config.xml",ipField.getText(), portField.getText());
+                }}
 
             catch(Exception ex){
 

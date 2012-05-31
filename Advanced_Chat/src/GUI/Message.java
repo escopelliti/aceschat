@@ -3,7 +3,8 @@ package GUI;
 import General.DateTime;
 import Networking.Requests;
 import User.User;
-import XML.createXml;
+import XML.XML;
+import fileManager.fileOperation;
 import java.io.*;
 import java.util.Vector;
 import javax.swing.JOptionPane;
@@ -244,12 +245,17 @@ public class Message extends javax.swing.JFrame {
         
          String toWrite;
          int count = 0;
+         Document doc;
+         XML xml = new XML();
          
-         while(count < this.toContact.size()){
-             
+         while(count < this.toContact.size() && toContact.get(count) != client){
+             System.out.println(count < this.toContact.size());
+             System.out.println(toContact.get(count) != client);
             toWrite = (String) toContact.get(count);
-            Document doc = createXml.modifyXml(client,text,createXml.getDocument("ACES/History/"+toWrite.concat(".xml")));
-            createXml.write(doc,"ACES/History/"+toWrite.concat(".xml"));
+            if(!fileOperation.exist("ACES/History/"+toWrite.concat(".xml")))
+                xml.genXml("ACES/History/".concat(toWrite.concat(".xml")));
+            doc = xml.modifyXml(client,text,xml.getDocument("ACES/History/"+toWrite.concat(".xml")));
+            xml.write(doc,"ACES/History/"+toWrite.concat(".xml"));
             
             count++;
          }
@@ -258,8 +264,12 @@ public class Message extends javax.swing.JFrame {
     
         public void writingFile(String client,String text,String nameFile) throws IOException{
         
-            Document doc = createXml.modifyXml(client,text,createXml.getDocument("ACES/History/"+nameFile.concat(".xml")));
-            createXml.write(doc,"ACES/History/"+nameFile.concat(".xml"));
+            XML xml = new XML();
+            Document doc;
+            if(!fileOperation.exist("ACES/History/"+ nameFile.concat(".xml")))
+                xml.genXml("ACES/History/".concat(nameFile.concat(".xml")));
+            doc =  xml.modifyXml(client,text,xml.getDocument("ACES/History/"+nameFile.concat(".xml")));
+            xml.write(doc,"ACES/History/"+nameFile.concat(".xml"));
                 
         }
 
