@@ -26,7 +26,11 @@ public class Statistics {
         count.setString(1,DateTime.getDateTime());
         count.setInt(2,idUser );
         rs=count.executeQuery();
-        return dateDif= rs.getInt("date_dif");
+        rs.next();
+        
+        dateDif= rs.getInt("date_dif")+1;
+        
+        return dateDif;
     
         }
 
@@ -95,12 +99,15 @@ public class Statistics {
            Packet packet;
            int nFriends;
            
+           System.out.println("Priam query");
                 PreparedStatement count = con.prepareStatement("SELECT COUNT(*) AS nFriends FROM Friend WHERE IdUser = ?");
                 count.setInt(1,IdUser);
                 rs=count.executeQuery();
                 rs.next();
-         
-                return nFriends=rs.getInt("nFriends");
+                
+                nFriends=rs.getInt("nFriends");
+                System.out.println(nFriends);
+                return nFriends;
                    
        }
       

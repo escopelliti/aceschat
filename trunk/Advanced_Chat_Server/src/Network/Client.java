@@ -736,16 +736,22 @@ public class Client{
         int i=0;
         Packet packet;  
     
+      
         statistics= new Vector();
+        
         //elemento 0 = numero di amici
         statistics.add(0,stat.countFriends(idUser));
+        
         //elemento 1 = numero di login
         statistics.add(1,stat.countLogin(idUser));
+        
         //elemento 2 = numero di messaggi
         statistics.add(2,stat.countMessage(idUser));
+        
         //elemento 3 = giorni dalla registrazione
         statistics.add(3,stat.timeInAces(idUser));
-         
+        
+        
         packet = new Packet(9,statistics);
         this.out.writeObject(packet);         
         
