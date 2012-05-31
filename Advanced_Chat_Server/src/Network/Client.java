@@ -235,7 +235,7 @@ public class Client{
             
     }
     
-         public void updateStatus(Object payload) throws SQLException, InterruptedException{
+         public void updateStatus(Object payload) throws SQLException, InterruptedException, IOException{
 
             Vector info = (Vector)payload;
             Connection con = Database.getCon();
@@ -250,7 +250,7 @@ public class Client{
             switch((Integer) info.get(1)){
                 
                 case 0: gv.enqueueEvent("L'utente "+myUsername+" ha effettuato il logout."); 
-                        gv.removeLoggedUsers(myUsername); break;
+                        gv.removeLoggedUsers(myUsername); this.clientSocket.close(); break;
                 
             }
 
