@@ -26,6 +26,7 @@ public class serverExecutor {
         
         this.logClient = new Hashtable<String, Vector>();
         this.gv = gv;
+        this.gv.setExecutor(this);
     }
     
     
@@ -76,7 +77,7 @@ public class serverExecutor {
     //nuovi metodi implementati
     //metodo per ricavare l'id user partendo dall'username sarebbe meglio spostarlo da qualche altra parte dato che fa solo una query
     
-    private int selectId(String username) throws SQLException{
+    public int selectId(String username) throws SQLException{
         
         Connection con = Database.getCon();
         PreparedStatement query ;
@@ -109,9 +110,9 @@ public class serverExecutor {
         rs.next();
         idMess=rs.getInt(1);
                 
-        for(i=0;i<=participants.size();i++){
+        for(i = 0; i <= participants.size(); i++){
            
-            idDest=(Integer) participants.get(i);
+            idDest= (Integer) participants.get(i);
             
             if(idDest!= idSender){
             query=con.prepareStatement("INSERT INTO `AdvancedChat`.`Conversation` () VALUES (?,?,?)");
@@ -217,7 +218,7 @@ public class serverExecutor {
         
     }
     
-    private void addToBlackList(int IdUser) throws SQLException{
+    public void addToBlackList(int IdUser) throws SQLException{
         
         Connection con = Database.getCon();
         PreparedStatement query;
