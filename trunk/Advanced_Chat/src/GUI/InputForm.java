@@ -20,7 +20,9 @@ import fileManager.fileOperation;
 import Networking.Mail;
 import Networking.Requests;
 import User.User;
-import XML.createXml;
+import XML.XML;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -35,14 +37,13 @@ import javax.swing.JOptionPane;
 public class InputForm extends javax.swing.JFrame {
 
     /** inizializza i componenti swing che fanno parte del Frame/form */
-    public InputForm() {
+    public InputForm() throws FileNotFoundException, IOException {
 
         initComponents();
         init();
     }
 
-    /*Ricordarsi calculateyears();
-     */
+   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -78,7 +79,6 @@ public class InputForm extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(254, 254, 254));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(238, 162, 30));
@@ -122,13 +122,13 @@ public class InputForm extends javax.swing.JFrame {
 
         sexComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "F", "M" }));
 
-        nameField.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        nameField.setFont(new java.awt.Font("SansSerif", 1, 15));
         nameField.setForeground(new java.awt.Color(0, 0, 0));
 
-        surnameField.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        surnameField.setFont(new java.awt.Font("SansSerif", 1, 15));
         surnameField.setForeground(new java.awt.Color(0, 0, 0));
 
-        yearComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        yearComboBox.setModel(new javax.swing.DefaultComboBoxModel(calculateYears()));
 
         jLabel13.setFont(new java.awt.Font("SansSerif", 1, 15));
         jLabel13.setForeground(new java.awt.Color(6, 6, 6));
@@ -152,7 +152,7 @@ public class InputForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(monthComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(yearComboBox, 0, 84, Short.MAX_VALUE))
+                        .addComponent(yearComboBox, 0, 86, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
@@ -219,17 +219,10 @@ public class InputForm extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(15, 64, 133));
 
-        usernameField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usernameFieldActionPerformed(evt);
-            }
-        });
-
         jLabel9.setFont(new java.awt.Font("SansSerif", 1, 15));
         jLabel9.setForeground(new java.awt.Color(254, 254, 254));
         jLabel9.setText("Username:");
 
-        jLabel10.setBackground(new java.awt.Color(254, 254, 254));
         jLabel10.setFont(new java.awt.Font("SansSerif", 1, 15));
         jLabel10.setForeground(new java.awt.Color(254, 254, 254));
         jLabel10.setText("Password:");
@@ -291,7 +284,6 @@ public class InputForm extends javax.swing.JFrame {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/logo1.png"))); // NOI18N
 
-        jLabel8.setBackground(new java.awt.Color(254, 254, 254));
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/chat.jpg"))); // NOI18N
         jLabel8.setPreferredSize(new java.awt.Dimension(460, 280));
 
@@ -351,18 +343,17 @@ public class InputForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void usernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_usernameFieldActionPerformed
-
     //metodo per creare una lista di item da passare alla checkbox che permette la scelta dell'anno di nascita;
     private String[] calculateYears(){
-
+        
         String[] item = new String[100];
         String a = null;
-        Calendar year = new GregorianCalendar();
+        int year;
+        
+        Calendar calendar = new GregorianCalendar();
+        year = calendar.get(Calendar.YEAR);
         for(int index = 0; index < 100 ; index++){
-            item[index] = a.valueOf(year.get(Calendar.YEAR) - index);
+            item[index] = a.valueOf((year - index));
             }
         
         return item;
@@ -393,14 +384,37 @@ public class InputForm extends javax.swing.JFrame {
     }
 
 
-    private void init(){
+    private void init() throws FileNotFoundException, IOException{
 
+       
         ArrayList credentials;
-        if(new fileOperation().getOS().equals("Windows"))
-            credentials = createXml.readXml("ACES\\credentials.xml");
-        else credentials = createXml.readXml("ACES/credentials.xml");
+        XML xml = new XML();
+        fileOperation fo = new fileOperation();
+        if(fo.getOS().equals("Windows")){
+            
+            if(fileOperation.exist("ACES\\credentials.xml")){
+            
+                credentials = xml.readXml("ACES\\credentials.xml");
+                setCredentials(credentials);
+            }
+        }
+            
+        else{ 
+                if(fileOperation.exist("ACES/credentials.xml")){
+            
+                    credentials = xml.readXml("ACES/credentials.xml");
+                    setCredentials(credentials);
+        }
+        }
+    }
+
+    
+
+
+    private void setCredentials(ArrayList credentials){
+
         
-        if(credentials.get(5).toString().equals("si")){
+           if(credentials.get(5).toString().equals("si")){
 
                 setRememberme("si");
                 usernameField.setText(credentials.get(1).toString());
@@ -408,15 +422,8 @@ public class InputForm extends javax.swing.JFrame {
                 credentialsCheckBox.setSelected(true);
             
         }
-
-
-
-
-        
-
     }
-
-
+    
     //entriamo nella seconda pagina di registrazione;i dati vanno controllati per eventuale bloccare gia qui se ci sono err-
     //-rori di qualche genere;vanno implementati metodi per il network e controlli su campi vuoi e/o sulla correttezza di que-
     //-sti ultimi;
@@ -444,12 +451,13 @@ public class InputForm extends javax.swing.JFrame {
 
     private void loadConfig(){
 
-
-        if(new fileOperation().getOS().equals("Windows")){
+        XML xml = new XML();
+        fileOperation fo = new fileOperation();
+        if(fo.getOS().equals("Windows")){
 
             if(fileOperation.exist("ACES\\config.xml"))
 
-                configuration = createXml.readXml("ACES\\config.xml");
+                configuration = xml.readXml("ACES\\config.xml");
                 
             
             else{
@@ -463,7 +471,7 @@ public class InputForm extends javax.swing.JFrame {
 
             if(fileOperation.exist("ACES/config.xml"))
                 
-                configuration = createXml.readXml("ACES/config.xml");
+                configuration = xml.readXml("ACES/config.xml");
             
             else{
                 
@@ -479,44 +487,47 @@ public class InputForm extends javax.swing.JFrame {
     //azioni da intraprendere quando entri nell'applicazione;ovviamente va IMPLEMENTATO un metodo  con network per loggarsi;
     private void enterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterButtonActionPerformed
 
+        XML xml = new XML();
+        fileOperation fo = new fileOperation();
         try {
            
             loadConfig(); //carica la configurazione per connettersi dal file XML e se esso non esiste richiede i parametri
                             //che servono per la connessione e crea il file XML; al prossimo avvio non lo richiederà più            
             request = new Requests(configuration.get(1).toString(), configuration.get(3).toString());      
-
-        } catch(Exception ex){
-
-            JOptionPane.showMessageDialog(null, ex.toString(), "ACES", JOptionPane.ERROR_MESSAGE);
-
-        }
-
-
-        if(!usernameField.getText().equals("") && !pswField.getText().equals("")){
-                try{
+            if(!usernameField.getText().equals("") && !pswField.getText().equals("")){
+               
                     if(request.logMe(usernameField.getText(),pswField.getText())){
-
                     
-                        this.setVisible(false);
-            
+                        this.setVisible(false);          
                         if((getFlag() % 2) != 0){
-                    
-                    
-                            if(new fileOperation().getOS().equals("Windows"))
 
-                                createXml.writeXml("ACES\\credentials.xml", usernameField.getText(), pswField.getText(), getRememberme());
+                            if(fo.getOS().equals("Windows") && fileOperation.exist("ACES\\credentials.xml"))
 
-                            else createXml.writeXml("ACES/credentials.xml", usernameField.getText(), pswField.getText(), getRememberme());
+                                xml.writeXml("ACES\\credentials.xml", usernameField.getText(), pswField.getText(), getRememberme());
+                            else{
+                                
+                                fo.createDirectory("ACES\\credentials.xml");
+                                xml.writeXml("ACES\\credentials.xml", usernameField.getText(), pswField.getText(), getRememberme());
+                            }
+                                
+                            if(!(fo.getOS().equals("Windows")) && fileOperation.exist("ACES/credentials.xml")) 
+                                xml.writeXml("ACES/credentials.xml", usernameField.getText(), pswField.getText(), getRememberme());
+                            else{
+                                
+                                fo.createDirectory("ACES/credentials.xml");
+                                xml.writeXml("ACES/credentials.xml", usernameField.getText(), pswField.getText(), getRememberme());
+                            }
                         }
                     }
                     }
+        }
                     catch (Exception ex){
                         
                         JOptionPane.showMessageDialog(null, ex.toString(), "ACES", JOptionPane.ERROR_MESSAGE);
 
     }//GEN-LAST:event_enterButtonActionPerformed
     }
-    }
+    
 
 
 
@@ -539,8 +550,13 @@ public class InputForm extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InputForm().setVisible(true);
-
+                try{
+                    new InputForm().setVisible(true);
+                }
+                catch(Exception ex)
+                {
+                    System.out.println(ex.getMessage());
+                }
             }
         });
     }
