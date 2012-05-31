@@ -34,8 +34,8 @@
                               <Component id="jTextField2" min="-2" pref="76" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jTextField3" max="32767" attributes="1"/>
-                                  <Component id="jPasswordField1" alignment="0" pref="147" max="32767" attributes="1"/>
+                                  <Component id="userAdmin" max="32767" attributes="1"/>
+                                  <Component id="pswAdmin" alignment="0" pref="147" max="32767" attributes="1"/>
                               </Group>
                           </Group>
                       </Group>
@@ -71,10 +71,10 @@
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="userAdmin" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                      <Component id="jPasswordField1" min="-2" max="-2" attributes="0"/>
+                      <Component id="pswAdmin" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="240" max="32767" attributes="0"/>
                       <Component id="serverState" min="-2" pref="29" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -126,9 +126,9 @@
         <Property name="text" type="java.lang.String" value="Login:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JPasswordField" name="jPasswordField1">
+    <Component class="javax.swing.JPasswordField" name="pswAdmin">
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField3">
+    <Component class="javax.swing.JTextField" name="userAdmin">
     </Component>
     <Component class="javax.swing.JTextField" name="serverStateField">
       <Properties>
