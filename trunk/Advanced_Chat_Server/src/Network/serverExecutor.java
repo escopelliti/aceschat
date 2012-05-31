@@ -6,6 +6,7 @@ package Network;
 
 import Database.Database;
 import General.generalView;
+import java.io.File;
 import java.sql.Connection;
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -40,6 +41,10 @@ public class serverExecutor {
         received = (Vector) mess;
         participants = (Vector) received.get(2);
         message = received.get(1);
+        int idSender=0;
+        
+        idSender=selectId(received.get(0).toString());
+        
         
         while(count < participants.size()){
             
@@ -50,13 +55,13 @@ public class serverExecutor {
                 //controlla se tipo di file che è del vector recived campo 1 è una stringa
                 if(message.getClass().getName().equals("java.lang.String")){
                     //trattalo come stringa per aggiungere al db
-                    addMessToDb(received.get(0).toString(),received.get(1).toString(),participants);
+                    addMessToDb(idSender,received.get(1).toString(),participants,0);
                     
                     
                 }
                 else{
                     //E' un file da aggiungere al db
-                    addFileToDb(received.get(0).toString(),participants);
+                    addFileToDb(idSender,(File)received.get(1),participants);
                 
                 
                 }
@@ -67,24 +72,37 @@ public class serverExecutor {
             count++;
         }
     }
+    
     //nuovi metodi implementati
-    private void addMessToDb(String sender, String text, Vector participants) throws SQLException{
+    //metodo per ricavare l'id user partendo dall'username sarebbe meglio spostarlo da qualche altra parte dato che fa solo una query
+    
+    private int selectId(String username) throws SQLException{
+        Connection con = Database.getCon();
+        PreparedStatement query ;
+        ResultSet rs;
+        int id = 0;
+        
+        query=con.prepareStatement("SELECT IdUser FROM User WHERE username = ?");
+        query.setString(1,username);
+        rs=query.executeQuery();
+        rs.next();
+        id=rs.getInt("IdUser");
+        return id;
+    }
+    
+    
+    private void addMessToDb(int idSender, String text, Vector participants, int idFile) throws SQLException{
         Connection con = Database.getCon();
         PreparedStatement query;
         ResultSet rs;        
-        int idSender,idMess,i;
+        int idMess,i;
         Integer idDest;
         
         
-        query=con.prepareStatement("SELECT IdUser FROM User WHERE username = ?");
-        query.setString(1,sender);
-        rs=query.executeQuery();
-        rs.next();
-        idSender=rs.getInt("IdUser");
-        
-        query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Chat` (IdSorg,Text) VALUES (?,?)",1);
+        query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Chat` (IdSorg,Text,IdFile) VALUES (?,?,?)",1);
         query.setInt(1,idSender);
         query.setString(2,text);
+        query.setInt(3,idFile);
         query.execute();
         rs=query.getGeneratedKeys();
         rs.next();
@@ -100,31 +118,31 @@ public class serverExecutor {
             query.setInt(2, idDest);
             query.setInt(3, idMess);
             query.execute();
+            
             }
         }
     }
     
-    private void addFileToDb(String sender, Vector participants) throws SQLException{
+    
+    
+    private void addFileToDb(int idSender,File fileExchange, Vector participants) throws SQLException{
         
         Connection con = Database.getCon();
         PreparedStatement query;
         ResultSet rs;        
-        int idSender;
-        
-        //li dobbiamo mettere nel DB????????????????
-        String path = "Path Of File ";       //da costruire 
-        String description = "Size Of File :  ";//da definire
-        
-        query=con.prepareStatement("SELECT IdUser FROM User WHERE username = ?");
-        query.setString(1,sender);
-        rs=query.executeQuery();
+        int idFile;
+        String fileMess="File Exchange";
+                
+        String description = fileExchange.getName() ;
+            
+        query=con.prepareStatement("INSERT INTO `AdvancedChat`.`File`(`Description`) VALUE (?)");
+        query.setString(1,"NAME : "+ description);
+        query.execute();
+        rs=query.getGeneratedKeys();
         rs.next();
-        idSender=rs.getInt("IdUser");
+        idFile=rs.getInt(1);
         
-        query=con.prepareStatement("INSERT INTO `AdvancedChat`.`File`(`Path`,`Description`) VALUE (?,?)");
-        query.setString(1,path);
-        query.setString(2,description);
-        rs=query.executeQuery();
+        addMessToDb(idSender,fileMess, participants, idFile);
         
     }
     
