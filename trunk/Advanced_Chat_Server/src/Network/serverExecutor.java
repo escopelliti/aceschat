@@ -47,29 +47,29 @@ public class serverExecutor {
         idSender = selectId(received.get(0).toString());
     
         while(count < participants.size()){
-            
+           
+            //confronta se il primo elemento di participants è il mittente
             if(!received.get(0).toString().equals(participants.get(count))){
                 receiver = logClient.get(participants.get(count));        
                 receiver.add(received);
-                
-                //controlla se tipo di file che è del vector recived campo 1 è una stringa
-      
-                gv.enqueueEvent("L'utente "+received.get(0).toString()+" ha inviato un messaggio/file a "+participants.get(count).toString());
+              
+                gv.enqueueEvent("L'utente "+received.get(0).toString()+" ha inviato un messaggio/file a "+ participants.get(count).toString());
             }
             count++;
         }
-        
-        
-        if(message.getClass().getName().equals("java.lang.String")){
+    
+    
+      //controlla se tipo di file che è del vector recived campo 1 è una stringa
+                if(message.getClass().getName().equals("java.lang.String")){                   
                     //trattalo come stringa per aggiungere al db
-           addMessToDb(idSender,received.get(1).toString(),participants,0);
-                                     
-        }
-        else{
+                    addMessToDb(idSender,received.get(1).toString(),participants,0);
+                                       
+                }
+                else{
                     //E' un file da aggiungere al db
-           addFileToDb(idSender,(File)received.get(1),participants);
-      
-            }
+                    addFileToDb(idSender,(File)received.get(1),participants);
+                
+                }      
     }
     
     //nuovi metodi implementati
@@ -112,7 +112,7 @@ public class serverExecutor {
         for(i = 0; i < participants.size(); i++){
            
             idDest = selectId(participants.get(i).toString());
-            
+           
             if(idDest != idSender){
                 query=con.prepareStatement("INSERT INTO `AdvancedChat`.`Conversation` () VALUES (?,?,?)");
                 query.setInt(1, idSender);
