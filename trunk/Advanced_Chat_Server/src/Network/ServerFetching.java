@@ -79,7 +79,7 @@ public class ServerFetching extends Thread{
             catch (Exception ex) 
             {
 
-                System.out.println("Error: "+ex);
+                
             }
 
      }
