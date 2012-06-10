@@ -596,9 +596,9 @@ public class Client{
                         }
                         else{
                         
-                            response = "Non sei più parte della comunity.";//dobbiamo rendere disponibile l'username per
+                            response = "Non sei più parte della comunity.";
                             this.out.writeObject(response);
-                                                                                 //altre persone!!!!!!!!!!
+                                                                                
                         }
 
                 }

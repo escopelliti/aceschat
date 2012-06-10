@@ -27,19 +27,6 @@ import javax.mail.internet.MimeMessage;
  */
 public class Mail extends Thread{
 
-    final String link = "http://www.projectnotesmore.blogspot.com/";
-    final String admin = "teamprojectinfo@gmail.com";
-    private String sender;//username
-    private String receiver;//indirizzo
-    private String mex;
-    private String subject;
-    final String std_subj = "vuole invitarti ad usare Advanced Chat Easy Service.";
-    final String smtp = "stmp.tiscali.it";
-    final String std_mex = "vuole invitarti ad usare Advanced Chat Easy Service.\nACES ti permette di restare sempre "
-            + "in contatto con i tuoi amici e conoscenti in modo semplice e divertente.\nComincia ad usare ACES,"
-            + "scaricalo a questo link: "+link;
-
-
     public Mail(String sender,String receiver,String subject,String mex){
 
         this.sender = sender;
@@ -60,14 +47,6 @@ public class Mail extends Thread{
         return mex;
     }
 
-    public String getSmtp() {
-        return smtp;
-    }
-
-    public String getSender() {
-        return sender;
-    }
-
     public String getReceiver() {
         return receiver;
     }
@@ -76,16 +55,13 @@ public class Mail extends Thread{
         return subject;
     }
 
-
-  
     @Override
     public void run(){
         try {
             sendMail();
         } catch (Exception ex) {
-            System.out.println("Error: "+ex);;
-        
-
+            
+            
     }
     }
 
@@ -130,30 +106,24 @@ public class Mail extends Thread{
     }
 
 
-
     public static boolean checkMail(String email){
 
-        Pattern x = Pattern.compile("^\\S+@\\S+$");
-        Matcher matcher = x.matcher(email);
-
-        if(matcher.find()){
-            //qui ci va il metodo del network che se va a buon fine(cioè la mail è unica e non è nella black list)
-            //allora ritorniamo vero cioè possiamo completare la registrazione
-            return true;
-        }
-
-        return false;
-
-
+       return email.matches("^[_.0-9a-z-]+@([0-9a-z][0-9a-z-]+.)+[a-z]{2,3}$");
 
     }
 
 
-
-
-
-
-
+    final String link = "http://www.projectnotesmore.blogspot.com/";
+    final String admin = "teamprojectinfo@gmail.com";
+    private String sender;//username
+    private String receiver;//indirizzo
+    private String mex;
+    private String subject;
+    final String std_subj = "vuole invitarti ad usare Advanced Chat Easy Service.";
+    final String smtp = "stmp.tiscali.it";
+    final String std_mex = "vuole invitarti ad usare Advanced Chat Easy Service.\nACES ti permette di restare sempre "
+            + "in contatto con i tuoi amici e conoscenti in modo semplice e divertente.\nComincia ad usare ACES,"
+            + "scaricalo a questo link: "+link;
 
 
 }
