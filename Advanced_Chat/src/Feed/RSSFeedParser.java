@@ -1,12 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author enrico
- */
 package Feed;
 
 import java.io.IOException;
@@ -22,15 +14,17 @@ import javax.xml.stream.events.XMLEvent;
 public class RSSFeedParser {
 
 	static final String TITLE = "title";
-//	static final String LINK = "link";
 	static final String ITEM = "item";
         final URL url;
 
 
 	public RSSFeedParser(String feedUrl) {
+            
 		try {
 			this.url = new URL(feedUrl);
+                        
 		} catch (MalformedURLException e) {
+                    
 			throw new RuntimeException(e);
 		}
 	}
@@ -42,10 +36,6 @@ public class RSSFeedParser {
 
 			boolean isFeedHeader = true;
 			String title = "";
-//			String link = "";
-
-
-
 			// First create a new XMLInputFactory
 			XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 			// Setup a new eventReader
@@ -58,32 +48,27 @@ public class RSSFeedParser {
 
 				if (event.isStartElement()) {
 					if (event.asStartElement().getName().getLocalPart() == (ITEM)) {
+                                            
 						if (isFeedHeader) {
 							isFeedHeader = false;
-							feed = new Feed(title/*,link*/);
+							feed = new Feed(title);
 						}
 						event = eventReader.nextEvent();
 						continue;
 					}
 
 					if (event.asStartElement().getName().getLocalPart() == (TITLE)) {
+                                            
 						event = eventReader.nextEvent();
 						title = event.asCharacters().getData();
 						continue;
 					}
-
-
-//					if (event.asStartElement().getName().getLocalPart() == (LINK)) {
-//						event = eventReader.nextEvent();
-//						link = event.asCharacters().getData();
-//						continue;
-//					}
-					
-
+                                        
 				} else if (event.isEndElement()) {
+                                    
 					if (event.asEndElement().getName().getLocalPart() == (ITEM)) {
+                                            
 						FeedMessage message = new FeedMessage();
-//						message.setLink(link);
 						message.setTitle(title);
 						feed.getMessages().add(message);
 						event = eventReader.nextEvent();

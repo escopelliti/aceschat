@@ -105,7 +105,7 @@ public class XML {
                 if(doc != null) {
                     Element root = doc.getRootElement();
                     Element s = new Element(username);
-                    s = s.setAttribute("DataOra",DateTime.concatDateTime());
+                    s = s.setAttribute("DataOra",DateTime.getDateTime());
                     s.addContent(text);
                     root.addContent(s);
         }

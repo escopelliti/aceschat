@@ -218,9 +218,9 @@ public class Message extends javax.swing.JFrame {
         
         if(ClientText.getText() != ""){
         //ricaviamo data/ora grazie al metodo;
-            String[] datetime = DateTime.getDateTime();
+            
          //scriviamo nella text area della conversazione;
-            String toSend = this.client.getUsername() + "["+datetime[0]+datetime[1]+datetime[2]+" "+datetime[3]+datetime[4]+datetime[5]+" "+DateTime.getAmPm()+"] :"+ClientText.getText()+"\n";
+            String toSend = this.client.getUsername() + "["+DateTime.getDateTime()+"] :"+ClientText.getText()+"\n";
             ConversationArea.append(toSend);
 
             try{
