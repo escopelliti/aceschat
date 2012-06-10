@@ -1,27 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * configDialog.java
- *
- * Created on 23-nov-2011, 12.04.51
- */
-
 package GUI;
 
 import fileManager.fileOperation;
 import XML.XML;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author enrico
- */
+
 public class configDialog extends javax.swing.JDialog {
     
 
-    /** Creates new form configDialog */
+    
     public configDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -65,7 +52,7 @@ public class configDialog extends javax.swing.JDialog {
         jTextField1.setText("Inserisci i parametri di configurazione del server:");
 
         portField.setBackground(new java.awt.Color(254, 254, 254));
-        portField.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        portField.setFont(new java.awt.Font("SansSerif", 1, 12));
         portField.setForeground(new java.awt.Color(6, 6, 6));
 
         jLabel2.setBackground(new java.awt.Color(254, 254, 254));
@@ -74,7 +61,7 @@ public class configDialog extends javax.swing.JDialog {
         jLabel2.setText("Ip:");
 
         ipField.setBackground(new java.awt.Color(254, 254, 254));
-        ipField.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        ipField.setFont(new java.awt.Font("SansSerif", 1, 12));
         ipField.setForeground(new java.awt.Color(6, 6, 6));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -121,13 +108,12 @@ public class configDialog extends javax.swing.JDialog {
                 .addGroup(layout.createSequentialGroup()
                     .addGap(121, 121, 121)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(156, Short.MAX_VALUE)))
+                    .addContainerGap(157, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /** Closes the dialog */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         doClose();
     }//GEN-LAST:event_closeDialog
@@ -140,17 +126,17 @@ public class configDialog extends javax.swing.JDialog {
             InputForm.setConfiguration(ipField.getText(),portField.getText());
 
             try{
+                fo.createDirectory("ACES");
                 if(fo.getOS().equals("Windows"))
-                          
-                    new XML().writeXml("ACES\\config.xml", ipField.getText(), portField.getText());
-                else{
-                    fo.createDirectory("ACES");
+               
+                    new XML().writeXml("ACES\\config.xml", ipField.getText(), portField.getText());               
+                else
                     new XML().writeXml("ACES/config.xml",ipField.getText(), portField.getText());
-                }}
-
+                
+            }
             catch(Exception ex){
 
-                System.out.println(ex.toString());
+                JOptionPane.showMessageDialog(null,"Si è riscontrato un errore." , "ACES", JOptionPane.ERROR_MESSAGE);
 
             }
             
