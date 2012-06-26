@@ -5,18 +5,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.XMLEvent;
 
 public class RSSFeedParser {
-
-	static final String TITLE = "title";
-	static final String ITEM = "item";
-        final URL url;
-
 
 	public RSSFeedParser(String feedUrl) {
             
@@ -31,6 +25,7 @@ public class RSSFeedParser {
 
 	@SuppressWarnings("null")
 	public Feed readFeed() {
+            
 		Feed feed = null;
 		try {
 
@@ -79,15 +74,22 @@ public class RSSFeedParser {
 		} catch (XMLStreamException e) {
 			throw new RuntimeException(e);
 		}
+                
 		return feed;
 
 	}
 
 	private InputStream read() {
 		try {
+                    
 			return url.openStream();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
+        
+        
+        private static final String TITLE = "title";
+	private static final String ITEM = "item";
+        private final URL url;
 }

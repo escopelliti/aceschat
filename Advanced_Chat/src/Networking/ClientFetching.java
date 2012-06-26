@@ -20,10 +20,10 @@ import javax.swing.JOptionPane;
 public class ClientFetching extends Thread{
 
     Requests connection;
-    private ChatSession newSession;
+    private chatManager newSession;
     private Home thehome;
 
-    public ClientFetching(Requests connection,Home thehome,ChatSession newSession){
+    public ClientFetching(Requests connection,Home thehome,chatManager newSession){
 
         this.connection = connection;
         this.thehome = thehome;
@@ -61,7 +61,7 @@ public class ClientFetching extends Thread{
                     case 1: this.newSession.messaging((Vector)response.getPayload()); break;
                     case 6: this.thehome.setContactList((Vector) response.getPayload()); break;
                     case 7: this.thehome.setUser((User) response.getPayload()); break;
-                    case 666: JOptionPane.showMessageDialog(null, response.getPayload().toString(), "ACES", JOptionPane.ERROR_MESSAGE); break;
+                    case 666: JOptionPane.showMessageDialog(null, response.getPayload().toString(), "ACES", JOptionPane.INFORMATION_MESSAGE); break;
                     case 8: this.thehome.setInfo((User)response.getPayload()); break;
                     case 9: this.thehome.setStatistic((Vector)response.getPayload());break;
                 }

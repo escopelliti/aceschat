@@ -1,46 +1,33 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * infoView.java
- *
- * Created on 25-nov-2011, 12.08.01
- */
-
 package GUI;
 
 import Networking.Requests;
 import User.User;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author enrico
- */
-public class infoView extends javax.swing.JFrame {
 
+public class infoView extends javax.swing.JFrame {
     
     public infoView(User user,Requests toModify) {
 
         initComponents();
+        initInfoView(user,toModify);
+    }
+
+    private void initInfoView(User user,Requests toModify){
         
         flag = false;
         this.user = user;
         this.toModify = toModify;
-
         setComponent(this.user);
     }
-
+    
     private void setComponent(User user){
 
-        int index = -1;
-        String[] interests;
+        Integer warning;
+        Integer level;
 
-        Integer level = new Integer(user.getLevel());
-        Integer warning = new Integer(user.getWarning());
-
+        level = new Integer(user.getLevel());
+        warning = new Integer(user.getWarning());
         modifyLevelField.setText(level.toString());
         modifyWarningField.setText(warning.toString());
         modifyNameField.setText(user.getName());
@@ -52,9 +39,14 @@ public class infoView extends javax.swing.JFrame {
         modifySexField.setText(user.getSex());
         modifyNationField.setText(user.getNation());
         modifyUsernameField.setText(user.getUsername());
+        setCheckBoxes(user.getInterests());
 
-        interests = this.user.getInterests();
-
+    }
+    
+    private void setCheckBoxes(String[] interests){
+        
+        int index = -1;
+        
         while(index++ < interests.length){
             
             if(interests[index] == null)
@@ -84,7 +76,6 @@ public class infoView extends javax.swing.JFrame {
                 politicCheck.setSelected(true);
                 continue;
             }
-
         }
 
         sportCheck.setEnabled(false);
@@ -92,7 +83,6 @@ public class infoView extends javax.swing.JFrame {
         politicCheck.setEnabled(false);
         cultureCheck.setEnabled(false);
         gossipCheck.setEnabled(false);
-
     }
 
     private void fillUser(){
@@ -107,41 +97,39 @@ public class infoView extends javax.swing.JFrame {
         this.user.setSex(modifySexField.getText());
         this.user.setUsername(modifyUsernameField.getText());
 
-        //questo user glielo dobbiamo fare avere alla Home;
-
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        infoViewTitle = new javax.swing.JLabel();
+        decoInfoViewPanel = new javax.swing.JPanel();
+        nameLabel = new javax.swing.JLabel();
+        sexLabel = new javax.swing.JLabel();
         modifyNameField = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        surnameLabel = new javax.swing.JLabel();
         modifySurnameField = new javax.swing.JTextField();
         modifySexField = new javax.swing.JTextField();
         modifyCityField = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        cityLabel = new javax.swing.JLabel();
+        birthdayLabel = new javax.swing.JLabel();
         modifyBirthdayField = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
+        nationLabel = new javax.swing.JLabel();
         modifyNationField = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
+        jobLabel = new javax.swing.JLabel();
         modifyJobField = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
+        usernameLabel = new javax.swing.JLabel();
         modifyUsernameField = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
+        emailLabel = new javax.swing.JLabel();
         modifyEmailField = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
+        warningLabel = new javax.swing.JLabel();
         modifyWarningField = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
+        levelLabel = new javax.swing.JLabel();
         modifyLevelField = new javax.swing.JTextField();
         modifyButton = new javax.swing.JButton();
         okButton = new javax.swing.JButton();
-        jLabel13 = new javax.swing.JLabel();
+        interestLabel = new javax.swing.JLabel();
         sportCheck = new javax.swing.JCheckBox();
         gossipCheck = new javax.swing.JCheckBox();
         techCheck = new javax.swing.JCheckBox();
@@ -151,43 +139,43 @@ public class infoView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(254, 254, 254));
 
-        jLabel1.setBackground(new java.awt.Color(254, 254, 254));
-        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 18));
-        jLabel1.setForeground(new java.awt.Color(6, 6, 6));
-        jLabel1.setText("Il tuo profilo");
+        infoViewTitle.setBackground(new java.awt.Color(254, 254, 254));
+        infoViewTitle.setFont(new java.awt.Font("SansSerif", 1, 18));
+        infoViewTitle.setForeground(new java.awt.Color(6, 6, 6));
+        infoViewTitle.setText("Il tuo profilo");
 
-        jPanel1.setBackground(new java.awt.Color(15, 64, 133));
+        decoInfoViewPanel.setBackground(new java.awt.Color(15, 64, 133));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout decoInfoViewPanelLayout = new javax.swing.GroupLayout(decoInfoViewPanel);
+        decoInfoViewPanel.setLayout(decoInfoViewPanelLayout);
+        decoInfoViewPanelLayout.setHorizontalGroup(
+            decoInfoViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 898, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        decoInfoViewPanelLayout.setVerticalGroup(
+            decoInfoViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 32, Short.MAX_VALUE)
         );
 
-        jLabel2.setBackground(new java.awt.Color(254, 254, 254));
-        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 12));
-        jLabel2.setForeground(new java.awt.Color(6, 6, 6));
-        jLabel2.setText("Nome:");
+        nameLabel.setBackground(new java.awt.Color(254, 254, 254));
+        nameLabel.setFont(new java.awt.Font("SansSerif", 1, 12));
+        nameLabel.setForeground(new java.awt.Color(6, 6, 6));
+        nameLabel.setText("Nome:");
 
-        jLabel3.setBackground(new java.awt.Color(254, 254, 254));
-        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 12));
-        jLabel3.setForeground(new java.awt.Color(6, 6, 6));
-        jLabel3.setText("Sesso:");
+        sexLabel.setBackground(new java.awt.Color(254, 254, 254));
+        sexLabel.setFont(new java.awt.Font("SansSerif", 1, 12));
+        sexLabel.setForeground(new java.awt.Color(6, 6, 6));
+        sexLabel.setText("Sesso:");
 
         modifyNameField.setBackground(new java.awt.Color(254, 254, 254));
         modifyNameField.setEditable(false);
         modifyNameField.setFont(new java.awt.Font("SansSerif", 1, 12));
         modifyNameField.setForeground(new java.awt.Color(6, 6, 6));
 
-        jLabel4.setBackground(new java.awt.Color(254, 254, 254));
-        jLabel4.setFont(new java.awt.Font("SansSerif", 1, 12));
-        jLabel4.setForeground(new java.awt.Color(6, 6, 6));
-        jLabel4.setText("Cognome:");
+        surnameLabel.setBackground(new java.awt.Color(254, 254, 254));
+        surnameLabel.setFont(new java.awt.Font("SansSerif", 1, 12));
+        surnameLabel.setForeground(new java.awt.Color(6, 6, 6));
+        surnameLabel.setText("Cognome:");
 
         modifySurnameField.setBackground(new java.awt.Color(254, 254, 254));
         modifySurnameField.setEditable(false);
@@ -204,75 +192,75 @@ public class infoView extends javax.swing.JFrame {
         modifyCityField.setFont(new java.awt.Font("SansSerif", 1, 12));
         modifyCityField.setForeground(new java.awt.Color(6, 6, 6));
 
-        jLabel5.setBackground(new java.awt.Color(254, 254, 254));
-        jLabel5.setFont(new java.awt.Font("SansSerif", 1, 12));
-        jLabel5.setForeground(new java.awt.Color(6, 6, 6));
-        jLabel5.setText("Città:");
+        cityLabel.setBackground(new java.awt.Color(254, 254, 254));
+        cityLabel.setFont(new java.awt.Font("SansSerif", 1, 12));
+        cityLabel.setForeground(new java.awt.Color(6, 6, 6));
+        cityLabel.setText("Città:");
 
-        jLabel6.setBackground(new java.awt.Color(254, 254, 254));
-        jLabel6.setFont(new java.awt.Font("SansSerif", 1, 12));
-        jLabel6.setForeground(new java.awt.Color(6, 6, 6));
-        jLabel6.setText("Data di Nascita:");
+        birthdayLabel.setBackground(new java.awt.Color(254, 254, 254));
+        birthdayLabel.setFont(new java.awt.Font("SansSerif", 1, 12));
+        birthdayLabel.setForeground(new java.awt.Color(6, 6, 6));
+        birthdayLabel.setText("Data di Nascita:");
 
         modifyBirthdayField.setBackground(new java.awt.Color(254, 254, 254));
         modifyBirthdayField.setEditable(false);
         modifyBirthdayField.setFont(new java.awt.Font("SansSerif", 1, 12));
         modifyBirthdayField.setForeground(new java.awt.Color(6, 6, 6));
 
-        jLabel7.setBackground(new java.awt.Color(254, 254, 254));
-        jLabel7.setFont(new java.awt.Font("SansSerif", 1, 12));
-        jLabel7.setForeground(new java.awt.Color(6, 6, 6));
-        jLabel7.setText("Nazione:");
+        nationLabel.setBackground(new java.awt.Color(254, 254, 254));
+        nationLabel.setFont(new java.awt.Font("SansSerif", 1, 12));
+        nationLabel.setForeground(new java.awt.Color(6, 6, 6));
+        nationLabel.setText("Nazione:");
 
         modifyNationField.setBackground(new java.awt.Color(254, 254, 254));
         modifyNationField.setEditable(false);
         modifyNationField.setFont(new java.awt.Font("SansSerif", 1, 12));
         modifyNationField.setForeground(new java.awt.Color(6, 6, 6));
 
-        jLabel8.setBackground(new java.awt.Color(254, 254, 254));
-        jLabel8.setFont(new java.awt.Font("SansSerif", 1, 12));
-        jLabel8.setForeground(new java.awt.Color(6, 6, 6));
-        jLabel8.setText("Lavoro:");
+        jobLabel.setBackground(new java.awt.Color(254, 254, 254));
+        jobLabel.setFont(new java.awt.Font("SansSerif", 1, 12));
+        jobLabel.setForeground(new java.awt.Color(6, 6, 6));
+        jobLabel.setText("Lavoro:");
 
         modifyJobField.setBackground(new java.awt.Color(254, 254, 254));
         modifyJobField.setEditable(false);
         modifyJobField.setFont(new java.awt.Font("SansSerif", 1, 12));
         modifyJobField.setForeground(new java.awt.Color(6, 6, 6));
 
-        jLabel9.setBackground(new java.awt.Color(254, 254, 254));
-        jLabel9.setFont(new java.awt.Font("SansSerif", 1, 12));
-        jLabel9.setForeground(new java.awt.Color(6, 6, 6));
-        jLabel9.setText("Username:");
+        usernameLabel.setBackground(new java.awt.Color(254, 254, 254));
+        usernameLabel.setFont(new java.awt.Font("SansSerif", 1, 12));
+        usernameLabel.setForeground(new java.awt.Color(6, 6, 6));
+        usernameLabel.setText("Username:");
 
         modifyUsernameField.setBackground(new java.awt.Color(254, 254, 254));
         modifyUsernameField.setEditable(false);
         modifyUsernameField.setFont(new java.awt.Font("SansSerif", 1, 12));
         modifyUsernameField.setForeground(new java.awt.Color(6, 6, 6));
 
-        jLabel10.setBackground(new java.awt.Color(254, 254, 254));
-        jLabel10.setFont(new java.awt.Font("SansSerif", 1, 12));
-        jLabel10.setForeground(new java.awt.Color(6, 6, 6));
-        jLabel10.setText("Email:");
+        emailLabel.setBackground(new java.awt.Color(254, 254, 254));
+        emailLabel.setFont(new java.awt.Font("SansSerif", 1, 12));
+        emailLabel.setForeground(new java.awt.Color(6, 6, 6));
+        emailLabel.setText("Email:");
 
         modifyEmailField.setBackground(new java.awt.Color(254, 254, 254));
         modifyEmailField.setEditable(false);
         modifyEmailField.setFont(new java.awt.Font("SansSerif", 1, 12));
         modifyEmailField.setForeground(new java.awt.Color(6, 6, 6));
 
-        jLabel11.setBackground(new java.awt.Color(254, 254, 254));
-        jLabel11.setFont(new java.awt.Font("SansSerif", 1, 12));
-        jLabel11.setForeground(new java.awt.Color(6, 6, 6));
-        jLabel11.setText("Warning:");
+        warningLabel.setBackground(new java.awt.Color(254, 254, 254));
+        warningLabel.setFont(new java.awt.Font("SansSerif", 1, 12));
+        warningLabel.setForeground(new java.awt.Color(6, 6, 6));
+        warningLabel.setText("Warning:");
 
         modifyWarningField.setBackground(new java.awt.Color(254, 254, 254));
         modifyWarningField.setEditable(false);
         modifyWarningField.setFont(new java.awt.Font("SansSerif", 1, 12));
         modifyWarningField.setForeground(new java.awt.Color(6, 6, 6));
 
-        jLabel12.setBackground(new java.awt.Color(254, 254, 254));
-        jLabel12.setFont(new java.awt.Font("SansSerif", 1, 12));
-        jLabel12.setForeground(new java.awt.Color(6, 6, 6));
-        jLabel12.setText("Level:");
+        levelLabel.setBackground(new java.awt.Color(254, 254, 254));
+        levelLabel.setFont(new java.awt.Font("SansSerif", 1, 12));
+        levelLabel.setForeground(new java.awt.Color(6, 6, 6));
+        levelLabel.setText("Level:");
 
         modifyLevelField.setBackground(new java.awt.Color(254, 254, 254));
         modifyLevelField.setEditable(false);
@@ -293,9 +281,9 @@ public class infoView extends javax.swing.JFrame {
             }
         });
 
-        jLabel13.setFont(new java.awt.Font("SansSerif", 1, 12));
-        jLabel13.setForeground(new java.awt.Color(6, 6, 6));
-        jLabel13.setText("I tuoi interessi:");
+        interestLabel.setFont(new java.awt.Font("SansSerif", 1, 12));
+        interestLabel.setForeground(new java.awt.Color(6, 6, 6));
+        interestLabel.setText("I tuoi interessi:");
 
         sportCheck.setFont(new java.awt.Font("SansSerif", 1, 12));
         sportCheck.setForeground(new java.awt.Color(6, 6, 6));
@@ -350,15 +338,15 @@ public class infoView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 874, Short.MAX_VALUE))
+                        .addComponent(infoViewTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 874, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel9))
+                        .addComponent(usernameLabel))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel11)
+                                .addComponent(warningLabel)
                                 .addGap(720, 720, 720))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -369,36 +357,36 @@ public class infoView extends javax.swing.JFrame {
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(modifyWarningField, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(28, 28, 28)
-                                                .addComponent(jLabel12)))
+                                                .addComponent(levelLabel)))
                                         .addGap(26, 26, 26)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(emailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(modifyEmailField, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
                                             .addComponent(modifyLevelField, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jobLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(18, 18, 18)
                                                 .addComponent(modifyJobField, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel13))
+                                                .addComponent(interestLabel))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addGap(18, 18, 18)
                                                         .addComponent(modifyNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                     .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(sexLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addGap(18, 18, 18)
                                                         .addComponent(modifySexField, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                    .addComponent(cityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(surnameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -414,8 +402,8 @@ public class infoView extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel6))
+                                            .addComponent(nationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(birthdayLabel))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(modifyNationField, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -432,46 +420,46 @@ public class infoView extends javax.swing.JFrame {
                         .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(14, 14, 14)))
                 .addContainerGap())
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(decoInfoViewPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(decoInfoViewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(infoViewTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(modifyNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sexLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(modifySexField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(surnameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(modifySurnameField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(modifyCityField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(birthdayLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(nationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(modifyBirthdayField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
                         .addComponent(modifyNationField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jobLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(modifyJobField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(interestLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sportCheck)
                     .addComponent(techCheck)
                     .addComponent(gossipCheck)
@@ -479,15 +467,15 @@ public class infoView extends javax.swing.JFrame {
                     .addComponent(politicCheck))
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(usernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(modifyUsernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(modifyEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(warningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(modifyWarningField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(levelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(modifyLevelField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(okButton)
                     .addComponent(modifyButton))
@@ -513,9 +501,8 @@ public class infoView extends javax.swing.JFrame {
         techCheck.setEnabled(true);
         gossipCheck.setEnabled(true);
         politicCheck.setEnabled(true);
-
+        
         modifyButton.setEnabled(false);
-
         flag = true;
     }//GEN-LAST:event_modifyButtonActionPerformed
 
@@ -524,21 +511,15 @@ public class infoView extends javax.swing.JFrame {
         if(flag){
 
             fillUser();
-
             try{
 
-                toModify.modifyPersonalInfo(this.user);//la risposta sarà gestita dall'opportuno metodo che settrà per la Home
-                }                                       //il nuovo user qualora tutto sia andato a buon fine;
-            catch(Exception err){
+                toModify.modifyPersonalInfo(this.user);
+            }catch(Exception err){
 
                 JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
-            }
-
-            this.dispose();                         
+            }                              
         }
-
-        else
-            this.dispose();
+        this.dispose();
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void sportCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sportCheckActionPerformed
@@ -561,28 +542,20 @@ public class infoView extends javax.swing.JFrame {
         this.user.setInterests("politica");
     }//GEN-LAST:event_politicCheckActionPerformed
 
-
-    
     private boolean flag;
     private User user;
     private Requests toModify;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel birthdayLabel;
+    private javax.swing.JLabel cityLabel;
     private javax.swing.JCheckBox cultureCheck;
+    private javax.swing.JPanel decoInfoViewPanel;
+    private javax.swing.JLabel emailLabel;
     private javax.swing.JCheckBox gossipCheck;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel infoViewTitle;
+    private javax.swing.JLabel interestLabel;
+    private javax.swing.JLabel jobLabel;
+    private javax.swing.JLabel levelLabel;
     private javax.swing.JTextField modifyBirthdayField;
     private javax.swing.JButton modifyButton;
     private javax.swing.JTextField modifyCityField;
@@ -595,10 +568,16 @@ public class infoView extends javax.swing.JFrame {
     private javax.swing.JTextField modifySurnameField;
     private javax.swing.JTextField modifyUsernameField;
     private javax.swing.JTextField modifyWarningField;
+    private javax.swing.JLabel nameLabel;
+    private javax.swing.JLabel nationLabel;
     private javax.swing.JButton okButton;
     private javax.swing.JCheckBox politicCheck;
+    private javax.swing.JLabel sexLabel;
     private javax.swing.JCheckBox sportCheck;
+    private javax.swing.JLabel surnameLabel;
     private javax.swing.JCheckBox techCheck;
+    private javax.swing.JLabel usernameLabel;
+    private javax.swing.JLabel warningLabel;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -29,17 +29,17 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="12" pref="12" max="12" attributes="0"/>
-                      <Component id="jLabel1" pref="874" max="32767" attributes="1"/>
+                      <Component id="infoViewTitle" pref="874" max="32767" attributes="1"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                      <Component id="usernameLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                              <Component id="warningLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="720" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
@@ -51,13 +51,13 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="modifyWarningField" min="-2" pref="49" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                                              <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                                              <Component id="levelLabel" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel10" min="-2" pref="58" max="-2" attributes="0"/>
+                                              <Component id="emailLabel" min="-2" pref="58" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="modifyEmailField" pref="205" max="32767" attributes="0"/>
                                           </Group>
@@ -67,29 +67,29 @@
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel8" min="-2" pref="58" max="-2" attributes="0"/>
+                                              <Component id="jobLabel" min="-2" pref="58" max="-2" attributes="0"/>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Component id="modifyJobField" min="-2" pref="122" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                                              <Component id="interestLabel" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="jLabel2" min="-2" pref="58" max="-2" attributes="0"/>
+                                                      <Component id="nameLabel" min="-2" pref="58" max="-2" attributes="0"/>
                                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                                       <Component id="modifyNameField" min="-2" pref="122" max="-2" attributes="0"/>
                                                   </Group>
                                                   <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="jLabel3" min="-2" pref="58" max="-2" attributes="0"/>
+                                                      <Component id="sexLabel" min="-2" pref="58" max="-2" attributes="0"/>
                                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                                       <Component id="modifySexField" min="-2" pref="49" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
-                                              <EmptySpace pref="47" max="32767" attributes="0"/>
+                                              <EmptySpace pref="57" max="32767" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel5" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                                                  <Component id="jLabel4" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
+                                                  <Component id="cityLabel" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
+                                                  <Component id="surnameLabel" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -114,8 +114,8 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel7" min="-2" pref="75" max="-2" attributes="0"/>
-                                          <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="nationLabel" min="-2" pref="75" max="-2" attributes="0"/>
+                                          <Component id="birthdayLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace pref="26" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="1" attributes="0">
@@ -143,44 +143,44 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
-          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+          <Component id="decoInfoViewPanel" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <Component id="decoInfoViewPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" pref="32" max="-2" attributes="0"/>
+              <Component id="infoViewTitle" min="-2" pref="32" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel2" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="nameLabel" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                           <Component id="modifyNameField" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel3" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="sexLabel" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                           <Component id="modifySexField" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel4" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="surnameLabel" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                           <Component id="modifySurnameField" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel5" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="cityLabel" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                           <Component id="modifyCityField" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel6" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="birthdayLabel" min="-2" pref="32" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                      <Component id="jLabel7" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="nationLabel" min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="modifyBirthdayField" min="-2" pref="30" max="-2" attributes="0"/>
@@ -190,9 +190,9 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel8" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                  <Component id="jobLabel" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                   <Component id="modifyJobField" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="jLabel13" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                  <Component id="interestLabel" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                   <Component id="sportCheck" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="techCheck" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="gossipCheck" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -201,16 +201,16 @@
               </Group>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel9" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                  <Component id="usernameLabel" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                   <Component id="modifyUsernameField" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="jLabel10" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                  <Component id="emailLabel" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                   <Component id="modifyEmailField" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel11" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                  <Component id="warningLabel" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                   <Component id="modifyWarningField" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="jLabel12" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                  <Component id="levelLabel" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                   <Component id="modifyLevelField" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="okButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="modifyButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -221,7 +221,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="infoViewTitle">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="fe" green="fe" red="fe" type="rgb"/>
@@ -235,7 +235,7 @@
         <Property name="text" type="java.lang.String" value="Il tuo profilo"/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JPanel" name="jPanel1">
+    <Container class="javax.swing.JPanel" name="decoInfoViewPanel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="85" green="40" red="f" type="rgb"/>
@@ -255,7 +255,7 @@
         </DimensionLayout>
       </Layout>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="nameLabel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="fe" green="fe" red="fe" type="rgb"/>
@@ -269,7 +269,7 @@
         <Property name="text" type="java.lang.String" value="Nome:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
+    <Component class="javax.swing.JLabel" name="sexLabel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="fe" green="fe" red="fe" type="rgb"/>
@@ -297,7 +297,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
+    <Component class="javax.swing.JLabel" name="surnameLabel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="fe" green="fe" red="fe" type="rgb"/>
@@ -353,7 +353,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel5">
+    <Component class="javax.swing.JLabel" name="cityLabel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="fe" green="fe" red="fe" type="rgb"/>
@@ -367,7 +367,7 @@
         <Property name="text" type="java.lang.String" value="Citt&#xe0;:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel6">
+    <Component class="javax.swing.JLabel" name="birthdayLabel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="fe" green="fe" red="fe" type="rgb"/>
@@ -395,7 +395,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel7">
+    <Component class="javax.swing.JLabel" name="nationLabel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="fe" green="fe" red="fe" type="rgb"/>
@@ -423,7 +423,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel8">
+    <Component class="javax.swing.JLabel" name="jobLabel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="fe" green="fe" red="fe" type="rgb"/>
@@ -451,7 +451,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel9">
+    <Component class="javax.swing.JLabel" name="usernameLabel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="fe" green="fe" red="fe" type="rgb"/>
@@ -479,7 +479,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel10">
+    <Component class="javax.swing.JLabel" name="emailLabel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="fe" green="fe" red="fe" type="rgb"/>
@@ -507,7 +507,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel11">
+    <Component class="javax.swing.JLabel" name="warningLabel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="fe" green="fe" red="fe" type="rgb"/>
@@ -535,7 +535,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel12">
+    <Component class="javax.swing.JLabel" name="levelLabel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="fe" green="fe" red="fe" type="rgb"/>
@@ -579,7 +579,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="okButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel13">
+    <Component class="javax.swing.JLabel" name="interestLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="SansSerif" size="12" style="1"/>

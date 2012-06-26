@@ -5,7 +5,7 @@ import fileManager.fileOperation;
 import Feed.Feed;
 import Feed.FeedMessage;
 import Feed.RSSFeedParser;
-import Networking.ChatSession;
+import Networking.chatManager;
 import Networking.ClientFetching;
 import Networking.Requests;
 import User.User;
@@ -22,20 +22,12 @@ import javax.swing.JOptionPane;
 
 public class Home extends javax.swing.JFrame implements Runnable{
 
-    public Home(Requests toCon,User logged) throws IOException {
+    public Home(Requests toCon,User logged) throws IOException{
         
         initComponents();
-        init(toCon,logged);      
-        setMap();
-        new ClientFetching(this.toCon,this,newSession).start();
-        setUpdate();
-        up = new Thread(this);
-        up.start();
-
-
+        initSystem(toCon,logged);      
     }
-
-    
+  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -52,7 +44,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
         secondStarLabel = new javax.swing.JLabel();
         thirdStarLabel = new javax.swing.JLabel();
         infoView = new javax.swing.JButton();
-        UsernameLabel = new javax.swing.JLabel();
+        usernameLabel = new javax.swing.JLabel();
         emailLabel = new javax.swing.JLabel();
         decorationInfoPanel = new javax.swing.JPanel();
         photoLoadButton = new javax.swing.JButton();
@@ -74,7 +66,9 @@ public class Home extends javax.swing.JFrame implements Runnable{
         loginLabel = new javax.swing.JLabel();
         messLabel = new javax.swing.JLabel();
         dateLabel = new javax.swing.JLabel();
-        statisticButton = new javax.swing.JButton();
+        statisticsButton = new javax.swing.JButton();
+        decoImageLabel = new javax.swing.JLabel();
+        iconAcesLabel = new javax.swing.JLabel();
         chatroomTabPanel = new javax.swing.JPanel();
         friendListScroll = new javax.swing.JScrollPane();
         friendList = new javax.swing.JList();
@@ -84,6 +78,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
         multichatList = new javax.swing.JTextArea();
         textAreaInfoScroll = new javax.swing.JScrollPane();
         textAreaInfo = new javax.swing.JTextArea();
+        iconAcesLabel1 = new javax.swing.JLabel();
         addTabPanel = new javax.swing.JPanel();
         friendtoAdd = new javax.swing.JTextField();
         addFriendButton = new javax.swing.JButton();
@@ -102,7 +97,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
         infoChronoLabel = new javax.swing.JLabel();
         usernameChronoLabel = new javax.swing.JLabel();
         userHistoryField = new javax.swing.JTextField();
-        searchButton = new javax.swing.JButton();
+        chronoSearchButton = new javax.swing.JButton();
         historyScroll = new javax.swing.JScrollPane();
         historyTextArea = new javax.swing.JTextArea();
         searchTabPanel = new javax.swing.JPanel();
@@ -141,7 +136,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
         decoScroll.setViewportView(decorationFeedPanel);
 
         FeedView.setEditable(false);
-        FeedView.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        FeedView.setFont(new java.awt.Font("SansSerif", 1, 15));
         FeedView.setForeground(new java.awt.Color(6, 6, 6));
         FeedScroll.setViewportView(FeedView);
 
@@ -157,7 +152,8 @@ public class Home extends javax.swing.JFrame implements Runnable{
             .addGroup(FeedPanelLayout.createSequentialGroup()
                 .addComponent(decoScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FeedScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
+                .addComponent(FeedScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         userImageLabel.setBackground(new java.awt.Color(212, 165, 122));
@@ -192,7 +188,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                 .addComponent(thirdStarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        infoView.setFont(new java.awt.Font("SansSerif", 1, 8)); // NOI18N
+        infoView.setFont(new java.awt.Font("SansSerif", 1, 8));
         infoView.setForeground(new java.awt.Color(6, 6, 6));
         infoView.setText("Visualizza le tue informazioni personali");
         infoView.addActionListener(new java.awt.event.ActionListener() {
@@ -201,9 +197,9 @@ public class Home extends javax.swing.JFrame implements Runnable{
             }
         });
 
-        UsernameLabel.setFont(new java.awt.Font("SansSerif", 1, 12));
-        UsernameLabel.setForeground(new java.awt.Color(6, 6, 6));
-        UsernameLabel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        usernameLabel.setFont(new java.awt.Font("SansSerif", 1, 12));
+        usernameLabel.setForeground(new java.awt.Color(6, 6, 6));
+        usernameLabel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
 
         emailLabel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
 
@@ -220,7 +216,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
             .addGap(0, 23, Short.MAX_VALUE)
         );
 
-        photoLoadButton.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        photoLoadButton.setFont(new java.awt.Font("SansSerif", 1, 15));
         photoLoadButton.setForeground(new java.awt.Color(6, 6, 6));
         photoLoadButton.setText("Carica una foto");
         photoLoadButton.addActionListener(new java.awt.event.ActionListener() {
@@ -245,7 +241,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                             .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(infoView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(emailLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(UsernameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                                .addComponent(usernameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
                                 .addComponent(photoLoadButton)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -256,7 +252,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                 .addGap(3, 3, 3)
                 .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(infoPanelLayout.createSequentialGroup()
-                        .addComponent(UsernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(usernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(emailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -279,17 +275,17 @@ public class Home extends javax.swing.JFrame implements Runnable{
         );
         DecorationFunctionPanelLayout.setVerticalGroup(
             DecorationFunctionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 28, Short.MAX_VALUE)
+            .addGap(0, 19, Short.MAX_VALUE)
         );
 
         TabPanel.setForeground(new java.awt.Color(6, 6, 6));
-        TabPanel.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        TabPanel.setFont(new java.awt.Font("SansSerif", 1, 16));
 
-        logoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/logo2.png"))); // NOI18N
+        logoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/logo2.png"))); // NOI18N
 
         infoText.setBackground(new java.awt.Color(254, 254, 254));
         infoText.setEditable(false);
-        infoText.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        infoText.setFont(new java.awt.Font("SansSerif", 1, 14));
         infoText.setForeground(new java.awt.Color(6, 6, 6));
         infoText.setText("\n\n\n\n\nScopri tutte le funzionalità di \"ACES \".\n\nCon l'utilizzo della barra soprastante potrai accedere a tutti i servizi.");
         infoTextScroll.setViewportView(infoText);
@@ -320,7 +316,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
 
         TabPanel.addTab("Pagina iniziale", firstTabPanel);
 
-        contactList.setFont(new java.awt.Font("Purisa", 1, 18)); // NOI18N
+        contactList.setFont(new java.awt.Font("Purisa", 1, 18));
         contactList.setForeground(new java.awt.Color(234, 29, 29));
         contactList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -329,7 +325,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
         });
         contactListScroll.setViewportView(contactList);
 
-        contactButton.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        contactButton.setFont(new java.awt.Font("SansSerif", 1, 15));
         contactButton.setForeground(new java.awt.Color(6, 6, 6));
         contactButton.setText("Contatta");
         contactButton.setEnabled(false);
@@ -340,46 +336,51 @@ public class Home extends javax.swing.JFrame implements Runnable{
         });
 
         nLoginField.setEditable(false);
-        nLoginField.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        nLoginField.setFont(new java.awt.Font("SansSerif", 1, 12));
         nLoginField.setForeground(new java.awt.Color(6, 6, 6));
 
         nFriendsField.setEditable(false);
-        nFriendsField.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        nFriendsField.setFont(new java.awt.Font("SansSerif", 1, 12));
         nFriendsField.setForeground(new java.awt.Color(6, 6, 6));
 
         nMessField.setEditable(false);
-        nMessField.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        nMessField.setFont(new java.awt.Font("SansSerif", 1, 12));
         nMessField.setForeground(new java.awt.Color(6, 6, 6));
 
         dateTimeField.setEditable(false);
-        dateTimeField.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        dateTimeField.setFont(new java.awt.Font("SansSerif", 1, 12));
         dateTimeField.setForeground(new java.awt.Color(6, 6, 6));
 
-        friendsLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        friendsLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
         friendsLabel.setForeground(new java.awt.Color(6, 6, 6));
         friendsLabel.setText("Amici : ");
         friendsLabel.setFocusCycleRoot(true);
 
-        loginLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        loginLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
         loginLabel.setForeground(new java.awt.Color(6, 6, 6));
         loginLabel.setText("Login : ");
 
-        messLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        messLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
         messLabel.setForeground(new java.awt.Color(6, 6, 6));
         messLabel.setText("Messaggi : ");
 
-        dateLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        dateLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
         dateLabel.setForeground(new java.awt.Color(6, 6, 6));
         dateLabel.setText("Giorni su ACES :");
 
-        statisticButton.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
-        statisticButton.setForeground(new java.awt.Color(6, 6, 6));
-        statisticButton.setText("Statistiche");
-        statisticButton.addActionListener(new java.awt.event.ActionListener() {
+        statisticsButton.setFont(new java.awt.Font("SansSerif", 1, 15));
+        statisticsButton.setForeground(new java.awt.Color(6, 6, 6));
+        statisticsButton.setText("Statistiche");
+        statisticsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                statisticButtonActionPerformed(evt);
+                statisticsButtonActionPerformed(evt);
             }
         });
+
+        decoImageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        decoImageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/my_Logo.png"))); // NOI18N
+
+        iconAcesLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/ACES.png"))); // NOI18N
 
         javax.swing.GroupLayout friendTabPanelLayout = new javax.swing.GroupLayout(friendTabPanel);
         friendTabPanel.setLayout(friendTabPanelLayout);
@@ -389,63 +390,72 @@ public class Home extends javax.swing.JFrame implements Runnable{
                 .addGroup(friendTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(friendTabPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(contactListScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(contactListScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(122, 122, 122)
+                        .addGroup(friendTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(decoImageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(iconAcesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(62, 62, 62)
+                        .addGroup(friendTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dateLabel)
+                            .addComponent(messLabel)
+                            .addComponent(friendsLabel)
+                            .addComponent(loginLabel))
+                        .addGap(75, 75, 75)
+                        .addGroup(friendTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(friendTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(nMessField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(nLoginField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(nFriendsField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                                .addComponent(statisticsButton))
+                            .addGroup(friendTabPanelLayout.createSequentialGroup()
+                                .addGap(60, 60, 60)
+                                .addComponent(dateTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(friendTabPanelLayout.createSequentialGroup()
                         .addGap(47, 47, 47)
                         .addComponent(contactButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(friendTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(friendTabPanelLayout.createSequentialGroup()
-                        .addGap(463, 463, 463)
-                        .addGroup(friendTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(friendsLabel)
-                            .addComponent(loginLabel)
-                            .addComponent(messLabel)
-                            .addComponent(dateLabel))
-                        .addGap(95, 95, 95)
-                        .addGroup(friendTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nMessField, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                            .addComponent(nFriendsField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                            .addComponent(nLoginField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                            .addComponent(dateTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(81, 81, 81))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, friendTabPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(statisticButton)
-                        .addGap(150, 150, 150))))
+                .addGap(174, 174, 174))
         );
         friendTabPanelLayout.setVerticalGroup(
             friendTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(friendTabPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(contactListScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(contactButton)
-                .addContainerGap())
-            .addGroup(friendTabPanelLayout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addGroup(friendTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(friendsLabel)
-                    .addComponent(nFriendsField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(friendTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(nLoginField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(loginLabel))
-                .addGap(18, 18, 18)
-                .addGroup(friendTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(nMessField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(messLabel))
-                .addGap(18, 18, 18)
-                .addGroup(friendTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(dateLabel)
-                    .addComponent(dateTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addComponent(statisticButton)
-                .addGap(66, 66, 66))
+                .addGroup(friendTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(friendTabPanelLayout.createSequentialGroup()
+                        .addComponent(contactListScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(contactButton))
+                    .addGroup(friendTabPanelLayout.createSequentialGroup()
+                        .addGroup(friendTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(decoImageLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, friendTabPanelLayout.createSequentialGroup()
+                                .addGap(47, 47, 47)
+                                .addGroup(friendTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(friendsLabel)
+                                    .addComponent(nFriendsField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(friendTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(loginLabel)
+                                    .addComponent(nLoginField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(18, 18, 18)
+                        .addGroup(friendTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(friendTabPanelLayout.createSequentialGroup()
+                                .addGroup(friendTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(messLabel)
+                                    .addComponent(nMessField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(friendTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(dateLabel)
+                                    .addComponent(dateTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(statisticsButton))
+                            .addComponent(iconAcesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))))
+                .addGap(12, 12, 12))
         );
 
         TabPanel.addTab("Lista Amici", friendTabPanel);
 
-        friendList.setFont(new java.awt.Font("Purisa", 1, 18)); // NOI18N
+        friendList.setFont(new java.awt.Font("Purisa", 1, 18));
         friendList.setForeground(new java.awt.Color(234, 29, 29));
         friendList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -455,7 +465,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
         friendListScroll.setViewportView(friendList);
 
         contactMultiUsers.setBackground(new java.awt.Color(254, 254, 254));
-        contactMultiUsers.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        contactMultiUsers.setFont(new java.awt.Font("SansSerif", 1, 15));
         contactMultiUsers.setForeground(new java.awt.Color(6, 6, 6));
         contactMultiUsers.setText("Contatta");
         contactMultiUsers.addActionListener(new java.awt.event.ActionListener() {
@@ -464,7 +474,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
             }
         });
 
-        addtoMultiChat.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        addtoMultiChat.setFont(new java.awt.Font("SansSerif", 1, 15));
         addtoMultiChat.setForeground(new java.awt.Color(6, 6, 6));
         addtoMultiChat.setText("Aggiungi");
         addtoMultiChat.setEnabled(false);
@@ -476,17 +486,20 @@ public class Home extends javax.swing.JFrame implements Runnable{
 
         multichatList.setColumns(20);
         multichatList.setEditable(false);
-        multichatList.setFont(new java.awt.Font("Purisa", 1, 18)); // NOI18N
+        multichatList.setFont(new java.awt.Font("Purisa", 1, 18));
         multichatList.setForeground(new java.awt.Color(234, 29, 29));
         multichatList.setRows(5);
         multiChatScroll.setViewportView(multichatList);
 
         textAreaInfo.setColumns(20);
         textAreaInfo.setEditable(false);
-        textAreaInfo.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        textAreaInfo.setFont(new java.awt.Font("SansSerif", 1, 15));
         textAreaInfo.setRows(5);
         textAreaInfo.setText("Seleziona un amico,e \"Aggiungilo\" \nalla lista dei partecipanti alla \nconversazione. Quando avrai \nselezionato tutti i partecipanti \n\"contatta\" i tuoi amici.\n");
         textAreaInfoScroll.setViewportView(textAreaInfo);
+
+        iconAcesLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iconAcesLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/ACES.png"))); // NOI18N
 
         javax.swing.GroupLayout chatroomTabPanelLayout = new javax.swing.GroupLayout(chatroomTabPanel);
         chatroomTabPanel.setLayout(chatroomTabPanelLayout);
@@ -497,11 +510,14 @@ public class Home extends javax.swing.JFrame implements Runnable{
                 .addComponent(friendListScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(chatroomTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(chatroomTabPanelLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(textAreaInfoScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(chatroomTabPanelLayout.createSequentialGroup()
                         .addGap(116, 116, 116)
                         .addComponent(addtoMultiChat, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(chatroomTabPanelLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(textAreaInfoScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(87, 87, 87)
+                        .addComponent(iconAcesLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(39, 39, 39)
                 .addGroup(chatroomTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(contactMultiUsers, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -525,13 +541,15 @@ public class Home extends javax.swing.JFrame implements Runnable{
                         .addGap(44, 44, 44)
                         .addComponent(textAreaInfoScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(addtoMultiChat)))
+                        .addComponent(addtoMultiChat)
+                        .addGap(18, 18, 18)
+                        .addComponent(iconAcesLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         TabPanel.addTab("ChatRoom", chatroomTabPanel);
 
-        addFriendButton.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        addFriendButton.setFont(new java.awt.Font("SansSerif", 1, 15));
         addFriendButton.setForeground(new java.awt.Color(6, 6, 6));
         addFriendButton.setText("Aggiungi");
         addFriendButton.addActionListener(new java.awt.event.ActionListener() {
@@ -541,16 +559,16 @@ public class Home extends javax.swing.JFrame implements Runnable{
         });
 
         addFriendTitle.setEditable(false);
-        addFriendTitle.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        addFriendTitle.setFont(new java.awt.Font("SansSerif", 1, 18));
         addFriendTitle.setForeground(new java.awt.Color(6, 6, 6));
         addFriendTitle.setText("Aggiungi una persona all'elenco dei tuoi contatti.");
 
         toAddLabel.setEditable(false);
-        toAddLabel.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        toAddLabel.setFont(new java.awt.Font("SansSerif", 1, 12));
         toAddLabel.setForeground(new java.awt.Color(6, 6, 6));
         toAddLabel.setText("Username dell'utente da inserire:");
 
-        logoLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/ACES.png"))); // NOI18N
+        logoLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/ACES.png"))); // NOI18N
 
         javax.swing.GroupLayout addTabPanelLayout = new javax.swing.GroupLayout(addTabPanel);
         addTabPanel.setLayout(addTabPanelLayout);
@@ -591,7 +609,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
 
         inviteTextArea.setColumns(20);
         inviteTextArea.setEditable(false);
-        inviteTextArea.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        inviteTextArea.setFont(new java.awt.Font("SansSerif", 1, 18));
         inviteTextArea.setForeground(new java.awt.Color(6, 6, 6));
         inviteTextArea.setRows(5);
         inviteTextArea.setText("Riempiendo il campo sottostante potrai invitare i tuoi amici ad usare ACES.\nCon ACES puoi sempre rimanere in contatto con le persone a te più care.\nInvita tutti i tuoi amici per poter far crescere la comunity ACES.");
@@ -631,7 +649,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
             .addGap(0, 28, Short.MAX_VALUE)
         );
 
-        inviteButton.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        inviteButton.setFont(new java.awt.Font("SansSerif", 1, 15));
         inviteButton.setForeground(new java.awt.Color(6, 6, 6));
         inviteButton.setText("Invita");
         inviteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -670,7 +688,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                     .addComponent(inviteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(emailToInvite)
                     .addComponent(emailInviteLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                 .addComponent(DecoInvitePanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -685,18 +703,18 @@ public class Home extends javax.swing.JFrame implements Runnable{
         usernameChronoLabel.setForeground(new java.awt.Color(15, 64, 133));
         usernameChronoLabel.setText("Inserisci l'username:");
 
-        searchButton.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
-        searchButton.setForeground(new java.awt.Color(6, 6, 6));
-        searchButton.setText("Cerca");
-        searchButton.addActionListener(new java.awt.event.ActionListener() {
+        chronoSearchButton.setFont(new java.awt.Font("SansSerif", 1, 15));
+        chronoSearchButton.setForeground(new java.awt.Color(6, 6, 6));
+        chronoSearchButton.setText("Cerca");
+        chronoSearchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchButtonActionPerformed(evt);
+                chronoSearchButtonActionPerformed(evt);
             }
         });
 
         historyTextArea.setColumns(20);
         historyTextArea.setEditable(false);
-        historyTextArea.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        historyTextArea.setFont(new java.awt.Font("SansSerif", 1, 15));
         historyTextArea.setForeground(new java.awt.Color(15, 64, 133));
         historyTextArea.setRows(5);
         historyScroll.setViewportView(historyTextArea);
@@ -710,7 +728,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                     .addComponent(infoChronoLabel)
                     .addComponent(usernameChronoLabel)
                     .addComponent(userHistoryField, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(chronoSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(historyScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -725,7 +743,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(userHistoryField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(chronoSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(133, Short.MAX_VALUE))
             .addComponent(historyScroll, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
         );
@@ -733,9 +751,9 @@ public class Home extends javax.swing.JFrame implements Runnable{
         TabPanel.addTab("Cronologia", chronoTabPanel);
 
         logoLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        logoLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/logo2.png"))); // NOI18N
+        logoLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/logo1.png"))); // NOI18N
 
-        searchFriendButton.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        searchFriendButton.setFont(new java.awt.Font("SansSerif", 1, 15));
         searchFriendButton.setForeground(new java.awt.Color(6, 6, 6));
         searchFriendButton.setText("Cerca");
         searchFriendButton.addActionListener(new java.awt.event.ActionListener() {
@@ -744,49 +762,49 @@ public class Home extends javax.swing.JFrame implements Runnable{
             }
         });
 
-        nameField.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        nameField.setFont(new java.awt.Font("SansSerif", 1, 12));
         nameField.setForeground(new java.awt.Color(6, 6, 6));
 
-        usernameSearchLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        usernameSearchLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
         usernameSearchLabel.setForeground(new java.awt.Color(6, 6, 6));
         usernameSearchLabel.setText("Username dell'utente da cercare : ");
 
-        usernameFriendLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        usernameFriendLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
         usernameFriendLabel.setText("Username :");
 
-        nameFriendLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        nameFriendLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
         nameFriendLabel.setForeground(new java.awt.Color(6, 6, 6));
         nameFriendLabel.setText("Name : ");
 
-        surnameFriendLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        surnameFriendLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
         surnameFriendLabel.setForeground(new java.awt.Color(6, 6, 6));
         surnameFriendLabel.setText("Surname : ");
 
-        cityFriendLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        cityFriendLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
         cityFriendLabel.setForeground(new java.awt.Color(6, 6, 6));
         cityFriendLabel.setText("City : ");
 
-        emailFriendLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        emailFriendLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
         emailFriendLabel.setForeground(new java.awt.Color(6, 6, 6));
         emailFriendLabel.setText("E-mail : ");
 
-        levelFriendLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        levelFriendLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
         levelFriendLabel.setForeground(new java.awt.Color(6, 6, 6));
         levelFriendLabel.setText("Level : ");
 
-        surnameField.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        surnameField.setFont(new java.awt.Font("SansSerif", 1, 12));
         surnameField.setForeground(new java.awt.Color(6, 6, 6));
 
-        cityField.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        cityField.setFont(new java.awt.Font("SansSerif", 1, 12));
         cityField.setForeground(new java.awt.Color(6, 6, 6));
 
-        usernameFriendField.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        usernameFriendField.setFont(new java.awt.Font("SansSerif", 0, 12));
         usernameFriendField.setForeground(new java.awt.Color(6, 6, 6));
 
-        levelField.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        levelField.setFont(new java.awt.Font("SansSerif", 1, 12));
         levelField.setForeground(new java.awt.Color(6, 6, 6));
 
-        emailField.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        emailField.setFont(new java.awt.Font("SansSerif", 1, 12));
         emailField.setForeground(new java.awt.Color(6, 6, 6));
 
         javax.swing.GroupLayout searchTabPanelLayout = new javax.swing.GroupLayout(searchTabPanel);
@@ -798,7 +816,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                 .addGroup(searchTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(searchTabPanelLayout.createSequentialGroup()
                         .addComponent(logoLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                         .addGroup(searchTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchTabPanelLayout.createSequentialGroup()
                                 .addComponent(levelFriendLabel)
@@ -821,7 +839,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                                     .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cityField, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(usernameFriendField, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                         .addComponent(imageFriendLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(102, 102, 102))
                     .addGroup(searchTabPanelLayout.createSequentialGroup()
@@ -842,7 +860,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                     .addComponent(usertoSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(searchTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(searchTabPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                         .addComponent(logoLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(67, 67, 67))
                     .addGroup(searchTabPanelLayout.createSequentialGroup()
@@ -885,7 +903,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
         decoHomePanel.setLayout(decoHomePanelLayout);
         decoHomePanelLayout.setHorizontalGroup(
             decoHomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 953, Short.MAX_VALUE)
+            .addGap(0, 941, Short.MAX_VALUE)
         );
         decoHomePanelLayout.setVerticalGroup(
             decoHomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -926,9 +944,11 @@ public class Home extends javax.swing.JFrame implements Runnable{
                 .addComponent(infoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(FeedPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(TabPanel, 0, 0, Short.MAX_VALUE)
             .addComponent(DecorationFunctionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(decoHomePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(TabPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 953, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(decoHomePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -938,9 +958,9 @@ public class Home extends javax.swing.JFrame implements Runnable{
                     .addComponent(infoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(DecorationFunctionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(TabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(decoHomePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -952,22 +972,24 @@ public class Home extends javax.swing.JFrame implements Runnable{
         loggedUser = n_user;
     }
 
-    private void init(Requests toCon,User logged){
-        
+    private void initSystem(Requests toCon,User loggedUser)throws IOException{
+
         int count = 0;
-        this.map = new HashMap();
         this.index = 0;
-        this.toCon = toCon;
-        support = toCon;
+        this.toCon = toCon;      
+        this.loggedUser = loggedUser;
+        this.chatSession = new chatManager(loggedUser,toCon);
+        levelIcon = new ImageIcon((getClass().getResource("/GUI/Images/stellina.png")), null);
         this.chatParticipants = new Vector[15];
-        loggedUser = logged;
-        this.newSession = new ChatSession(loggedUser,toCon);
-        icon = new ImageIcon("stellina.png", null);
         while(count < this.chatParticipants.length){
-            
             this.chatParticipants[count] = new Vector();
             count++;
         }
+        initMap();
+        new ClientFetching(this.toCon,this,chatSession).start();
+        setUpdate();
+        refresher = new Thread(this);
+        refresher.start();
     }
     
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
@@ -975,21 +997,21 @@ public class Home extends javax.swing.JFrame implements Runnable{
         try{
             
             toCon.logout(loggedUser.getIdPerson());
-        }
-        catch(IOException ex){
+            this.toCon.close();
+        }catch(IOException ex){
             
             JOptionPane.showMessageDialog(null,"Problemi tecnici. Riprova più tardi." , "ACES", JOptionPane.ERROR_MESSAGE);
         }
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
-public void run(){
+    public void run(){
 
     while(true){
 
         try{
 
-            up.sleep(5000);
+            refresher.sleep(5000);
             setUpdate();
             if(this.index == 15) this.index = 0;
         }
@@ -1011,25 +1033,21 @@ public void run(){
 
     }//GEN-LAST:event_infoViewActionPerformed
 
-    private void setMap(){
+    private void initMap(){
         
-        map.put("sport", sport);
-        map.put("cultura",culture);
-        map.put("tecnologia",tech);
-        map.put("Nessuno",nothing);
-        map.put("politica",politic);
-        map.put("gossip", gossip);
+        mapFeed = new HashMap();
+        mapFeed.put("sport", sport);
+        mapFeed.put("cultura",culture);
+        mapFeed.put("tecnologia",tech);
+        mapFeed.put("Nessuno",nothing);
+        mapFeed.put("politica",politic);
+        mapFeed.put("gossip", gossip);
         
     }
-
-    public User getUser(){
-        
-        return this.loggedUser;
-    }
-    
+  
     private void setUpdate() throws IOException{
 
-        UsernameLabel.setText(loggedUser.getUsername());
+        usernameLabel.setText(loggedUser.getUsername());
         emailLabel.setText(loggedUser.getEmail());
         FeedView.setText(viewFeed());
         userImageLabel.setIcon(loggedUser.getPersonalImage());
@@ -1037,21 +1055,18 @@ public void run(){
         this.toCon.getMess(this.loggedUser.getUsername());
         switch(loggedUser.getLevel()){
         
-            case 1: firstStarLabel.setIcon(icon); break;
-            case 2: firstStarLabel.setIcon(icon); secondStarLabel.setIcon(icon); break;
-            case 3: firstStarLabel.setIcon(icon); secondStarLabel.setIcon(icon); thirdStarLabel.setIcon(icon); break;
+            case 1: firstStarLabel.setIcon(levelIcon); break;
+            case 2: firstStarLabel.setIcon(levelIcon); secondStarLabel.setIcon(levelIcon); break;
+            case 3: firstStarLabel.setIcon(levelIcon); secondStarLabel.setIcon(levelIcon); thirdStarLabel.setIcon(levelIcon); break;
         }
 
     }
-
     
     public void setContactList(Vector friends){
         
         contactList.setListData(friends);
-        friendList.setListData(friends);
-        
+        friendList.setListData(friends);        
     }
-    
    
     private void contactListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contactListMouseClicked
 
@@ -1066,17 +1081,15 @@ public void run(){
                 
                 Vector chatVector = buildChat(contactList.getSelectedValue().toString(),new Vector());
                 chatVector.add(loggedUser.getUsername());
-                newSession.start(chatVector);
+                chatSession.start(chatVector);
 
-            } catch (IOException ex) {
+            }catch (IOException ex) {
             
                 JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
             }
             }
     }//GEN-LAST:event_contactButtonActionPerformed
 
-
-    
     private Vector buildChat(String username,Vector userlist) throws IOException{
         
         userlist.add(username);       
@@ -1094,40 +1107,52 @@ public void run(){
   
         return userlist;
     }
-    
-    
+        
     private void disconnectMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disconnectMenuItemActionPerformed
         
         try {
             
-            toCon.logout(loggedUser.getIdPerson());
-            this.dispose();
+            toCon.logout(loggedUser.getIdPerson());           
             new InputForm().setVisible(true);
         } catch (Exception ex) {
             
             JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
-        } 
+        }
+        this.dispose();
     }//GEN-LAST:event_disconnectMenuItemActionPerformed
 
-    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+    private void chronoSearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chronoSearchButtonActionPerformed
 
         if(!userHistoryField.getText().equals("")){
             XML xml = new XML();
             int index = 0;
-            if(fileOperation.exist("ACES/History/"+userHistoryField.getText()+".xml")){
-                ArrayList conversation = xml.readXml("ACES/History/" + userHistoryField.getText()+".xml");
+            try{
+                if(new fileOperation().getOS().equals("Windows")){
+                    ArrayList conversation = xml.readXml("ACES\\History\\" + userHistoryField.getText()+".xml");
+                    chronoAppend(conversation);    
+                }
+                else{
+                    ArrayList conversation = xml.readXml("ACES/History/" + userHistoryField.getText()+".xml");
+                    chronoAppend(conversation);  
+                }
+            }catch(Exception ex){
+                
+                JOptionPane.showMessageDialog(null,"L'utente da te cercato non esiste e/o non l'hai ancora contattato per la prima volta." , "ACES", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_chronoSearchButtonActionPerformed
 
-                while( index < conversation.size()){
+    private void chronoAppend(ArrayList conversation){
+        
+        while( index < conversation.size()){
 
                     historyTextArea.append(conversation.get(index).toString()+"\n");
                     if(index != 0 && (index+1) % 3 == 0)
                         historyTextArea.append("\n");
                     index++;
                 }
-            }
-        }
-    }//GEN-LAST:event_searchButtonActionPerformed
-
+    }
+    
     private void photoLoadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_photoLoadButtonActionPerformed
 
         new fileChooser(this.loggedUser,userImageLabel,toCon,1).setVisible(true);
@@ -1139,44 +1164,39 @@ public void run(){
             try{
 
                 toCon.addFriend(friendtoAdd.getText(),loggedUser.getIdPerson());
-
-            }
-            catch(IOException ex){
+            }catch(IOException ex){
 
                 JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
             }
         }
-
-
     }//GEN-LAST:event_addFriendButtonActionPerformed
 
     private void inviteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inviteButtonActionPerformed
 
-        if(!emailToInvite.getText().equals(""))
+        if(!emailToInvite.getText().equals("")){
             try{
                 toCon.sendMail(loggedUser.getUsername(),emailToInvite.getText());
-            }
-            catch(IOException ex){
+            }catch(IOException ex){
 
                 JOptionPane.showMessageDialog(null,"Problemi tecnici. Riprova più tardi." , "ACES", JOptionPane.ERROR_MESSAGE);
             }
+        }
     }//GEN-LAST:event_inviteButtonActionPerformed
 
     private void contactMultiUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactMultiUsersActionPerformed
         
         try{
             this.chatParticipants[this.index].add(loggedUser.getUsername());
-            newSession.start(this.chatParticipants[this.index]);
+            chatSession.start(this.chatParticipants[this.index]);
             this.index = this.index + 1;
             this.multichatList.setText(null);
         
         } catch(IOException ex){
             
-            
+            JOptionPane.showMessageDialog(null,"Problemi tecnici. Riprova più tardi." , "ACES", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_contactMultiUsersActionPerformed
-
     
     private void addtoMultiChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addtoMultiChatActionPerformed
       
@@ -1187,43 +1207,38 @@ public void run(){
                 buildChat(friendList.getSelectedValue().toString(),this.chatParticipants[this.index]);
             }
             catch(IOException ex){
-                
+                JOptionPane.showMessageDialog(null,"Problemi tecnici. Riprova più tardi." , "ACES", JOptionPane.ERROR_MESSAGE);
             }
         }
         
     }//GEN-LAST:event_addtoMultiChatActionPerformed
 
     private void friendListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_friendListMouseClicked
-        
+
         addtoMultiChat.setEnabled(true);
     }//GEN-LAST:event_friendListMouseClicked
 
-    //aggiungere try-catch
 private void searchFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFriendButtonActionPerformed
     
      if(usertoSearch.getText()!=""){
             try {
                 this.toCon.searchUser(usertoSearch.getText());
-            }
-            
-            catch (IOException ex) {
+            }catch (IOException ex) {
                 JOptionPane.showMessageDialog(null,"Problemi tecnici. Riprova più tardi." , "ACES", JOptionPane.ERROR_MESSAGE);
             }
-
-            }  
+        }  
 }//GEN-LAST:event_searchFriendButtonActionPerformed
 
-    private void statisticButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statisticButtonActionPerformed
+    private void statisticsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statisticsButtonActionPerformed
 
         try {
-            this.toCon.statistic(loggedUser.getIdPerson());
-           
-        } 
-        
-        catch (IOException ex) {
-        
+            
+            this.toCon.getStatistics(loggedUser.getIdPerson());         
+        }catch (IOException ex) {
+            
+            JOptionPane.showMessageDialog(null,"Problemi tecnici. Riprova più tardi." , "ACES", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_statisticButtonActionPerformed
+    }//GEN-LAST:event_statisticsButtonActionPerformed
     
     private String viewFeed(){
 
@@ -1245,13 +1260,13 @@ private void searchFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {
 
                 try{
 
-                RSSFeedParser parser = new RSSFeedParser(map.get(interests[a]).toString());
+                RSSFeedParser parser = new RSSFeedParser(mapFeed.get(interests[a]).toString());
 		Feed feed = parser.readFeed();
                 for(FeedMessage message : feed.getMessages())
-		x = x.concat((message.getTitle()+"\n\n"));
+                    x = x.concat((message.getTitle()+"\n\n"));
                 }
                 catch(Exception ex){
-                    JOptionPane.showMessageDialog(null,"Problemi tecnici nel caricamente dei Feed." , "ACES", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Problemi tecnici nel caricamento dei Feed." , "ACES", JOptionPane.ERROR_MESSAGE);
                 }
                 return x;
     }
@@ -1270,33 +1285,28 @@ private void searchFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {
         imageFriendLabel.setIcon(user.getPersonalImage());
     }
 
-     public void setStatistic(Vector vector) {
+    public void setStatistic(Vector vector) {
        
         nFriendsField.setText(vector.get(0).toString());
         nLoginField.setText(vector.get(1).toString());
         nMessField.setText(vector.get(2).toString());
         dateTimeField.setText(vector.get(3).toString()); 
      }
-     
-     
+         
     private Vector[] chatParticipants;
     private int index;
-    private ChatSession newSession;
+    private chatManager chatSession;
     private final String tech = "http://www.repubblica.it/rss/tecnologia/rss2.0.xml";
     private final String culture = "http://rss.feedsportal.com/c/32275/f/438644/index.rss";
     private final String politic = "http://www.repubblica.it/rss/politica/rss2.0.xml";
     private final String gossip = "http://rss.feedsportal.com/c/625/f/8192/index.rss";
     private final String sport = "http://www.repubblica.it/rss/sport/rss2.0.xml";
     private final String nothing = "http://rss.feedsportal.com/c/32275/f/438637/index.rss";
-    private HashMap map;
-    private Icon icon;
-    private Thread up;
-    private static User loggedUser;
-    private  Requests toCon;
-    private static Requests support;
-
-//componenti swing instanziati sopra del form/frame;
-
+    private HashMap mapFeed;
+    private Icon levelIcon;
+    private Thread refresher;
+    private User loggedUser;
+    private Requests toCon;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel DecoInvitePanel1;
     private javax.swing.JPanel DecorationFunctionPanel;
@@ -1305,12 +1315,12 @@ private void searchFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JTextPane FeedView;
     private javax.swing.JPanel LevelPanel;
     private javax.swing.JTabbedPane TabPanel;
-    private javax.swing.JLabel UsernameLabel;
     private javax.swing.JButton addFriendButton;
     private javax.swing.JTextField addFriendTitle;
     private javax.swing.JPanel addTabPanel;
     private javax.swing.JButton addtoMultiChat;
     private javax.swing.JPanel chatroomTabPanel;
+    private javax.swing.JButton chronoSearchButton;
     private javax.swing.JPanel chronoTabPanel;
     private javax.swing.JTextField cityField;
     private javax.swing.JLabel cityFriendLabel;
@@ -1321,6 +1331,7 @@ private void searchFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JLabel dateLabel;
     private javax.swing.JTextField dateTimeField;
     private javax.swing.JPanel decoHomePanel;
+    private javax.swing.JLabel decoImageLabel;
     private javax.swing.JPanel decoInvitePanel;
     private javax.swing.JScrollPane decoScroll;
     private javax.swing.JTextPane decorationFeedPanel;
@@ -1342,6 +1353,8 @@ private void searchFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JTextField friendtoAdd;
     private javax.swing.JScrollPane historyScroll;
     private javax.swing.JTextArea historyTextArea;
+    private javax.swing.JLabel iconAcesLabel;
+    private javax.swing.JLabel iconAcesLabel1;
     private javax.swing.JLabel imageFriendLabel;
     private javax.swing.JLabel infoChronoLabel;
     private javax.swing.JPanel infoPanel;
@@ -1368,11 +1381,10 @@ private void searchFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JTextField nameField;
     private javax.swing.JLabel nameFriendLabel;
     private javax.swing.JButton photoLoadButton;
-    private javax.swing.JButton searchButton;
     private javax.swing.JButton searchFriendButton;
     private javax.swing.JPanel searchTabPanel;
     private javax.swing.JLabel secondStarLabel;
-    private javax.swing.JButton statisticButton;
+    private javax.swing.JButton statisticsButton;
     private javax.swing.JTextField surnameField;
     private javax.swing.JLabel surnameFriendLabel;
     private javax.swing.JTextArea textAreaInfo;
@@ -1384,11 +1396,8 @@ private void searchFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JLabel usernameChronoLabel;
     private javax.swing.JTextField usernameFriendField;
     private javax.swing.JLabel usernameFriendLabel;
+    private javax.swing.JLabel usernameLabel;
     private javax.swing.JLabel usernameSearchLabel;
     private javax.swing.JTextField usertoSearch;
     // End of variables declaration//GEN-END:variables
-
-   
-
-    
 }
