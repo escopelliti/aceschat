@@ -13,47 +13,43 @@ import General.Packet;
 
 public class Statistics {
 
-
+    
+    public Statistics(){
+        
+        this.con = Database.getCon();
+    }
 //    Questo metodo effettua la differenza tra la data di registrazione e quella attuale
     public Integer timeInAces (int idUser) throws SQLException, IOException{
-
-        Connection con = Database.getCon();
+       
         ResultSet rs;
-        Packet packet;
         int dateDif;
+        PreparedStatement count;
      
-        PreparedStatement count = con.prepareStatement("SELECT DATEDIFF(?, (SELECT RegistrationTime FROM Activation WHERE idUser =?)) AS date_dif");
+        count = con.prepareStatement("SELECT DATEDIFF(?, (SELECT RegistrationTime FROM Activation WHERE idUser =?)) AS date_dif");
         count.setString(1,DateTime.getDateTime());
         count.setInt(2,idUser );
         rs=count.executeQuery();
-        rs.next();
-        
-        dateDif= rs.getInt("date_dif")+1;
-        
-        return dateDif;
-    
+        rs.next();       
+        dateDif = rs.getInt("date_dif")+1;
+        return dateDif;    
         }
 
 
-        //Questo metodo calcola quanti login ha fatto l'utente
+//Questo metodo calcola quanti login ha fatto l'utente
 //Vuole passato come parametro l'id dell'utente di cui si deve fare il calcolo
     public Integer countLogin(int IdUser) throws SQLException, IOException{
 
-        Connection con = Database.getCon();
         ResultSet rs;
-        Packet packet;
-        int nLogin;
+        PreparedStatement count;
    
-    
-        PreparedStatement count = con.prepareStatement("SELECT COUNT(IdUser) as NumeroLogin FROM Login WHERE idUser = ? ");
+        count = con.prepareStatement("SELECT COUNT(IdUser) as NumeroLogin FROM Login WHERE idUser = ? ");
         count.setInt(1,IdUser);
         rs = count.executeQuery();
         rs.next();
        
-        return nLogin=rs.getInt("NumeroLogin");
-     
-    
-}
+        return rs.getInt("NumeroLogin");
+
+    }
 
 //Questo metodo calcola quanti login ha fatto l'utente in un determinata data
 //Vuole passato un vettore in cui il primo elemento è l'id del tizio, e il secondo invece è la data da controllare
@@ -61,9 +57,7 @@ public class Statistics {
 
         Connection con = Database.getCon();
         ResultSet rs;
-        Packet packet;
         PreparedStatement count;
-        int nLogin;
    
         count = con.prepareStatement("SELECT COUNT(IdUser) AS NumeroLogin FROM Login WHERE idUser = ? AND Datetime LIKE ?");
         count.setInt(1,IdUser);
@@ -71,44 +65,35 @@ public class Statistics {
         rs = count.executeQuery();
         rs.next();
         
-        return nLogin=rs.getInt("NumeroLogin");
-     
+        return rs.getInt("NumeroLogin");    
         }
 
 
       public Integer countMessage(int IdUser) throws SQLException, IOException{
 
-        Connection con = Database.getCon();
         ResultSet rs;
-        Packet packet;
-        int nMess;
 
         PreparedStatement count = con.prepareStatement("SELECT COUNT(*) AS nMess FROM Chat WHERE IdSorg = ?");
         count.setInt(1,IdUser);
         rs=count.executeQuery();
         rs.next();
             
-        return nMess=rs.getInt("nMess");
-        
+        return rs.getInt("nMess");       
     }
     
        public Integer countFriends(int IdUser) throws SQLException, IOException{
            
            Connection con = Database.getCon();  
            ResultSet rs;
-           Packet packet;
            int nFriends;
-           
-           System.out.println("Priam query");
-                PreparedStatement count = con.prepareStatement("SELECT COUNT(*) AS nFriends FROM Friend WHERE IdUser = ?");
-                count.setInt(1,IdUser);
-                rs=count.executeQuery();
-                rs.next();
-                
-                nFriends=rs.getInt("nFriends");
-                System.out.println(nFriends);
-                return nFriends;
-                   
+           PreparedStatement count;
+                    
+           count = con.prepareStatement("SELECT COUNT(*) AS nFriends FROM Friend WHERE IdUser = ?");
+           count.setInt(1,IdUser);
+           rs=count.executeQuery();
+           rs.next();               
+           nFriends=rs.getInt("nFriends");  
+           return nFriends;                   
        }
       
       
@@ -125,4 +110,5 @@ public class Statistics {
             return nUser;
         }
 
+    Connection con;
 }
