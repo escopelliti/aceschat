@@ -347,7 +347,7 @@ public class SecondPage extends javax.swing.JFrame {
                         created = true;
                         break;
                     }
-                    created = fo.createDirectory("ACES\\History");
+                    created = fo.createFile("ACES\\History");
                                
                     }
                 else{
@@ -355,7 +355,7 @@ public class SecondPage extends javax.swing.JFrame {
                         created = true;
                         break;
                     }
-                    created = fo.createDirectory("ACES/History");
+                    created = fo.createFile("ACES/History");
 
                     }
 

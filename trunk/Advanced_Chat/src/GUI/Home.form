@@ -70,9 +70,12 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="FeedPanel" max="32767" attributes="0"/>
           </Group>
-          <Component id="TabPanel" alignment="0" min="0" pref="0" max="32767" attributes="1"/>
           <Component id="DecorationFunctionPanel" alignment="0" max="32767" attributes="1"/>
-          <Component id="decoHomePanel" alignment="0" max="32767" attributes="0"/>
+          <Component id="TabPanel" alignment="1" pref="953" max="32767" attributes="1"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="decoHomePanel" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -84,9 +87,9 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="DecorationFunctionPanel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="TabPanel" min="-2" pref="379" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="decoHomePanel" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -107,7 +110,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="decoScroll" min="-2" pref="52" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="FeedScroll" pref="195" max="32767" attributes="0"/>
+                  <Component id="FeedScroll" pref="183" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -176,7 +180,7 @@
                               <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="infoView" alignment="0" max="32767" attributes="1"/>
                                   <Component id="emailLabel" alignment="0" max="32767" attributes="1"/>
-                                  <Component id="UsernameLabel" alignment="0" pref="127" max="32767" attributes="1"/>
+                                  <Component id="usernameLabel" alignment="0" pref="127" max="32767" attributes="1"/>
                                   <Component id="photoLoadButton" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -193,7 +197,7 @@
                   <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="UsernameLabel" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="usernameLabel" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="emailLabel" min="-2" pref="31" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -294,7 +298,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="infoViewActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="UsernameLabel">
+        <Component class="javax.swing.JLabel" name="usernameLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SansSerif" size="12" style="1"/>
@@ -369,7 +373,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="28" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="19" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -429,7 +433,7 @@
             <Component class="javax.swing.JLabel" name="logoLabel">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/GUI/logo2.png"/>
+                  <Image iconType="3" name="/GUI/Images/logo2.png"/>
                 </Property>
               </Properties>
             </Component>
@@ -476,36 +480,38 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="contactListScroll" min="-2" pref="175" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="decoImageLabel" min="-2" pref="204" max="-2" attributes="0"/>
+                                  <Component id="iconAcesLabel" min="-2" pref="182" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="dateLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="messLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="friendsLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="loginLabel" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="nMessField" alignment="0" max="32767" attributes="1"/>
+                                      <Component id="nLoginField" alignment="0" max="32767" attributes="1"/>
+                                      <Component id="nFriendsField" alignment="0" pref="44" max="32767" attributes="1"/>
+                                      <Component id="statisticsButton" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                                      <Component id="dateTimeField" min="-2" pref="42" max="-2" attributes="1"/>
+                                  </Group>
+                              </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                               <Component id="contactButton" min="-2" pref="98" max="-2" attributes="1"/>
                           </Group>
                       </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="463" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="friendsLabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="loginLabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="messLabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="dateLabel" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="nMessField" pref="42" max="32767" attributes="1"/>
-                                  <Component id="nFriendsField" alignment="1" pref="42" max="32767" attributes="1"/>
-                                  <Component id="nLoginField" alignment="1" pref="42" max="32767" attributes="1"/>
-                                  <Component id="dateTimeField" alignment="0" min="-2" pref="42" max="-2" attributes="1"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="statisticButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="150" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <EmptySpace min="-2" pref="174" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -513,35 +519,48 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="contactListScroll" min="-2" pref="283" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="contactButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="1">
-                      <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="friendsLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="nFriendsField" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="contactListScroll" min="-2" pref="283" max="-2" attributes="1"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="contactButton" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="decoImageLabel" alignment="0" max="32767" attributes="1"/>
+                                  <Group type="102" alignment="0" attributes="1">
+                                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="friendsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="nFriendsField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="loginLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="nLoginField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="messLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="nMessField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="dateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="dateTimeField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="statisticsButton" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="iconAcesLabel" pref="194" max="32767" attributes="1"/>
+                              </Group>
+                          </Group>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="nLoginField" min="-2" max="-2" attributes="0"/>
-                          <Component id="loginLabel" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="nMessField" min="-2" max="-2" attributes="0"/>
-                          <Component id="messLabel" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="dateLabel" min="-2" max="-2" attributes="0"/>
-                          <Component id="dateTimeField" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="40" max="32767" attributes="0"/>
-                      <Component id="statisticButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -676,7 +695,7 @@
                 <Property name="text" type="java.lang.String" value="Giorni su ACES :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="statisticButton">
+            <Component class="javax.swing.JButton" name="statisticsButton">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="SansSerif" size="15" style="1"/>
@@ -687,8 +706,23 @@
                 <Property name="text" type="java.lang.String" value="Statistiche"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="statisticButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="statisticsButtonActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="decoImageLabel">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/GUI/Images/my_Logo.png"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="iconAcesLabel">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/GUI/Images/ACES.png"/>
+                </Property>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -708,13 +742,17 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="friendListScroll" min="-2" pref="175" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                              <Component id="textAreaInfoScroll" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
                               <Component id="addtoMultiChat" min="-2" pref="104" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                              <Component id="textAreaInfoScroll" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
+                              <Component id="iconAcesLabel1" min="-2" pref="156" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
@@ -747,6 +785,8 @@
                               <Component id="textAreaInfoScroll" min="-2" pref="113" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="addtoMultiChat" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="iconAcesLabel1" pref="123" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -854,6 +894,14 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JLabel" name="iconAcesLabel1">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/GUI/Images/ACES.png"/>
+                </Property>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="addTabPanel">
@@ -953,7 +1001,7 @@
             <Component class="javax.swing.JLabel" name="logoLabel1">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/GUI/ACES.png"/>
+                  <Image iconType="3" name="/GUI/Images/ACES.png"/>
                 </Property>
               </Properties>
             </Component>
@@ -1002,7 +1050,7 @@
                           <Component id="emailToInvite" max="32767" attributes="1"/>
                           <Component id="emailInviteLabel" alignment="0" pref="46" max="32767" attributes="1"/>
                       </Group>
-                      <EmptySpace pref="49" max="32767" attributes="0"/>
+                      <EmptySpace pref="64" max="32767" attributes="0"/>
                       <Component id="DecoInvitePanel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -1128,7 +1176,7 @@
                           <Component id="infoChronoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="usernameChronoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="userHistoryField" min="-2" pref="158" max="-2" attributes="0"/>
-                          <Component id="searchButton" min="-2" pref="85" max="-2" attributes="0"/>
+                          <Component id="chronoSearchButton" min="-2" pref="85" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="historyScroll" min="-2" pref="609" max="-2" attributes="0"/>
@@ -1146,7 +1194,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="userHistoryField" min="-2" pref="34" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="searchButton" min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="chronoSearchButton" min="-2" pref="41" max="-2" attributes="0"/>
                       <EmptySpace pref="133" max="32767" attributes="0"/>
                   </Group>
                   <Component id="historyScroll" alignment="1" pref="334" max="32767" attributes="0"/>
@@ -1178,7 +1226,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="userHistoryField">
             </Component>
-            <Component class="javax.swing.JButton" name="searchButton">
+            <Component class="javax.swing.JButton" name="chronoSearchButton">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="SansSerif" size="15" style="1"/>
@@ -1189,7 +1237,7 @@
                 <Property name="text" type="java.lang.String" value="Cerca"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chronoSearchButtonActionPerformed"/>
               </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="historyScroll">
@@ -1233,7 +1281,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="logoLabel2" min="-2" pref="199" max="-2" attributes="0"/>
-                              <EmptySpace pref="41" max="32767" attributes="0"/>
+                              <EmptySpace pref="26" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" alignment="1" attributes="1">
                                       <Component id="levelFriendLabel" min="-2" max="-2" attributes="0"/>
@@ -1262,7 +1310,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="122" max="32767" attributes="0"/>
+                              <EmptySpace pref="107" max="32767" attributes="0"/>
                               <Component id="imageFriendLabel" min="-2" pref="155" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
                           </Group>
@@ -1289,7 +1337,7 @@
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace pref="43" max="32767" attributes="0"/>
+                              <EmptySpace pref="31" max="32767" attributes="0"/>
                               <Component id="logoLabel2" min="-2" pref="227" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
                           </Group>
@@ -1341,7 +1389,7 @@
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/GUI/logo2.png"/>
+                  <Image iconType="3" name="/GUI/Images/logo1.png"/>
                 </Property>
               </Properties>
             </Component>
@@ -1511,7 +1559,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="953" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="941" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">

@@ -1,16 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * InputForm.java
- *
- * Created on 4-ott-2011, 23.41.50
- */
-
 package GUI;
-
 
 import fileManager.fileOperation;
 import Networking.Mail;
@@ -25,21 +13,14 @@ import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 
 
-
-/**
- *
- * @author enrico
- */
 public class InputForm extends javax.swing.JFrame {
 
-    /** inizializza i componenti swing che fanno parte del Frame */
     public InputForm() throws FileNotFoundException, IOException {
 
         initComponents();
-        init();
+        initFiles();
     }
-
-   
+  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -360,8 +341,7 @@ public class InputForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    
+   
     private String[] calculateYears(){
         
         String[] item = new String[120];
@@ -377,19 +357,19 @@ public class InputForm extends javax.swing.JFrame {
         return item;
     }
 
-    public String getRememberme() {
+    private String getRememberme() {
         return rememberme;
     }
 
-    public void setRememberme(String rememberme) {
+    private void setRememberme(String rememberme) {
         this.rememberme = rememberme;
     }
 
-    public int getFlag() {
+    private int getFlag() {
         return flag;
     }
 
-    public static void setConfiguration(String ip,String port) {
+    public void setConfiguration(String ip,String port) {
 
         configuration.add(0,"ip");
         configuration.add(1,ip);
@@ -397,8 +377,7 @@ public class InputForm extends javax.swing.JFrame {
         configuration.add(3,ip);
     }
 
-
-    private void init() throws FileNotFoundException, IOException{
+    private void initFiles() throws FileNotFoundException, IOException{
         
         ArrayList credentials;
         XML xml = new XML();
@@ -419,16 +398,13 @@ public class InputForm extends javax.swing.JFrame {
         }
             
         else{ 
-                if(fileOperation.exist("ACES/credentials.xml")){
+             if(fileOperation.exist("ACES/credentials.xml")){
             
-                    credentials = xml.readXml("ACES/credentials.xml");
-                    setCredentials(credentials);
+                credentials = xml.readXml("ACES/credentials.xml");
+                setCredentials(credentials);
         }
         }
     }
-
-    
-
 
     private void setCredentials(ArrayList credentials){
       
@@ -441,12 +417,10 @@ public class InputForm extends javax.swing.JFrame {
         }
     }
     
-
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         
         if(!nameField.getText().equals("") && !surnameField.getText().equals("") && !nationField.getText().equals("") && !cityField.getText().equals("") && !mailField.getText().equals("")){
-
-             
+     
                 if(Mail.checkMail(mailField.getText())){ 
                     this.setVisible(false);
                     String year = (String) yearComboBox.getSelectedItem();
@@ -455,13 +429,9 @@ public class InputForm extends javax.swing.JFrame {
                     String sex = (String) sexComboBox.getSelectedItem();
                     new_user = new User(nameField.getText(),surnameField.getText(),mailField.getText(),year.concat("-"+month).concat("-"+day),cityField.getText(),nationField.getText(),sex,"");
                     new SecondPage(new_user).setVisible(true);
-
-                }
+                }      
         }
     }//GEN-LAST:event_registerButtonActionPerformed
-
-
-
 
     private void loadConfig(){
 
@@ -471,32 +441,25 @@ public class InputForm extends javax.swing.JFrame {
         if(fo.getOS().equals("Windows")){
 
             if(fileOperation.exist("ACES\\config.xml"))
-
                 configuration = xml.readXml("ACES\\config.xml");
-            else{
-
-                configuration = new ArrayList<String>();
-                new configDialog(this, rootPaneCheckingEnabled).setVisible(true);                
-            }
+            else
+                createConfig();                      
         }
         else{
-
-            if(fileOperation.exist("ACES/config.xml"))
-                
-                configuration = xml.readXml("ACES/config.xml");
             
-            else{
-                
-                configuration = new ArrayList<String>();
-                new configDialog(this, rootPaneCheckingEnabled).setVisible(true);
-                
+            if(fileOperation.exist("ACES/config.xml"))              
+                configuration = xml.readXml("ACES/config.xml");            
+            else               
+                createConfig();                         
             }
-            }
-
     }
 
-
-    //azioni da intraprendere quando entri nell'applicazione;ovviamente va IMPLEMENTATO un metodo  con network per loggarsi;
+    private void createConfig(){
+        
+        configuration = new ArrayList<String>();
+        new configDialog(this, rootPaneCheckingEnabled,this).setVisible(true);
+    }
+    
     private void enterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterButtonActionPerformed
 
         XML xml = new XML();
@@ -505,37 +468,29 @@ public class InputForm extends javax.swing.JFrame {
            
             loadConfig();            
             request = new Requests(configuration.get(1).toString(), configuration.get(3).toString());      
-            if(!usernameField.getText().equals("") && !pswField.getText().equals("")){
-               
-                    if(request.logMe(usernameField.getText(),pswField.getText())){
-                    
-                        this.setVisible(false);          
-                        if((getFlag() % 2) != 0){
-
-                            if(fo.getOS().equals("Windows") && fileOperation.exist("ACES\\credentials.xml"))
-
-                                xml.writeXml("ACES\\credentials.xml", usernameField.getText(), pswField.getText(), getRememberme());
-                            else{
-                                
-                                fo.createDirectory("ACES\\credentials.xml");
-                                xml.writeXml("ACES\\credentials.xml", usernameField.getText(), pswField.getText(), getRememberme());
-                            }
-                                
-                            if(!(fo.getOS().equals("Windows")) && fileOperation.exist("ACES/credentials.xml")) 
-                                xml.writeXml("ACES/credentials.xml", usernameField.getText(), pswField.getText(), getRememberme());
-                            else{
-                                
-                                fo.createDirectory("ACES/credentials.xml");
-                                xml.writeXml("ACES/credentials.xml", usernameField.getText(), pswField.getText(), getRememberme());
-                            }
-                        }
-                    }
-                    }
-        }
-                    catch (Exception ex){
+            if(request.logMe(usernameField.getText(),pswField.getText())){
+                                                   
+               if((getFlag() % 2) != 0){
+                          
+                   if(fo.getOS().equals("Windows") && fileOperation.exist("ACES\\credentials.xml"))                               
+                        xml.writeXml("ACES\\credentials.xml", usernameField.getText(), pswField.getText(), getRememberme());
+                   else{                                
+                        fo.createFile("ACES\\credentials.xml");
+                        xml.writeXml("ACES\\credentials.xml", usernameField.getText(), pswField.getText(), getRememberme());
+                       }                                
+                   if(!(fo.getOS().equals("Windows")) && fileOperation.exist("ACES/credentials.xml"))                        
+                       xml.writeXml("ACES/credentials.xml", usernameField.getText(), pswField.getText(), getRememberme());
+                   else{                                
+                       fo.createFile("ACES/credentials.xml");
+                       xml.writeXml("ACES/credentials.xml", usernameField.getText(), pswField.getText(), getRememberme());
+                       }                  
+                }
+               this.dispose();
+             }
+        }   
+        catch (Exception ex){
                         
-                        JOptionPane.showMessageDialog(null, ex.toString(), "ACES", JOptionPane.ERROR_MESSAGE);
-
+            JOptionPane.showMessageDialog(null,"Problemi tecnici. Riprova più tardi.", "ACES", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_enterButtonActionPerformed
     }
     
@@ -545,7 +500,6 @@ public class InputForm extends javax.swing.JFrame {
         if(getRememberme().equals("si"))
             setRememberme("no");
         else setRememberme("si");
-
     }//GEN-LAST:event_credentialsCheckBoxActionPerformed
         
     public static void main(String args[]) {
@@ -563,13 +517,10 @@ public class InputForm extends javax.swing.JFrame {
     }
 
     private Requests request;
-    private static ArrayList<String> configuration;
+    private ArrayList<String> configuration;
     private User new_user;
     private String rememberme; //ci permette di codificare se ricordare al prossimo avvio dell'applicazione le cred-
     private int flag;               //-denziali d'accesso;
-
-    //Componenti swing del frame.
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel birthdayLabel;
     private javax.swing.JTextField cityField;

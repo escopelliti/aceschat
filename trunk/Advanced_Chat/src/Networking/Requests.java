@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Networking;
 
 
@@ -20,20 +15,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 
-
-/**
- *
- * @author enrico
- */
 public class Requests {
 
-    private String ip;
-    private String port;
-    private Socket socket;
-    private ObjectOutputStream out;
-    private ObjectInputStream in;
-    
-    
 
     public Requests(String ip,String port) throws UnknownHostException, IOException{
 
@@ -59,7 +42,6 @@ public class Requests {
         return out;
     }
 
-
     public void setPort(String port) {
         this.port = port;
     }
@@ -77,16 +59,14 @@ public class Requests {
     public String getIp() {
         return ip;
     }
-
-    
+   
     public void getFriends(int idUser) throws IOException{
         
         Packet packet;
         
         packet = new Packet(6, idUser);
         this.out.writeObject(packet);
-    }
-    
+    }   
     
     public void send(String message,Vector receiver,String sender) throws IOException{
 
@@ -101,8 +81,6 @@ public class Requests {
         this.out.writeObject(packet);
     }
 
-    
-    
     public void sendAbuse(int idSender,String offense,String offender) throws IOException{
         
         Vector toSend;
@@ -117,9 +95,6 @@ public class Requests {
         
     }
 
-
-    //vedere perchè mi fa quell'eccezzione cannot be cast
-    //potremo evitare di rimanare l'user se è tutto ok dato che comunque è andato a buon fine..
     public boolean registerMe(User user) throws IOException, ClassNotFoundException{
 
         Packet toSend;
@@ -146,7 +121,6 @@ public class Requests {
 
 
     }
-
     
     public void sendImage(File image,int idUser) throws IOException{
         
@@ -162,7 +136,6 @@ public class Requests {
   
     }
     
-
     public void sendMail(String sender,String mailToInvite) throws IOException{
 
         Packet packet;
@@ -181,39 +154,27 @@ public class Requests {
         Packet toSend;
         Vector info = null;
         Object response;
-
+      
         info = new Vector();
         password = MD5.encode(password);
-
+       
         info.add(0,username);
         info.add(1,password);
         toSend = new Packet(4, info);
 
         this.out.writeObject(toSend);
         response = this.in.readObject();
-
         if(response.getClass().getName().equals("java.lang.String")){
-            
             JOptionPane.showMessageDialog(null, response.toString(), "ACES", JOptionPane.ERROR_MESSAGE); 
             return false;
         }
         else{
-            
             User user_log = (User) response;
             Requests logged = new Requests(this.ip, this.port);
             new Home(logged,user_log).setVisible(true);
             return true;
         }
     }
-
-    //unico metodo insieme a registerMe che aspetta la risposta sulla socket nello stesso posto da dove manda la richiesta
-    //non c'è conflitto di altre richieste perchè sono uniche (e le prime tra l'altro);
-      //questo è fatto per poter bloccare l'accesso in caso non vada a buon fine;
-        //per le altre richieste non ci sono problemi di questo tipo; --> ClientFetching
-
-
-
-
 
     public void modifyPersonalInfo(User user) throws IOException{
 
@@ -225,8 +186,6 @@ public class Requests {
 
     }
 
-    //il metodo deve creare il pachetto da inviare al server fertching
-        
     public void searchUser(String username) throws IOException{
         
         Packet toSend;
@@ -250,9 +209,6 @@ public class Requests {
 
     }
 
-
-
-    
     public void send(File file,Vector receiver,String sender) throws IOException{
 
         Packet packet;
@@ -271,21 +227,34 @@ public class Requests {
 
         Packet packet;   
         Vector toSend;
-        
         toSend=new Vector();
         toSend.add(0,id);
         toSend.add(1,0);
-        
         packet = new Packet(2,toSend);
         this.out.writeObject(packet);
     }
     
-    public void statistic(int IdUser) throws IOException{
+    public void close() throws IOException{
+        
+        this.socket.close();
+    }
+    
+    public void getStatistics(int IdUser) throws IOException{
+        
         Packet packet;
         packet = new Packet(15,IdUser);
         this.out.writeObject(packet);
    
     }
+    
+    
+    private String ip;
+    private String port;
+    private Socket socket;
+    private ObjectOutputStream out;
+    private ObjectInputStream in;
+    
+    
 }
 
 

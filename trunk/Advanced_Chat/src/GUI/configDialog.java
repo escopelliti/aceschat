@@ -2,6 +2,7 @@ package GUI;
 
 import fileManager.fileOperation;
 import XML.XML;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 
@@ -9,9 +10,10 @@ public class configDialog extends javax.swing.JDialog {
     
 
     
-    public configDialog(java.awt.Frame parent, boolean modal) {
+    public configDialog(java.awt.Frame parent, boolean modal,InputForm frame) {
         super(parent, modal);
         initComponents();
+        this.frame = frame;
     }
 
 
@@ -123,10 +125,10 @@ public class configDialog extends javax.swing.JDialog {
         if(!ipField.getText().equals("") && !portField.getText().equals("")){
             
             fileOperation fo = new fileOperation();
-            InputForm.setConfiguration(ipField.getText(),portField.getText());
+            frame.setConfiguration(ipField.getText(),portField.getText());
 
             try{
-                fo.createDirectory("ACES");
+                fo.createFile("ACES");
                 if(fo.getOS().equals("Windows"))
                
                     new XML().writeXml("ACES\\config.xml", ipField.getText(), portField.getText());               
@@ -150,7 +152,7 @@ public class configDialog extends javax.swing.JDialog {
         dispose();
     }
 
-
+    private InputForm frame;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ipField;
     private javax.swing.JLabel jLabel1;
