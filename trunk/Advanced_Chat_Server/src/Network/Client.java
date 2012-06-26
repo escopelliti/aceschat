@@ -250,7 +250,7 @@ public class Client{
             switch((Integer) info.get(1)){
                 
                 case 0: gv.enqueueEvent("L'utente "+myUsername+" ha effettuato il logout."); 
-                        gv.removeLoggedUsers(myUsername); this.clientSocket.close(); break;
+                        gv.removeLoggedUsers(myUsername); /*this.clientSocket.close();*/ break;
                 
             }
 
@@ -582,7 +582,6 @@ public class Client{
                             user.setInterests(interests);
                         else
                             user.setInterests("Nessuno");
-                
 
                         query = con.prepareStatement("UPDATE `AdvancedChat`.`Status` SET `IdStatus` = 1 WHERE `Status`.`IdUser` = ?");
                         query.setInt(1,user.getIdPerson());
