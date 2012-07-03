@@ -131,7 +131,7 @@ public class Client{
         gv.enqueueEvent("L'utente "+vect.get(0).toString()+"ha inviato un invito via mail a "+vect.get(1).toString());
     }
     
-    //nel vettore arriva 0)id di chi sta segnlando 1)l'username da segnalare2)testo dell'offesa
+    //nel vettore arriva 0)id di chi sta segnalando 1)l'username da segnalare2)testo dell'offesa
     public void signAbuse(Object payload) throws SQLException, IOException{
 
             Vector sign = (Vector) payload;
@@ -148,6 +148,9 @@ public class Client{
                 rs = abuse.executeQuery();
                 rs.next();
                 idOffending = rs.getInt("IdUser");
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                System.out.println("idOffending = "+ idOffending);
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
                 abuse = con.prepareStatement("SELECT * FROM Offense WHERE IdSender = ? AND IdOffending = ?");
                 abuse.setObject(1,sign.get(0));
@@ -545,7 +548,7 @@ public class Client{
 
                     if(!rs.next()){
                         
-                        query = con.prepareStatement("SELECT * FROM `Activation` WHERE idUser = ? AND ActivationStatus = 1");
+                        query = con.prepareStatement("SELECT * FROM `Activation` WHERE IdUser = ? AND ActivationStatus = 1");
                         query.setInt(1, user.getIdPerson());
                         rs = query.executeQuery();
                
@@ -567,13 +570,13 @@ public class Client{
                         
                         }
  
-                        query = con.prepareStatement("SELECT * FROM `Interest` WHERE IdUser = ?");
+                        query = con.prepareStatement("SELECT * FROM `Interest` WHERE id = ?");
                         query.setInt(1, user.getIdPerson());
                         rs = query.executeQuery();
  
                         while(rs.next()){
                                 flag = 1;
-                                interests[index] = rs.getString("Interests");                         
+                                interests[index] = rs.getString("description");                         
                                 index++;
                              }
 
