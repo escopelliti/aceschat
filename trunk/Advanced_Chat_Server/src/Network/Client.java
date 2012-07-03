@@ -148,9 +148,6 @@ public class Client{
                 rs = abuse.executeQuery();
                 rs.next();
                 idOffending = rs.getInt("IdUser");
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                System.out.println("idOffending = "+ idOffending);
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
                 abuse = con.prepareStatement("SELECT * FROM Offense WHERE IdSender = ? AND IdOffending = ?");
                 abuse.setObject(1,sign.get(0));
