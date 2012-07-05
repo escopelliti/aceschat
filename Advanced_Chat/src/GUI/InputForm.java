@@ -12,7 +12,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 
-
+/*Classe da cui parte l'Applicazione*/
 public class InputForm extends javax.swing.JFrame {
 
     public InputForm() throws FileNotFoundException, IOException {
@@ -341,7 +341,7 @@ public class InputForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-   
+   /*metodo per avere sempre aggiornata, all'anno attuale,la lista di item nell'oggetto JComboBox;*/
     private String[] calculateYears(){
         
         String[] item = new String[120];
@@ -368,7 +368,7 @@ public class InputForm extends javax.swing.JFrame {
     private int getFlag() {
         return flag;
     }
-
+    /*crea una struttura dati per la memorizzazione della configurazione IP e PORTA del server */
     public void setConfiguration(String ip,String port) {
 
         configuration.add(0,"ip");
@@ -376,7 +376,7 @@ public class InputForm extends javax.swing.JFrame {
         configuration.add(2,"porta");
         configuration.add(3,ip);
     }
-
+    /*Inizializza files, in particolare carica, se esiste il file relativo alla funzione "Ricordami al prossimo avvio".*/
     private void initFiles() throws FileNotFoundException, IOException{
         
         ArrayList credentials;
@@ -405,7 +405,7 @@ public class InputForm extends javax.swing.JFrame {
         }
         }
     }
-
+    /*Imposta in modo coerente alla configurazione caricata dal file, gli oggetti JSwing del JFrame*/
     private void setCredentials(ArrayList credentials){
       
            if(credentials.get(5).toString().equals("si")){
@@ -416,7 +416,9 @@ public class InputForm extends javax.swing.JFrame {
                 credentialsCheckBox.setSelected(true);           
         }
     }
-    
+    /*Una volta compilati i campi di registrazione, l'utente potrà accedere ad una nuova schermata "SecondPage"
+     * per ultimare il processo di registrazione all'applicazione.
+     */
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         
         if(!nameField.getText().equals("") && !surnameField.getText().equals("") && !nationField.getText().equals("") && !cityField.getText().equals("") && !mailField.getText().equals("")){
@@ -432,7 +434,10 @@ public class InputForm extends javax.swing.JFrame {
                 }      
         }
     }//GEN-LAST:event_registerButtonActionPerformed
-
+    /*Carica, se esiste, il file relativo alla configurazione IP e PORTA; nel caso non esistesse il problema viene
+     * passato a createDialog(), che chiede all'utente la configurazione e la salva in modo che al prossimo avvio non venga 
+     * più richiesta;è
+     */
     private void loadConfig(){
 
         XML xml = new XML();
@@ -459,7 +464,10 @@ public class InputForm extends javax.swing.JFrame {
         configuration = new ArrayList<String>();
         new configDialog(this, rootPaneCheckingEnabled,this).setVisible(true);
     }
-    
+    /*Attraverso JButton, mandiamo una richiesta di login al server, se va a buon fine viene caricata la Home dell'app.
+     * Inoltre viene creato e/o modificato, il file con le credenziali dell'utente per la funzionalità "Ricordami al
+     * prossimo accesso".
+     */
     private void enterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterButtonActionPerformed
 
         XML xml = new XML();
@@ -493,7 +501,7 @@ public class InputForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Problemi tecnici. Riprova più tardi.", "ACES", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_enterButtonActionPerformed
     }
-    
+    /* ActionPerformed per la checkbox delle credenziali per la funzionalità "Ricordami"*/
     private void credentialsCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_credentialsCheckBoxActionPerformed
 
         flag++;
@@ -501,7 +509,7 @@ public class InputForm extends javax.swing.JFrame {
             setRememberme("no");
         else setRememberme("si");
     }//GEN-LAST:event_credentialsCheckBoxActionPerformed
-        
+       
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
