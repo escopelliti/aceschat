@@ -523,12 +523,12 @@ public class InputForm extends javax.swing.JFrame {
             }
         });
     }
-
+    
     private Requests request;
     private ArrayList<String> configuration;
     private User new_user;
-    private String rememberme; //ci permette di codificare se ricordare al prossimo avvio dell'applicazione le cred-
-    private int flag;               //-denziali d'accesso;
+    private String rememberme; 
+    private int flag;              
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel birthdayLabel;
     private javax.swing.JTextField cityField;
