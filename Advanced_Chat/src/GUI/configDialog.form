@@ -28,12 +28,12 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="okButton" alignment="1" min="-2" pref="67" max="-2" attributes="0"/>
-                          <Component id="jTextField1" alignment="0" pref="378" max="32767" attributes="0"/>
+                          <Component id="titleField" alignment="0" pref="378" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="portLabel" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace pref="122" max="32767" attributes="0"/>
                       <Component id="portField" min="-2" pref="197" max="-2" attributes="0"/>
                   </Group>
@@ -47,7 +47,7 @@
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                  <Component id="jLabel2" min="-2" pref="50" max="-2" attributes="0"/>
+                  <Component id="ipLabel" min="-2" pref="50" max="-2" attributes="0"/>
                   <EmptySpace pref="330" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -57,12 +57,12 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTextField1" min="-2" pref="43" max="-2" attributes="0"/>
+              <Component id="titleField" min="-2" pref="43" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
               <Component id="ipField" min="-2" pref="44" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                  <Component id="portLabel" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                   <Component id="portField" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="56" max="32767" attributes="0"/>
@@ -72,7 +72,7 @@
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
-                  <Component id="jLabel2" min="-2" pref="31" max="-2" attributes="0"/>
+                  <Component id="ipLabel" min="-2" pref="31" max="-2" attributes="0"/>
                   <EmptySpace pref="157" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -88,7 +88,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="okButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="portLabel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="fe" green="fe" red="fe" type="rgb"/>
@@ -102,7 +102,7 @@
         <Property name="text" type="java.lang.String" value="Porta:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="titleField">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="fe" green="fe" red="fe" type="rgb"/>
@@ -130,7 +130,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="ipLabel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="fe" green="fe" red="fe" type="rgb"/>

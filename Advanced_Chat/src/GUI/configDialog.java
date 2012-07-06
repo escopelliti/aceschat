@@ -2,33 +2,29 @@ package GUI;
 
 import fileManager.fileOperation;
 import XML.XML;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-/*
- *  Per creare il file di configurazione xml per la connessione al server  
+
+/*Piccola finestra di dialogo(extends Jdialog) che permette all'utente, in caso non fosse presente una configurazione di 
+ * connessione al server, di inserire IP e PORTA del server.
  */
 public class configDialog extends javax.swing.JDialog {
-    
-
-    
+        
     public configDialog(java.awt.Frame parent, boolean modal,InputForm frame) {
         super(parent, modal);
         initComponents();
         this.frame = frame;
     }
 
-
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         okButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        portLabel = new javax.swing.JLabel();
+        titleField = new javax.swing.JTextField();
         portField = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        ipLabel = new javax.swing.JLabel();
         ipField = new javax.swing.JTextField();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -44,25 +40,25 @@ public class configDialog extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setBackground(new java.awt.Color(254, 254, 254));
-        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 12));
-        jLabel1.setForeground(new java.awt.Color(6, 6, 6));
-        jLabel1.setText("Porta:");
+        portLabel.setBackground(new java.awt.Color(254, 254, 254));
+        portLabel.setFont(new java.awt.Font("SansSerif", 1, 12));
+        portLabel.setForeground(new java.awt.Color(6, 6, 6));
+        portLabel.setText("Porta:");
 
-        jTextField1.setBackground(new java.awt.Color(254, 254, 254));
-        jTextField1.setEditable(false);
-        jTextField1.setFont(new java.awt.Font("SansSerif", 1, 12));
-        jTextField1.setForeground(new java.awt.Color(6, 6, 6));
-        jTextField1.setText("Inserisci i parametri di configurazione del server:");
+        titleField.setBackground(new java.awt.Color(254, 254, 254));
+        titleField.setEditable(false);
+        titleField.setFont(new java.awt.Font("SansSerif", 1, 12));
+        titleField.setForeground(new java.awt.Color(6, 6, 6));
+        titleField.setText("Inserisci i parametri di configurazione del server:");
 
         portField.setBackground(new java.awt.Color(254, 254, 254));
         portField.setFont(new java.awt.Font("SansSerif", 1, 12));
         portField.setForeground(new java.awt.Color(6, 6, 6));
 
-        jLabel2.setBackground(new java.awt.Color(254, 254, 254));
-        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 12));
-        jLabel2.setForeground(new java.awt.Color(6, 6, 6));
-        jLabel2.setText("Ip:");
+        ipLabel.setBackground(new java.awt.Color(254, 254, 254));
+        ipLabel.setFont(new java.awt.Font("SansSerif", 1, 12));
+        ipLabel.setForeground(new java.awt.Color(6, 6, 6));
+        ipLabel.setText("Ip:");
 
         ipField.setBackground(new java.awt.Color(254, 254, 254));
         ipField.setFont(new java.awt.Font("SansSerif", 1, 12));
@@ -78,10 +74,10 @@ public class configDialog extends javax.swing.JDialog {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(okButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)))
+                            .addComponent(titleField, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(portLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
                         .addComponent(portField, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -91,19 +87,19 @@ public class configDialog extends javax.swing.JDialog {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(22, 22, 22)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ipLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(330, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(58, 58, 58)
                 .addComponent(ipField, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(portLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(portField, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addComponent(okButton)
@@ -111,7 +107,7 @@ public class configDialog extends javax.swing.JDialog {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(121, 121, 121)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ipLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(157, Short.MAX_VALUE)))
         );
 
@@ -121,42 +117,32 @@ public class configDialog extends javax.swing.JDialog {
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         doClose();
     }//GEN-LAST:event_closeDialog
-
+/*Scriviamo un file XML con la configurazione IP PORTA in modo da non doverla richiedere al prossimo accesso*/
     //realizza il file xml di configurazione
     
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
 
-        //controllo che i campi ip e pora non siano vuoti
-        if(!ipField.getText().equals("") && !portField.getText().equals("")){
-            
-            //invoco il costruttore della classe fileOperation
+
+     try{
+            String ip = ipField.getText();
+            String port = portField.getText();
+      
             fileOperation fo = new fileOperation();
-            
-            //crea una struttura dati per la memorizzazione della configurazione ip e porta del server //
-            frame.setConfiguration(ipField.getText(),portField.getText());
+            frame.setConfiguration(ip,port);
+            fo.createFile("ACES");
+            if(fo.getOS().equals("Windows"))
+                new XML().writeXml("ACES\\config.xml", ipField.getText(), portField.getText());               
+            else
+                new XML().writeXml("ACES/config.xml",ipField.getText(), portField.getText());
+            doClose();   
+    
+        }catch(NullPointerException ex){
+   
+            JOptionPane.showMessageDialog(null,"I dati inseriti non sono correti. Riprova." , "ACES", JOptionPane.ERROR_MESSAGE);
+        }catch(Exception ex){
 
-            
-            try{
-                fo.createFile("ACES");
-                
-                //operazione diversificata in base al sistema operativo
-                if(fo.getOS().equals("Windows"))
-                    new XML().writeXml("ACES\\config.xml", ipField.getText(), portField.getText());               
-                
-                
-                else
-                    new XML().writeXml("ACES/config.xml",ipField.getText(), portField.getText());
-                
-            }
-            catch(Exception ex){
-
-                JOptionPane.showMessageDialog(null,"Si è riscontrato un errore." , "ACES", JOptionPane.ERROR_MESSAGE);
-
-            }
-            
-            doClose();
-            
-        }
+            JOptionPane.showMessageDialog(null,"Si è riscontrato un errore." , "ACES", JOptionPane.ERROR_MESSAGE);
+        }   
 }//GEN-LAST:event_okButtonActionPerformed
 
     private void doClose() {
@@ -167,12 +153,11 @@ public class configDialog extends javax.swing.JDialog {
     private InputForm frame;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ipField;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel ipLabel;
     private javax.swing.JButton okButton;
     private javax.swing.JTextField portField;
+    private javax.swing.JLabel portLabel;
+    private javax.swing.JTextField titleField;
     // End of variables declaration//GEN-END:variables
-
 
 }
