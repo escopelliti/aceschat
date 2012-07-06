@@ -15,11 +15,6 @@ public class Feed {
             
         return entries;
     }
-
-    public String getTitle() {
-           
-        return title;
-    }
     
     @Override
     public String toString() {
