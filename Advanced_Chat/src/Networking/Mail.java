@@ -1,25 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Networking;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-/**
- *
- * @author enrico
- */
+/*Classe che rappresenta le Mails*/
 public class Mail {
-
-
+    
+    //Controlliamo se la mail è ben formata
     public static boolean checkMail(String email){
 
         return email.matches("^[_.0-9a-z-]+@([0-9a-z][0-9a-z-]+.)+[a-z]{2,3}$");
     }
-
-
-
 }
