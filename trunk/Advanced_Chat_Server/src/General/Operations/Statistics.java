@@ -1,16 +1,14 @@
 package General.Operations;
 
 import Database.Database;
-
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import General.DateTime;
-import General.Packet;
 
-
+/*Classe che calcola delle statistiche sull'utente che ne fa richiesta*/
 public class Statistics {
 
     
@@ -18,7 +16,7 @@ public class Statistics {
         
         this.con = Database.getCon();
     }
-//    Questo metodo effettua la differenza tra la data di registrazione e quella attuale
+    /*Calcoliamo da quanto tempo l'utente è registrato all'applicazione*/
     public Integer timeInAces (int idUser) throws SQLException, IOException{
        
         ResultSet rs;
@@ -34,9 +32,7 @@ public class Statistics {
         return dateDif;    
         }
 
-
-//Questo metodo calcola quanti login ha fatto l'utente
-//Vuole passato come parametro l'id dell'utente di cui si deve fare il calcolo
+    /*Questo metodo ritorna il numero di login effettuati fin dalla registrazione*/
     public Integer countLogin(int IdUser) throws SQLException, IOException{
 
         ResultSet rs;
@@ -48,14 +44,11 @@ public class Statistics {
         rs.next();
        
         return rs.getInt("NumeroLogin");
-
     }
 
-//Questo metodo calcola quanti login ha fatto l'utente in un determinata data
-//Vuole passato un vettore in cui il primo elemento è l'id del tizio, e il secondo invece è la data da controllare
+    /*Effettua il calcolo del numero di login in una determinata data*/
     public Integer dataCountLogin(int IdUser, String dateTime) throws SQLException, IOException{
 
-        Connection con = Database.getCon();
         ResultSet rs;
         PreparedStatement count;
    
@@ -68,8 +61,8 @@ public class Statistics {
         return rs.getInt("NumeroLogin");    
         }
 
-
-      public Integer countMessage(int IdUser) throws SQLException, IOException{
+    /*Ritorna il numero di messaggi inviati dall'utente che ne fa richiesta.*/
+    public Integer countMessage(int IdUser) throws SQLException, IOException{
 
         ResultSet rs;
 
@@ -81,9 +74,9 @@ public class Statistics {
         return rs.getInt("nMess");       
     }
     
-       public Integer countFriends(int IdUser) throws SQLException, IOException{
-           
-           Connection con = Database.getCon();  
+    /*Calcola il numero di amici che l'utente ha sottoscritto*/
+    public Integer countFriends(int IdUser) throws SQLException, IOException{
+                      
            ResultSet rs;
            int nFriends;
            PreparedStatement count;
@@ -96,11 +89,9 @@ public class Statistics {
            return nFriends;                   
        }
       
-      
-      
-//Statistiche calcolate per il server
-    public static int countUserByLevel(int level) throws SQLException{
-            Connection con = Database.getCon();
+    /*Statistica implementato per il server; in paritolcare ritorna il numero di utente per livello(passato come argomento*/
+    public int countUserByLevel(int level) throws SQLException{
+        
             ResultSet rs;
 
             PreparedStatement count = con.prepareStatement("SELECT COUNT(*) AS nUser FROM User WHERE level = ?");
@@ -110,5 +101,5 @@ public class Statistics {
             return nUser;
         }
 
-    Connection con;
+    private Connection con;
 }
