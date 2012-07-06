@@ -1106,9 +1106,10 @@ public class Home extends javax.swing.JFrame implements Runnable{
         
         userlist.add(username);       
         try{
-            
-            new XML().genXml("ACES/History/".concat(username.concat(".xml")));
-        
+            if(!new fileOperation().getOS().equals("Windows"))
+                new XML().genXml("ACES/History/".concat(username.concat(".xml")));
+            else
+                new XML().genXml("ACES\\History\\".concat(username.concat(".xml")));
         }catch (FileNotFoundException ex) {          
             JOptionPane.showMessageDialog(null,"Problema nella generazione della cronologia. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);           
         }  
