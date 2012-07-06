@@ -73,7 +73,7 @@ public class SecondPage extends javax.swing.JFrame {
         ipField.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         ipField.setForeground(new java.awt.Color(6, 6, 6));
 
-        politicCheck.setFont(new java.awt.Font("SansSerif", 1, 15));
+        politicCheck.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         politicCheck.setForeground(new java.awt.Color(6, 6, 6));
         politicCheck.setText("Politica");
         politicCheck.addActionListener(new java.awt.event.ActionListener() {
@@ -90,7 +90,7 @@ public class SecondPage extends javax.swing.JFrame {
         ipLabel.setForeground(new java.awt.Color(6, 6, 6));
         ipLabel.setText("Ip :");
 
-        TechnologyCheck.setFont(new java.awt.Font("SansSerif", 1, 15));
+        TechnologyCheck.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         TechnologyCheck.setForeground(new java.awt.Color(6, 6, 6));
         TechnologyCheck.setText("Tecnologia");
         TechnologyCheck.addActionListener(new java.awt.event.ActionListener() {
@@ -108,7 +108,7 @@ public class SecondPage extends javax.swing.JFrame {
             }
         });
 
-        cultureCheck.setFont(new java.awt.Font("SansSerif", 1, 15));
+        cultureCheck.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         cultureCheck.setForeground(new java.awt.Color(6, 6, 6));
         cultureCheck.setText("Cultura");
         cultureCheck.addActionListener(new java.awt.event.ActionListener() {
@@ -117,7 +117,7 @@ public class SecondPage extends javax.swing.JFrame {
             }
         });
 
-        gossipCheck.setFont(new java.awt.Font("SansSerif", 1, 15));
+        gossipCheck.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         gossipCheck.setForeground(new java.awt.Color(6, 6, 6));
         gossipCheck.setText("Gossip");
         gossipCheck.addActionListener(new java.awt.event.ActionListener() {
@@ -129,7 +129,7 @@ public class SecondPage extends javax.swing.JFrame {
         portField.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         portField.setForeground(new java.awt.Color(6, 6, 6));
 
-        rememberMeCheckBox.setFont(new java.awt.Font("SansSerif", 1, 15));
+        rememberMeCheckBox.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         rememberMeCheckBox.setForeground(new java.awt.Color(6, 6, 6));
         rememberMeCheckBox.setText("Salva credenziali");
         rememberMeCheckBox.addActionListener(new java.awt.event.ActionListener() {
@@ -162,9 +162,6 @@ public class SecondPage extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(infoPanelLayout.createSequentialGroup()
-                        .addComponent(interestsLabel)
-                        .addContainerGap())
-                    .addGroup(infoPanelLayout.createSequentialGroup()
                         .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(infoPanelLayout.createSequentialGroup()
                                 .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,7 +187,7 @@ public class SecondPage extends javax.swing.JFrame {
                                     .addComponent(repswLabel)
                                     .addComponent(pswLabel)
                                     .addComponent(usernameLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(psw_Field, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                                     .addComponent(pswField, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
@@ -198,7 +195,9 @@ public class SecondPage extends javax.swing.JFrame {
                                 .addGap(103, 103, 103)))
                         .addGap(313, 313, 313))
                     .addGroup(infoPanelLayout.createSequentialGroup()
-                        .addComponent(textScroolPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(interestsLabel)
+                            .addComponent(textScroolPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
         );
         infoPanelLayout.setVerticalGroup(
@@ -263,15 +262,15 @@ public class SecondPage extends javax.swing.JFrame {
         enterPanelLayout.setVerticalGroup(
             enterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, enterPanelLayout.createSequentialGroup()
-                .addContainerGap(448, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(enterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
         );
 
         iconLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        iconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/logo2.png"))); // NOI18N
+        iconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/logo2.png"))); // NOI18N
 
-        titleLabel.setFont(new java.awt.Font("SansSerif", 1, 36));
+        titleLabel.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
         titleLabel.setForeground(new java.awt.Color(238, 162, 30));
         titleLabel.setText("Advanced Chat Easy Service");
 

@@ -222,7 +222,7 @@ public class InputForm extends javax.swing.JFrame {
         pswField.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         pswField.setForeground(new java.awt.Color(6, 6, 6));
 
-        pswLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
+        pswLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         pswLabel.setForeground(new java.awt.Color(254, 254, 254));
         pswLabel.setText("Password:");
 
@@ -236,7 +236,7 @@ public class InputForm extends javax.swing.JFrame {
         });
 
         credentialsCheckBox.setBackground(new java.awt.Color(15, 64, 133));
-        credentialsCheckBox.setFont(new java.awt.Font("SansSerif", 1, 15));
+        credentialsCheckBox.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         credentialsCheckBox.setForeground(new java.awt.Color(254, 254, 254));
         credentialsCheckBox.setText("Salva credenziali");
         credentialsCheckBox.addActionListener(new java.awt.event.ActionListener() {
@@ -281,9 +281,9 @@ public class InputForm extends javax.swing.JFrame {
         );
 
         iconLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        iconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/logo1.png"))); // NOI18N
+        iconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/logo1.png"))); // NOI18N
 
-        imageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/chat.jpg"))); // NOI18N
+        imageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/chat.jpg"))); // NOI18N
         imageLabel.setPreferredSize(new java.awt.Dimension(460, 280));
 
         subtitleLable.setFont(new java.awt.Font("SansSerif", 1, 25)); // NOI18N
@@ -312,12 +312,12 @@ public class InputForm extends javax.swing.JFrame {
                                 .addComponent(subtitleLable))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(infoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(credentialsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(infoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(credentialsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

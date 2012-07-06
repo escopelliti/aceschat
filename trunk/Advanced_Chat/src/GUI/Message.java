@@ -163,13 +163,13 @@ public class Message extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(238, 162, 30));
         jPanel2.setAutoscrolls(true);
 
-        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 28));
+        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(15, 64, 133));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("ACES");
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/my_Logo.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/my_Logo.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
