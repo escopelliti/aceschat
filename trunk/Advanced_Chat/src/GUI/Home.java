@@ -1305,7 +1305,7 @@ private void searchFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {
     /*Imposta la visualizzazione delle informazioni del profilo di un utente;
      * collegato alla funzionalità "Cerca"
      */
-    public void setInfo(User user) {
+    public void setInfoSearch(User user) {
         
         Integer level;
         level = user.getLevel();
