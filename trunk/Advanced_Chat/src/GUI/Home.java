@@ -1,6 +1,5 @@
 package GUI;
 
-
 import fileManager.fileOperation;
 import Feed.Feed;
 import Feed.FeedMessage;
@@ -20,6 +19,11 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
+/*Home dell'applicazione. Attraverso questa classe l'utente può accedere a 
+ * tutte le funzionalità dell'applicazione; il costruttore inizializza la costruzione
+ * del form e quindi dell'aspetto grafico e si occupa di inizializzare le principali 
+ * funzionalità.
+ */
 public class Home extends javax.swing.JFrame implements Runnable{
 
     public Home(Requests toCon,User logged) throws IOException{
@@ -968,10 +972,14 @@ public class Home extends javax.swing.JFrame implements Runnable{
     }// </editor-fold>//GEN-END:initComponents
 
     public void setUser(User n_user){
-
         loggedUser = n_user;
     }
 
+    /*Inizializza le principali funzionalità dell'applicazione: Impostazione del profilo
+     * Creazione strutture dati per le conversazioni, istanza oggetto requests per la gestione
+     * delle richieste al server, ClientFetching(vedi classe) per la gestione delle "risposte"
+     * del server alle richieste del client...
+     */
     private void initSystem(Requests toCon,User loggedUser)throws IOException{
 
         int count = 0;
@@ -991,48 +999,46 @@ public class Home extends javax.swing.JFrame implements Runnable{
         refresher = new Thread(this);
         refresher.start();
     }
-    
+  
+    /*Logout(Requests si occupa della richiesta) e uscita dall'applicazione*/
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
         
-        try{
-            
+        try{            
             toCon.logout(loggedUser.getIdPerson());
             this.toCon.close();
-        }catch(IOException ex){
-            
+        }catch(IOException ex){           
             JOptionPane.showMessageDialog(null,"Problemi tecnici. Riprova più tardi." , "ACES", JOptionPane.ERROR_MESSAGE);
         }
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
+    /*Thread che si occupa di eseguire periodicamente setUpdate() - vedi poco sotto*/
     public void run(){
 
-    while(true){
+        while(true){
 
-        try{
-
-            refresher.sleep(5000);
-            setUpdate();
-            if(this.index == 15) this.index = 0;
+            try{
+                refresher.sleep(5000);
+                setUpdate();
+                if(this.index == 15) this.index = 0;
+            }catch(InterruptedException ex){
+                JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);           
+            }
+            catch(IOException ex_){           
+                JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
+            }   
         }
-        catch(InterruptedException ex){
-
-            JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);           
-        }
-        catch(IOException ex_){
-            
-            JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
-        }
-    
-     }
     }
  
+    //Visualizza le informazioni personali dell'utente di modo da eventualmente modificarle;
     private void infoViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoViewActionPerformed
         
         new infoView(this.loggedUser,this.toCon).setVisible(true);
-
     }//GEN-LAST:event_infoViewActionPerformed
 
+    /*Struttura dati di supporto alla gestione dei Feed in base agli interessi dell'utente - ad ogni interesse
+     * corrisponde un URL per il download dei Feed
+     */
     private void initMap(){
         
         mapFeed = new HashMap();
@@ -1041,10 +1047,13 @@ public class Home extends javax.swing.JFrame implements Runnable{
         mapFeed.put("tecnologia",tech);
         mapFeed.put("Nessuno",nothing);
         mapFeed.put("politica",politic);
-        mapFeed.put("gossip", gossip);
-        
+        mapFeed.put("gossip", gossip);       
     }
   
+    /*Aggiorna i componenti Swing più importanti nella Home riguardanti il profilo dell'utente;
+     * inoltre si occupa di inoltrare richieste di ricezione di messaggi e visualizzazione della lista
+     * amici dell'utente aggiornata;Infine aggiorna i feed alle notizie più recenti;
+     */
     private void setUpdate() throws IOException{
 
         usernameLabel.setText(loggedUser.getUsername());
@@ -1059,9 +1068,9 @@ public class Home extends javax.swing.JFrame implements Runnable{
             case 2: firstStarLabel.setIcon(levelIcon); secondStarLabel.setIcon(levelIcon); break;
             case 3: firstStarLabel.setIcon(levelIcon); secondStarLabel.setIcon(levelIcon); thirdStarLabel.setIcon(levelIcon); break;
         }
-
     }
     
+    //Aggiorna la lista amici dell'utente;
     public void setContactList(Vector friends){
         
         contactList.setListData(friends);
@@ -1072,24 +1081,27 @@ public class Home extends javax.swing.JFrame implements Runnable{
 
        contactButton.setEnabled(true);
     }//GEN-LAST:event_contactListMouseClicked
-
+    
+    //Contatta l'amico scelto tramite la lista amici presente nell'applicazione;
+    //chatSession si occuperà dello scambio di informazioni;
     private void contactButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactButtonActionPerformed
 
         if(!contactList.isSelectionEmpty()){
 
-            try {
-                
+            try{             
                 Vector chatVector = buildChat(contactList.getSelectedValue().toString(),new Vector());
                 chatVector.add(loggedUser.getUsername());
                 chatSession.start(chatVector);
-
-            }catch (IOException ex) {
-            
+            }catch (IOException ex) {           
                 JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
             }
-            }
+        }
     }//GEN-LAST:event_contactButtonActionPerformed
-
+    
+    /*Permette l'impostazione di una conversazione con amici(costruisce un vettore di utenti partecipanti;
+     *inoltre crea i file XML per poter
+     * scrivere dentro le informazioni legate allo scambio di messaggi tra gli utenti;
+     */
     private Vector buildChat(String username,Vector userlist) throws IOException{
         
         userlist.add(username);       
@@ -1097,51 +1109,47 @@ public class Home extends javax.swing.JFrame implements Runnable{
             
             new XML().genXml("ACES/History/".concat(username.concat(".xml")));
         
-        }
-        
-        catch (FileNotFoundException ex) {
-            
-            JOptionPane.showMessageDialog(null,"Problema nella generazione della cronologia. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
-            
-        }
-  
+        }catch (FileNotFoundException ex) {          
+            JOptionPane.showMessageDialog(null,"Problema nella generazione della cronologia. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);           
+        }  
         return userlist;
     }
-        
+    
+    /*Attraverso il menu File possiamo disconnetere il profilo dall'applicazione - Logout*/    
     private void disconnectMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disconnectMenuItemActionPerformed
         
-        try {
-            
+        try {           
             toCon.logout(loggedUser.getIdPerson());           
             new InputForm().setVisible(true);
-        } catch (Exception ex) {
-            
+        }catch (Exception ex) {            
             JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
         }
         this.dispose();
     }//GEN-LAST:event_disconnectMenuItemActionPerformed
-
+   
+    /*Prendiamo l'identificativo dell'utente di cui caricare la cronologia(un arraylist dal
+     * file XML) e affidiamo la visualizzazione
+    * di essa a chronoAppend();*/
     private void chronoSearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chronoSearchButtonActionPerformed
 
-        if(!userHistoryField.getText().equals("")){
+        try{
+            String userHistory = userHistoryField.getText();
             XML xml = new XML();
-            int index = 0;
-            try{
-                if(new fileOperation().getOS().equals("Windows")){
-                    ArrayList conversation = xml.readXml("ACES\\History\\" + userHistoryField.getText()+".xml");
-                    chronoAppend(conversation);    
-                }
-                else{
-                    ArrayList conversation = xml.readXml("ACES/History/" + userHistoryField.getText()+".xml");
-                    chronoAppend(conversation);  
-                }
-            }catch(Exception ex){
-                
-                JOptionPane.showMessageDialog(null,"L'utente da te cercato non esiste e/o non l'hai ancora contattato per la prima volta." , "ACES", JOptionPane.ERROR_MESSAGE);
+            if(new fileOperation().getOS().equals("Windows")){
+               ArrayList conversation = xml.readXml("ACES\\History\\" + userHistory+".xml");
+               chronoAppend(conversation);    
+            }else{
+               ArrayList conversation = xml.readXml("ACES/History/" + userHistory+".xml");
+               chronoAppend(conversation);  
             }
-        }
+         }catch(NullPointerException ex){       
+            JOptionPane.showMessageDialog(null,"L'utente da te cercato non esiste e/o non l'hai ancora contattato per la prima volta." , "ACES", JOptionPane.ERROR_MESSAGE);  
+         }   
     }//GEN-LAST:event_chronoSearchButtonActionPerformed
-
+    
+    /*Visualizza in apposite TextArea il contenuto di un arraylist in modo ordinato;
+     * Legato alla funzionalità "Cronologia"
+     */
     private void chronoAppend(ArrayList conversation){
         
         while( index < conversation.size()){
@@ -1153,24 +1161,28 @@ public class Home extends javax.swing.JFrame implements Runnable{
                 }
     }
     
+    //Affida a fileChooser la gestione del caricamento di una foto per il profilo dell'utente;
     private void photoLoadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_photoLoadButtonActionPerformed
 
         new fileChooser(this.loggedUser,userImageLabel,toCon,1).setVisible(true);
     }//GEN-LAST:event_photoLoadButtonActionPerformed
-
+    
+    //Codifica della richiesta di amicizia
     private void addFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFriendButtonActionPerformed
 
-        if(!friendtoAdd.getText().equals("")){
-            try{
-
-                toCon.addFriend(friendtoAdd.getText(),loggedUser.getIdPerson());
-            }catch(IOException ex){
-
-                JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
-            }
-        }
+        try{
+           String friend = friendtoAdd.getText();
+           toCon.addFriend(friend,loggedUser.getIdPerson());
+        }catch(IOException ex){
+           JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
+        }catch(NullPointerException ex){
+           JOptionPane.showMessageDialog(null,"Mancato inserimento di un valore." , "ACES", JOptionPane.ERROR_MESSAGE);          
+        }      
     }//GEN-LAST:event_addFriendButtonActionPerformed
-
+    
+    /*Permette di inoltrare tramite un istanza della classe Requests la richiesta di invito (via mail)
+     * verso un utente identificato dalla email che l'utente "passa" all'applicazione.
+     */
     private void inviteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inviteButtonActionPerformed
 
         if(!emailToInvite.getText().equals("")){
@@ -1182,7 +1194,10 @@ public class Home extends javax.swing.JFrame implements Runnable{
             }
         }
     }//GEN-LAST:event_inviteButtonActionPerformed
-
+    
+    /*Con questo metodo facciamo partire la conversazione passando il vettore dei partecipanti
+     ad un oggetto della classe ChatManager (chatSession in particolare) che gestirà opportunamente
+     lo scambio di messaggi/file*/
     private void contactMultiUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactMultiUsersActionPerformed
         
         try{
@@ -1197,7 +1212,9 @@ public class Home extends javax.swing.JFrame implements Runnable{
         }
 
     }//GEN-LAST:event_contactMultiUsersActionPerformed
-    
+   
+    /*Aggiunge utenti alla lista di partecipanti alla multichat (visualizzandoli a schermo 
+     * ed impostando le strutture dati, Vector, per contenerli)*/
     private void addtoMultiChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addtoMultiChatActionPerformed
       
         if(!friendList.isSelectionEmpty()){
@@ -1218,21 +1235,29 @@ public class Home extends javax.swing.JFrame implements Runnable{
         addtoMultiChat.setEnabled(true);
     }//GEN-LAST:event_friendListMouseClicked
 
+    /*Codifichiamo la richiesta da parte dell'utente di ricerca di un utente all'interno dell'applicazione;
+     * la classe Requests si occupa di inoltrare la richiesta al server;
+     */
 private void searchFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFriendButtonActionPerformed
     
-     if(usertoSearch.getText()!=""){
             try {
-                this.toCon.searchUser(usertoSearch.getText());
+                String username = usertoSearch.getText();
+                this.toCon.searchUser(username);
             }catch (IOException ex) {
                 JOptionPane.showMessageDialog(null,"Problemi tecnici. Riprova più tardi." , "ACES", JOptionPane.ERROR_MESSAGE);
             }
-        }  
+            catch(NullPointerException ex){
+                JOptionPane.showMessageDialog(null,"Non hai inserito un valore." , "ACES", JOptionPane.ERROR_MESSAGE);
+            }
+        
 }//GEN-LAST:event_searchFriendButtonActionPerformed
-
+    
+/*Codifichiamo la richiesta da parte dell'utente di statistiche; la classe requests si occuperà di inoltrare
+ * la richiesta al server.
+ */
     private void statisticsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statisticsButtonActionPerformed
 
-        try {
-            
+        try {            
             this.toCon.getStatistics(loggedUser.getIdPerson());         
         }catch (IOException ex) {
             
@@ -1240,6 +1265,11 @@ private void searchFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {
         }
     }//GEN-LAST:event_statisticsButtonActionPerformed
     
+    /*Permette la visualizzazione di notizie sottoforma di Feed nel pannello predisposto nella Home
+     * dell'applicazione.In particolare visualizza Feed relativi agli interessi selezionati in fase di registrazione
+     * dall'utente in modo del tutto casuale e trasparente per l'utente, che potrà leggere le notizie più recenti sugli
+     * argomenti che più gli interessano;
+     */
     private String viewFeed(){
 
                 boolean flag = true;
@@ -1270,7 +1300,10 @@ private void searchFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {
                 }
                 return x;
     }
-
+    
+    /*Imposta la visualizzazione delle informazioni del profilo di un utente;
+     * collegato alla funzionalità "Cerca"
+     */
     public void setInfo(User user) {
         
         Integer level;
@@ -1284,7 +1317,10 @@ private void searchFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {
         levelField.setText(level.toString());
         imageFriendLabel.setIcon(user.getPersonalImage());
     }
-
+    
+    /*Ricevuto un vettore con le statistiche dell'utente, le inserisce all'interno di
+     * oggetti JSwing per la visualizzazione all'utente che ne ha fatto richiesta.
+     */
     public void setStatistic(Vector vector) {
        
         nFriendsField.setText(vector.get(0).toString());

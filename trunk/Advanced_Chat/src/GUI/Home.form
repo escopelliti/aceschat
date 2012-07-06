@@ -1050,7 +1050,7 @@
                           <Component id="emailToInvite" max="32767" attributes="1"/>
                           <Component id="emailInviteLabel" alignment="0" pref="46" max="32767" attributes="1"/>
                       </Group>
-                      <EmptySpace pref="64" max="32767" attributes="0"/>
+                      <EmptySpace pref="49" max="32767" attributes="0"/>
                       <Component id="DecoInvitePanel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -1379,7 +1379,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
                       <Component id="imageFriendLabel" min="-2" pref="189" max="-2" attributes="0"/>
-                      <EmptySpace pref="49" max="32767" attributes="0"/>
+                      <EmptySpace pref="84" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
