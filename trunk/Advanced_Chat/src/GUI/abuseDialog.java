@@ -4,6 +4,9 @@ import Networking.Requests;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 
+/*
+ * Classe per la segnalazionedell'abuso
+ */
 public class abuseDialog extends javax.swing.JFrame {
 
     public abuseDialog(int idSender,Requests toCon,String toSign) {
@@ -12,7 +15,7 @@ public class abuseDialog extends javax.swing.JFrame {
         this.idSender = idSender;
         this.offender = toSign;
     }
-   
+   //inizializzazione elementi swing
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -90,8 +93,10 @@ public class abuseDialog extends javax.swing.JFrame {
         if(offenseMessage.getText() != ""){
             
             try{
+                //invia la segnalazione
                 this.toCon.sendAbuse(this.idSender,offenseMessage.getText(),this.offender);
             }
+            
             catch(IOException ex){
                 
                 JOptionPane.showMessageDialog(null, ex.toString(), "ACES", JOptionPane.ERROR_MESSAGE);

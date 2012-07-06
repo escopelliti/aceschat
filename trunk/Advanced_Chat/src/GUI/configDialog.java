@@ -5,7 +5,9 @@ import XML.XML;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-
+/*
+ *  Per creare il file di configurazione xml per la connessione al server  
+ */
 public class configDialog extends javax.swing.JDialog {
     
 
@@ -120,18 +122,28 @@ public class configDialog extends javax.swing.JDialog {
         doClose();
     }//GEN-LAST:event_closeDialog
 
+    //realizza il file xml di configurazione
+    
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
 
+        //controllo che i campi ip e pora non siano vuoti
         if(!ipField.getText().equals("") && !portField.getText().equals("")){
             
+            //invoco il costruttore della classe fileOperation
             fileOperation fo = new fileOperation();
+            
+            //crea una struttura dati per la memorizzazione della configurazione ip e porta del server //
             frame.setConfiguration(ipField.getText(),portField.getText());
 
+            
             try{
                 fo.createFile("ACES");
+                
+                //operazione diversificata in base al sistema operativo
                 if(fo.getOS().equals("Windows"))
-               
                     new XML().writeXml("ACES\\config.xml", ipField.getText(), portField.getText());               
+                
+                
                 else
                     new XML().writeXml("ACES/config.xml",ipField.getText(), portField.getText());
                 

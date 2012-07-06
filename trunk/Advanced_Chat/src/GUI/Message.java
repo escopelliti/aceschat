@@ -11,26 +11,12 @@ import javax.swing.JOptionPane;
 import org.jdom.Document;
 
 
-
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * Message.java
- *
- * Created on 9-ott-2011, 20.05.05
- */
-
-/**
- *
- * @author alberto
+/* 
+ * Classe per la gestione dello scambio dei messaggi
  */
 public class Message extends javax.swing.JFrame {
 
-    /** Costruttore della classe Message; initComponents() costruisce e setta tutti i componenti swing */
+    /* Costruttore della classe Message; initComponents() costruisce e setta tutti i componenti swing */
     public Message(User client,Vector toContact,Requests toCon) throws IOException {
 
         initComponents();
@@ -41,14 +27,9 @@ public class Message extends javax.swing.JFrame {
         this.participantList.setListData(toContact);
         this.clientLabel.setText(client.getUsername());
 
-//        setExtendedState(JFrame.MAXIMIZED_BOTH);
-//java.awt.GraphicsEnvironment ge = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment();
-//GraphicsDevice cc = ge.getDefaultScreenDevice();
-//setVisible(true);
-//cc.setFullScreenWindow(Message);
     }
 
-
+// il metodo aggiunge alla JTextArea Conversation la stringa appena spedita
     public void append(String toAppend){
 
         ConversationArea.append(toAppend);
@@ -212,7 +193,7 @@ public class Message extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 
-    //azioni da intraprendere quando si invia un messaggio;
+    //operazion da eseguire quando si invia un messaggio;
     private void sendMessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendMessActionPerformed
         
         
@@ -223,11 +204,13 @@ public class Message extends javax.swing.JFrame {
             String toSend = this.client.getUsername() + "["+DateTime.getDateTime()+"] :"+ClientText.getText()+"\n";
             ConversationArea.append(toSend);
 
+            //prova ad inviare la stringa e creare il file xml per registrare la conversazione
             try{
              
                 request.send(toSend, this.toContact, this.client.getUsername());
                 writingFile(this.client.getUsername(),ClientText.getText(),this.toContact);
             }
+            
             catch(IOException ex){
 
                 JOptionPane.showMessageDialog(null, "Chat temporaneamente non disponibile.", "ACES", JOptionPane.ERROR_MESSAGE);
@@ -240,7 +223,7 @@ public class Message extends javax.swing.JFrame {
     }//GEN-LAST:event_sendMessActionPerformed
 
     
-    
+    //serve per realizzare il file xml per salvare la conversazione
     public void writingFile(String client,String text,Vector toContact) throws IOException{
         
          String toWrite;
@@ -248,20 +231,26 @@ public class Message extends javax.swing.JFrame {
          Document doc;
          XML xml = new XML();
          
+         //file diverso per ogni utente che partecipa alla conversazione diverso dall'utente stesso
          while(count < this.toContact.size() && toContact.get(count) != client){
+            
              System.out.println(count < this.toContact.size());
              System.out.println(toContact.get(count) != client);
-            toWrite = (String) toContact.get(count);
-            if(!fileOperation.exist("ACES/History/"+toWrite.concat(".xml")))
-                xml.genXml("ACES/History/".concat(toWrite.concat(".xml")));
-            doc = xml.modifyXml(client,text,xml.getDocument("ACES/History/"+toWrite.concat(".xml")));
-            xml.write(doc,"ACES/History/"+toWrite.concat(".xml"));
+             toWrite = (String) toContact.get(count);
             
-            count++;
+             //controllo se il file esiste per poter appendere le nuove informazioni
+             if(!fileOperation.exist("ACES/History/"+toWrite.concat(".xml")))
+                 xml.genXml("ACES/History/".concat(toWrite.concat(".xml")));
+                 doc = xml.modifyXml(client,text,xml.getDocument("ACES/History/"+toWrite.concat(".xml")));
+                 xml.write(doc,"ACES/History/"+toWrite.concat(".xml"));
+            
+          count++;
+      
          }
+    
     }
     
-    
+    //
         public void writingFile(String client,String text,String nameFile) throws IOException{
         
             XML xml = new XML();
@@ -277,16 +266,16 @@ public class Message extends javax.swing.JFrame {
     //con cui sta parlando;
     private void abuseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abuseButtonActionPerformed
 
+        //controllo se è stato selezionato un utente da segnalare dalla lista dei partecipanti alla conversazione
         if(!participantList.isSelectionEmpty()){
-            
+            //nuova finestra per inserire le informazioni e inviare la segnalazione di abuso
             new abuseDialog(this.client.getIdPerson(),request,participantList.getSelectedValue().toString()).setVisible(true);
             
         }
-        //DA IMPLEMENTARE: frame che ti chiede quello che serve (offesa e altro) per inviare la richiesta di segnalazione
-        //abuso al server;
-
+        
     }//GEN-LAST:event_abuseButtonActionPerformed
 
+    //metodo per inviare il file
     private void sendFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendFileActionPerformed
         //0 identifica un uso del file chooser per mandare un file
         new fileChooser(this.request,this.client,0,this.toContact).setVisible(true);

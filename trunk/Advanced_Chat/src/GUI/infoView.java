@@ -4,15 +4,19 @@ import Networking.Requests;
 import User.User;
 import javax.swing.JOptionPane;
 
-
+/*
+ * Classe per la visualizzazione e la modifica dei dati  personali
+ */
 public class infoView extends javax.swing.JFrame {
     
+    /*costruttore della classe*/
     public infoView(User user,Requests toModify) {
 
         initComponents();
         initInfoView(user,toModify);
     }
 
+    //inizializzazione dei dati del form
     private void initInfoView(User user,Requests toModify){
         
         flag = false;
@@ -21,6 +25,7 @@ public class infoView extends javax.swing.JFrame {
         setComponent(this.user);
     }
     
+    //setta i campi coi dati dell'user
     private void setComponent(User user){
 
         Integer warning;
@@ -43,6 +48,7 @@ public class infoView extends javax.swing.JFrame {
 
     }
     
+    //setta gli interessi dell'utente
     private void setCheckBoxes(String[] interests){
         
         int index = -1;
@@ -85,6 +91,7 @@ public class infoView extends javax.swing.JFrame {
         gossipCheck.setEnabled(false);
     }
 
+   //inizializza un user con i nuovi dati modificati presenti nei campi del form
     private void fillUser(){
 
         this.user.setName(modifyNameField.getText());
@@ -485,6 +492,7 @@ public class infoView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //il metodo mi permette di rendere accassibili emodificabili i campi, per poter inseerire i nuovi dati
     private void modifyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyButtonActionPerformed
 
         modifyNameField.setEditable(true);
@@ -506,15 +514,22 @@ public class infoView extends javax.swing.JFrame {
         flag = true;
     }//GEN-LAST:event_modifyButtonActionPerformed
 
+    
+    // inviare le modifiche al dei dati personali al server
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
 
         if(flag){
 
+            //crea l'utente con i nuovi dati da mandare al server
             fillUser();
+            
+            //prova a mandare i nuovi dati
             try{
 
                 toModify.modifyPersonalInfo(this.user);
-            }catch(Exception err){
+            }
+            
+            catch(Exception err){
 
                 JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
             }                              

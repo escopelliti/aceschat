@@ -10,8 +10,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+
+/*
+ * Classe per 
+ */
 public class fileChooser extends javax.swing.JFrame {
 
+    //due costruttori diversi diversificati dall'int use
+    
+    //int use = 1 per immagini
     public fileChooser(User client,JLabel imageLabel,Requests toCon,int use) {
         
         initComponents();
@@ -22,14 +29,15 @@ public class fileChooser extends javax.swing.JFrame {
 
     }
     
+    //int use =0 per i file in generale
     public fileChooser(Requests toCon,User client,int use,Vector receiver) {
         
         initComponents();
         this.client = client;
+        this.receiver = receiver;
         this.toCon = toCon;
         this.use = use;
-        this.receiver = receiver;
-
+                
     }
    
     @SuppressWarnings("unchecked")
@@ -88,6 +96,7 @@ public class fileChooser extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+//selezione del file
 private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadButtonActionPerformed
         
         File selectedFile = myfileChooser.getSelectedFile();
@@ -97,13 +106,16 @@ private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 loadImageFile(selectedFile);
             else
                 loadFile(selectedFile);            
-        }catch(IOException ex){
+        }
+        
+        catch(IOException ex){
             
             JOptionPane.showMessageDialog(null,"Si è verificato un problema. Riprova più tardi." , "ACES", JOptionPane.ERROR_MESSAGE);
         }       
         dispose();        
 }//GEN-LAST:event_loadButtonActionPerformed
   
+    //selezionata l'immagine invia il file
     private void loadImageFile(File imageFile) throws IOException{
         
         ImageIcon icon = new fileOperation().loadImage(imageFile);
@@ -111,6 +123,7 @@ private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         toCon.sendImage(imageFile,this.client.getIdPerson()); 
     }
 
+    //invia il file selezionato
     private void loadFile(File selectedFile) throws IOException{
         
         toCon.send(selectedFile,this.receiver,this.client.getUsername());       
