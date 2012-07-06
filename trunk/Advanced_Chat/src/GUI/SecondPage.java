@@ -7,12 +7,10 @@ import XML.XML;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author enrico
- */
+/*Classe che permette di gestire e far inserire altre informazioni che andranno a costituire l'utente da registrare*/
 public class SecondPage extends javax.swing.JFrame {
-
+    
+    /*inizializziamo i componenti Swing*/
     public SecondPage(User user) {
         initComponents();
         this.user = user;
@@ -308,76 +306,59 @@ public class SecondPage extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /*Azioni da intraprendere a fine registrazione - se tutti i dati sono inseriti*/
     private void enterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterButtonActionPerformed
 
-        try{
-
-            Requests request = new Requests(ipField.getText(),portField.getText());
-
             if(!usernameField.getText().equals("") && !pswField.getText().equals("") && !psw_Field.getText().equals("") && pswField.getText().equals(psw_Field.getText()) && !ipField.getText().equals("") && !portField.getText().equals("")){
+                try{
+                    Requests request = new Requests(ipField.getText(),portField.getText());
+                    this.user.setUsername(usernameField.getText());
+                    this.user.setPassword(pswField.getText());
+                    if(!sportCheck.isSelected() && !cultureCheck.isSelected() && !politicCheck.isSelected() && !gossipCheck.isSelected() && !TechnologyCheck.isSelected())
+                        this.user.setInterests("Nessuno");
             
-                this.user.setUsername(usernameField.getText());
-                this.user.setPassword(pswField.getText());
-                if(!sportCheck.isSelected() && !cultureCheck.isSelected() && !politicCheck.isSelected() && !gossipCheck.isSelected() && !TechnologyCheck.isSelected())
-                    this.user.setInterests("Nessuno");
-
-                if(request.registerMe(this.user)){//se la registrazione è andata a buon fine ed è stata caricata la Home;
-                    this.dispose();
-                    initialize();//creiamo cartelle e file di configurazione
-                    saveConfiguration();
+                    if(request.registerMe(this.user)){//se la registrazione è andata a buon fine viene caricata la Home;
+                        this.dispose();                     //dell'applicazione
+                        
+                        //creiamo cartelle e file di configurazione per i prossimi accessi
+                        saveConfiguration();
                     }
-
-                }
+                    }catch(Exception ex){
+                        
+                        JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
+                    }
             }
-            catch(Exception ex){
-
-                JOptionPane.showMessageDialog(null, ex.toString(), "ACES", JOptionPane.ERROR_MESSAGE);
-
-            }
+ 
     }//GEN-LAST:event_enterButtonActionPerformed
 
+    /*Creiamo cartelle che conterrano file di configurazione e cronologia dell'applicazione*/
     private void initialize() throws IOException{
 
-            boolean created = false;
-            while(!created){
-                if(fo.getOS().equals("Windows")){
-                    if(fileOperation.exist("ACES")){
-                        created = true;
-                        break;
-                    }
-                    created = fo.createFile("ACES\\History");
-                               
-                    }
-                else{
-                    if(fileOperation.exist("ACES")){
-                        created = true;
-                        break;
-                    }
-                    created = fo.createFile("ACES/History");
-
-                    }
-
-            }       
+        fileOperation fo = new fileOperation();
+        if(fo.getOS().equals("Windows"))
+            fo.createFile("ACES\\History");
+        else                       
+            fo.createFile("ACES/History");              
     }
 
-    private void saveConfiguration(){ //crea i file xml di configurazione per il server e con le credenziali dell'utente
-        try {
-            if(fo.getOS().equals("Windows")/* || application.getOS().equals("WINDOWS")*/){
-            
+    /*Scriviamo i file di configurazione con le credenziali d'accesso
+     * all'applicazione e il file di configurazione con IP e PORTA del server.
+     */
+    private void saveConfiguration() throws IOException{
+        
+        try{
+            initialize();
+            if(fo.getOS().equals("Windows")){
                 new XML().writeXml("ACES\\credentials.xml", usernameField.getText(), pswField.getPassword().toString(),getRememberMe());
                 new XML().writeXml("ACES\\config.xml", ipField.getText(), portField.getText());
-                }
-            else{        
+            }else{        
                 new XML().writeXml("ACES/config.xml", ipField.getText(), portField.getText());
                 new XML().writeXml("ACES/credentials.xml", usernameField.getText(), pswField.getText(),getRememberMe());
-                } 
-            }
-        catch (IOException ex) {
+            } 
+        }catch (IOException ex){
             JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
-            }
-                
         }
+}
 
     public String getRememberMe() {
         return rememberMe;
@@ -387,12 +368,12 @@ public class SecondPage extends javax.swing.JFrame {
         this.rememberMe = rememberMe;
     }
 
+    /*Implmentazione funzionalità "Ricordami" al prossimo avvio*/
     private void rememberMeCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rememberMeCheckBoxActionPerformed
 
         if(getRememberMe().equals("no"))
         setRememberMe("si");
         else setRememberMe("no");
-
     }//GEN-LAST:event_rememberMeCheckBoxActionPerformed
 
     private void sportCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sportCheckActionPerformed
@@ -417,10 +398,9 @@ public class SecondPage extends javax.swing.JFrame {
     }//GEN-LAST:event_TechnologyCheckActionPerformed
 
    
-    private String rememberMe;  //serve per capire se dobbiamo memorizzare "ricordami" nel file XML;
+    private String rememberMe;
     private User user;
     private fileOperation fo;
-
     //componenti swing per il form;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox TechnologyCheck;
