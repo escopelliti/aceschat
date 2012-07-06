@@ -26,7 +26,6 @@ public class DateTime {
                 String day = Integer.toString(d);
 
                 String date = (Year+"-"+Month+"-"+day);
-                System.out.println(date);
                 return date;
     }
 
