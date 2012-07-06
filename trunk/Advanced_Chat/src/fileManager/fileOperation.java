@@ -10,22 +10,22 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-
+/*Classe di supporto alla creazione,gestione,scrittura di file semplici*/
 public class fileOperation {
-
+        //creazione di un file e/o cartella
         public boolean createFile(String path){  
             
                 boolean created = new File(path).mkdirs();
                 return created;               
         }
-
-        public static boolean exist(String file){  //metodo per controllare l'esistenza di un file;ritorna vero se esiste;
+        //controlla l'esistenza di un file al path specificato
+        public static boolean exist(String file){  
 
             File check = new File(file);
             boolean value = check.exists();
             return value;
         }
-               
+        //Metodo che passato un file lo scrive su uno stream fisico di dati.     
         public void writeFile(File file) throws FileNotFoundException, IOException{
             
             FileInputStream fis;
@@ -34,18 +34,19 @@ public class fileOperation {
             int i = 0;    
             
             fis = new FileInputStream(file);
-            fos = new FileOutputStream(new File(/*"./"+*/file.getName()));           
+            fos = new FileOutputStream(new File(file.getName()));           
             buffer = new byte[1024];                                                                                         
-            while((i=fis.read(buffer))!=-1) {// riga per riga leggo il file originale per 
-                fos.write(buffer, 0, i);    // scriverlo nello stram del file destinazione
+            while((i=fis.read(buffer))!=-1) {
+                fos.write(buffer, 0, i);   
             }
             fos.flush();
             fis.close();
             fos.close();           
         }
-
-        public String getOS(){       //metodo che mi dice se il sistema ospitante è Microsoft o altro;
-
+        
+        /*Controllo su quale sistema operativo "gira" l'applicazione*/
+        public String getOS(){
+            
             Properties x = System.getProperties();
             boolean value = x.contains("Windows");
             if(value){
@@ -55,7 +56,8 @@ public class fileOperation {
                 return "others";
             }
         }
-           
+        
+        /*Dato un file carica un oggetto della classe ImageIcon che restituisce*/
         public ImageIcon loadImage(File selectedFile) throws IOException{
  
             Image image = ImageIO.read(selectedFile);
@@ -63,7 +65,6 @@ public class fileOperation {
             ImageIcon icon = new ImageIcon(newimg);   
             return icon;   
         }  
-
 }
 
 
