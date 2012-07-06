@@ -122,7 +122,6 @@ public class configDialog extends javax.swing.JDialog {
     
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
 
-
      try{
             String ip = ipField.getText();
             String port = portField.getText();
