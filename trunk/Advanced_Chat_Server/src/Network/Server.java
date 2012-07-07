@@ -1,64 +1,52 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Network;
 
-
+import Database.databaseQueries;
 import General.generalView;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Hashtable;
-import java.util.Vector;
+import javax.swing.JOptionPane;
 
-
-/**
- *
- * @author enrico
- */
+/*Classe server che apre una serverSocket sulla porta 8240 e accetta nuove connessione dai client*/
 public class Server extends Thread{
 
-   
-    public Server(generalView gv) throws IOException{
+    /*nel costruttore instanziamo un oggetto serverExecutor per le interazioni tra le socket
+     * "accettate" e quindi tra i client
+     */
+    public Server(generalView gv,databaseQueries query) throws IOException{
         
         this.gv = gv;
-        this.server_socket = new ServerSocket(8240);        
-        responder = new serverExecutor(gv);
+        this.server_socket = new ServerSocket(8240);
+        this.query = query;
+        responder = new serverExecutor(gv,query);
     }
 
-
     
-    
+    /*Si crea un thread per utente che è pronto in qualsiasi in momento(in ascolto sull'input stream della socket)
+     * a soddisfare le richieste (fetching)
+     */
     private void acceptClient() throws IOException{
 
         while(true){
             Socket clientSocket = server_socket.accept();                       
-            ServerFetching fetch = new ServerFetching(clientSocket,this.responder,this.gv);
+            ServerFetching fetch = new ServerFetching(clientSocket,this.gv,this.query);
             fetch.start();
         }
-
     }
 
     @Override
     public void run(){
         try{
-
             acceptClient();
-        }
-        catch(Exception ex){
-
-            System.out.println(ex.toString());
+        }catch(IOException ex){
+            JOptionPane.showMessageDialog(null,"Errore di connessione: "+ ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
         }
     }
 
- 
-    
-    
     private ServerSocket server_socket;
-    private serverExecutor responder;
-    private generalView gv;
+    protected serverExecutor responder;
+    protected generalView gv;
+    protected databaseQueries query; 
     }
 
 
