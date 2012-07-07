@@ -1,18 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Person;
 
 import java.io.Serializable;
 
-
-
-
-/**
- *
- * @author enrico
+/*
+ * Classe astratta che rappresenta l'entità Person  separata logicamente da User
  */
 public abstract class Person implements Serializable{
 

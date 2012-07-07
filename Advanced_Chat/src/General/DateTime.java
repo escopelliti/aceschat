@@ -1,22 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package General;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-/**
- *
- * @author enrico
+/*
+ * Classe per la gestione delle date e ora locale del client
  */
 public class DateTime {
-
-    //mi restituisce un array di interi comprendenti tutte le informazioni di data e ora;
-
-    //vedere quale dei due metodi è meglio usare   (quello su e questo giù)
+    
+    //il metodo restituisce una stringa che contiene data e ora nel formato AAAA-MM-DD hh:mm:ss 
        public static String getDateTime(){
            
                 Calendar calendar = Calendar.getInstance();
@@ -33,11 +25,8 @@ public class DateTime {
                 int sec = calendar.get(Calendar.SECOND);
                 String second = Integer.toString(sec);
 
-                String date = (Year+"-"+Month+"-"+day+"-"+hour+"-"+min+"-"+second);
+                String date = (Year+"-"+Month+"-"+day+" "+hour+":"+min+":"+second);
                 return date;
-    }
-
-
-  
+       }
 
 }
