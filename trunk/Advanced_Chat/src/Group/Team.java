@@ -1,6 +1,8 @@
 package Group;
 
-
+/*
+ * Classe per la gestione dell'entità Team
+ */
 public class Team {
 
     public Team(int idFounder, String name, String description, String imagePath, String dateTime ){
@@ -12,6 +14,7 @@ public class Team {
         this.dateTime = dateTime;
     }
 
+    //metodi per l'accesso agli attributi
     public int getCodGroup() {
         return codGroup;
     }
@@ -24,6 +27,27 @@ public class Team {
         return idFounder;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public String getName() {
+        return name;
+    }
+    
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    //metodi per settare gli attributi della classe
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     public void setCodGroup(int codGroup) {
         this.codGroup = codGroup;
     }
@@ -32,36 +56,13 @@ public class Team {
         this.dateTime = dateTime;
     }
 
-
     public void setIdFounder(int idFounder) {
         this.idFounder = idFounder;
     }
 
-
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
-    public String getName() {
-        return name;
-    }
-
     
     private int codGroup;
     private int idFounder;

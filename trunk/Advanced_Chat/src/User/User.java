@@ -1,17 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package User;
 
 import Person.*;
 import java.io.Serializable;
 import javax.swing.ImageIcon;
 
-/**
- *
- * @author ilrosso e ilblu
+
+/*
+ * Classe estesa da Person, rappresenta l'entità User e definisce l'utente dell'applicazione
  */
 public class User extends Person implements Serializable{
 
@@ -26,10 +21,7 @@ public class User extends Person implements Serializable{
         this.job=job;
     }
 
-    public User() {
-        
-    }
-
+    //metodi per l'accesso agli attributi della classe
     public String getBirthday() {
         return birthday;
     }
@@ -38,11 +30,6 @@ public class User extends Person implements Serializable{
         return personalImage;
     }
 
-    public void setPersonalImage(ImageIcon personalImage) {
-        this.personalImage = personalImage;
-    }
-
-    
     public String getCity() {
         return city;
     }
@@ -50,11 +37,7 @@ public class User extends Person implements Serializable{
     public int getIdPerson() {
         return idPerson;
     }
-
-    public void setInterests(String[] interests) {
-        this.interests = interests;
-    }
-
+    
     public String getNation() {
         return nation;
     }
@@ -71,7 +54,7 @@ public class User extends Person implements Serializable{
         return surname;
     }
 
-     public String getJob() {
+    public String getJob() {
         return job;
     }
 
@@ -99,6 +82,19 @@ public class User extends Person implements Serializable{
         return warning;
     }
 
+    public String getIp() {
+        return ip;
+    }
+
+    //metodi per settare gli attributi della classe
+    public void setPersonalImage(ImageIcon personalImage) {
+        this.personalImage = personalImage;
+    }
+
+    public void setInterests(String[] interests) {
+        this.interests = interests;
+    }
+
     public void setIdPerson(int idPerson) {
         this.idPerson = idPerson;
     }
@@ -119,7 +115,7 @@ public class User extends Person implements Serializable{
         this.city = city;
     }
 
-  public void setInterests(String interest) {
+    public void setInterests(String interest) {
         int i = 0;
 
         while(i < interests.length){
@@ -148,11 +144,7 @@ public class User extends Person implements Serializable{
     public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
-
-    public String getIp() {
-        return ip;
-    }
-
+    
     public void setIp(String ip) {
         this.ip = ip;
     }
