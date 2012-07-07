@@ -1,150 +1,74 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Network;
 
-import Database.Database;
+
+import Database.databaseQueries;
 import General.generalView;
 import java.io.File;
-import java.sql.Connection;
 import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Hashtable;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author enrico
+/*Classe che si occupa di operazioni riguardanti più utenti;
+ * ad esempio l'operazione di invio mail o di invio messaggio/file;
  */
 public class serverExecutor {
     
-    
+    /*L'oggetto generalView permette di visualizzare a schermo, all'amministratore, le azioni
+     * che ogni utente effettua nel tempo;
+     */
     public serverExecutor(generalView gv){
         
         this.logClient = new Hashtable<String, Vector>();
         this.gv = gv;
         this.gv.setExecutor(this);
     }
-    
-    
-    
-    //object mess è composto da tre campi 0)l'username del sorgente 1)file o messaggio di testo 2)vettore di partecipanti(min=2 elem-max?) 
-    public void sendMess(Object mess) throws InterruptedException, SQLException{
-        
-        Vector received;
+     
+    /*Metodo che invia il messaggio;Il vector mess è composto da tre elementi:
+     * 0: sorgente del messaggio;
+     * 1: Oggetto del messaggio (file o testo);
+     * 2: Destinatario/i del messaggio;
+     */
+    public void sendMess(Vector mess) throws InterruptedException, ClassNotFoundException, SQLException{
+            
         Vector receiver;
         Vector participants;
-        int count = 0;
-        Object message;        
-        received = (Vector) mess;
-        participants = (Vector) received.get(2);
-        message = received.get(1);
-        int idSender=0;
+        databaseQueries query;
+        int count,idSender;
+        Object message;
+        String source;
         
-        idSender = selectId(received.get(0).toString());
-    
+        count = 0;
+        source = mess.get(0).toString();
+        participants = (Vector) mess.get(2);
+        message = mess.get(1);
+              
+        query = new databaseQueries();
+        idSender = query.selectId(source);
+        /*Inviamo i messaggi a tutti i destinatari;
+         * Prendiamo il vettore corrispondente ai vari utenti dall'HashMap e gli inseriamo l'oggetto del messaggio;
+         * Successivamente questi messaggi saranno richiesti (Stimolazione da parte del Client) di modo
+         * da essere recapitati a destinazione;
+         */
         while(count < participants.size()){
            
-            //confronta se il primo elemento di participants è il mittente
-            if(!received.get(0).toString().equals(participants.get(count))){
+            if(!source.equals(participants.get(count))){
                 receiver = logClient.get(participants.get(count));        
-                receiver.add(received);
-              
-                gv.enqueueEvent("L'utente "+received.get(0).toString()+" ha inviato un messaggio/file a "+ participants.get(count).toString());
+                receiver.add(mess);
+                gv.enqueueEvent("L'utente "+source+" ha inviato un messaggio/file a "+ participants.get(count).toString());
             }
             count++;
         }
-    
-    
-      //controlla se tipo di file che è del vector recived campo 1 è una stringa
-                if(message.getClass().getName().equals("java.lang.String")){                   
-                    //trattalo come stringa per aggiungere al db
-                    addMessToDb(idSender,received.get(1).toString(),participants,0);
-                                       
-                }
-                else{
-                    //E' un file da aggiungere al db
-                    addFileToDb(idSender,(File)received.get(1),participants);
-                
-                }      
-    }
-    
-    //nuovi metodi implementati
-    //metodo per ricavare l'id user partendo dall'username sarebbe meglio spostarlo da qualche altra parte dato che fa solo una query
-    
-    public int selectId(String username) throws SQLException{
         
-        Connection con = Database.getCon();
-        PreparedStatement query ;
-        ResultSet rs;
-        int id = 0;
-        
-        query=con.prepareStatement("SELECT IdUser FROM User WHERE username = ?");
-        query.setString(1,username);
-        rs=query.executeQuery();
-        rs.next();
-        id=rs.getInt("IdUser");
-        return id;
-    }
-    
-    
-    private void addMessToDb(int idSender, String text, Vector participants, int idFile) throws SQLException{
-        
-        Connection con = Database.getCon();
-        PreparedStatement query;
-        ResultSet rs;        
-        int idMess,i;
-        Integer idDest;
-        
-        
-        query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Chat` (IdSorg,Text,IdFile) VALUES (?,?,?)",1);
-        query.setInt(1,idSender);
-        query.setString(2,text);
-        query.setInt(3,idFile);
-        query.execute();
-        rs=query.getGeneratedKeys();
-        rs.next();
-        idMess=rs.getInt(1);
-                
-        for(i = 0; i < participants.size(); i++){
-           
-            idDest = selectId(participants.get(i).toString());
-           
-            if(idDest != idSender){
-                query=con.prepareStatement("INSERT INTO `AdvancedChat`.`Conversation` () VALUES (?,?,?)");
-                query.setInt(1, idSender);
-                query.setInt(2, idDest);
-                query.setInt(3, idMess);
-                query.execute();
-            
-            }
-        }
-    }
-    
-    
-    
-    private void addFileToDb(int idSender,File fileExchange, Vector participants) throws SQLException{
-        
-        Connection con = Database.getCon();
-        PreparedStatement query;
-        ResultSet rs;        
-        int idFile;
-        String fileMess="File Exchange";
-                
-        String description = fileExchange.getName() ;
-            
-        query=con.prepareStatement("INSERT INTO `AdvancedChat`.`File`(`Description`) VALUE (?)");
-        query.setString(1,"NAME : "+ description);
-        query.execute();
-        rs=query.getGeneratedKeys();
-        rs.next();
-        idFile=rs.getInt(1);
-        
-        addMessToDb(idSender,fileMess, participants, idFile);
-        
+        /*Azioni effettuate nel DB per codificare l'invio del messaggio;
+         * Secondo la casistica (testo o file) intraprendiamo strade diverse,
+         * codificando diversamente;
+         */
+        if(message.getClass().getName().equals("java.lang.String"))                                  
+            query.addMessToDb(idSender,message.toString(),participants,0);
+        else
+            query.addFileToDb(idSender,(File)message,participants);
     }
     
     public Vector getVector(String username){
@@ -152,13 +76,16 @@ public class serverExecutor {
         return this.logClient.get(username);
     }
     
-    
+    /*Aggiunge un vettore all'hashmap dei clienti loggati con chiave username;
+     * in questo modo riusciremo sempre ad identificare quanti e quali sono i messaggi/file per gli utenti
+     * che hanno effettuato il logina ll'applicazione
+     */
     public void addMe(Vector toAdd, String username){
         
         this.logClient.put(username, toAdd);
     }
     
-    
+    /*Permette l'invio di una mail attraverso la classe Mail*/
     public String sendMail(Vector vect) throws IOException{
         
         Mail toSend;
@@ -170,86 +97,13 @@ public class serverExecutor {
             comunication = "Invito inviato con successo.";
         }
         catch(Exception ex){
+            JOptionPane.showMessageDialog(null,"Errore di invio Mail:"+ ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
             comunication = "Errore!!";
         }
 
         return comunication;
     }
-
-    public void upWarning(int IdUser) throws SQLException{
-        Connection con = Database.getCon();
-        PreparedStatement query;
-        ResultSet rs;
-                     
-        query = con.prepareStatement("UPDATE `AdvancedChat`.`User` SET `Warning` = Warning + 1 WHERE `User`.`IdUser` = ?");
-        query.setInt(1,IdUser);
-        query.execute();
-    }
-    
-    public void downLevel(int IdUser) throws SQLException{
-        
-        Connection con = Database.getCon();
-        PreparedStatement query;
-        ResultSet rs;
-        int level;
-        
-        try{
-            query = con.prepareStatement("SELECT Level FROM `Level` WHERE IdUser= ? ");
-            query.setInt(1,IdUser);
-            rs = query.executeQuery();    
-            rs.next();
-            level = rs.getInt("Level");
-        
-            if(level==1)
-                addToBlackList(IdUser);
-            else{
-        //abassare il livello
-                query = con.prepareStatement("UPDATE `AdvancedChat`.`Level` SET `Level` = Level - 1 WHERE `Level`.`IdUser` = ? ");
-                query.setInt(1,IdUser);
-                query.execute();
-            }
-        }
-        catch(SQLException ex){
-            
-            System.out.println(ex.getMessage());
-        }
-            
-        
-    }
-    
-    public void addToBlackList(int IdUser) throws SQLException{
-        
-        Connection con = Database.getCon();
-        PreparedStatement query;
-        ResultSet rs;
-        String Email;
-        query= con.prepareStatement("SELECT Email FROM `User` WHERE IdUser=?");
-        query.setInt(1,IdUser);
-        rs=query.executeQuery();
-    
-        rs.next();
-        Email = rs.getString("Email");
-        query = con.prepareStatement("INSERT INTO `AdvancedChat`.`BlackList` (Email) VALUES (?)");
-        query.setString(1, Email);
-        query.execute();
       
-   
-        disableMe(IdUser);
-      
-        
-    }
-   
-    //aggiorna la tabella Activation  
-    private void disableMe(int IdUser) throws SQLException{
-        Connection con = Database.getCon();
-        PreparedStatement query;
-        
-        query=con.prepareStatement("UPDATE `AdvancedChat`.`Activation` SET `ActivationStatus` = 0 WHERE `IdUser` = ? ");
-        query.setInt(1,IdUser);
-        query.execute();  
-    }
-    
-        
     private Hashtable<String,Vector> logClient;
     private generalView gv;
 }
