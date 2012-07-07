@@ -19,7 +19,11 @@ public class User extends Person implements Serializable{
         this.sex=sex;
         this.job=job;
     }
-
+    
+    public User(){
+        
+        
+    }
     //metodi per l'accesso agli attributi della classe
     public String getBirthday() {
         return birthday;
