@@ -18,9 +18,10 @@ public class serverExecutor {
     /*L'oggetto generalView permette di visualizzare a schermo, all'amministratore, le azioni
      * che ogni utente effettua nel tempo;
      */
-    public serverExecutor(generalView gv){
+    public serverExecutor(generalView gv,databaseQueries query){
         
         this.logClient = new Hashtable<String, Vector>();
+        this.query = query;
         this.gv = gv;
         this.gv.setExecutor(this);
     }
@@ -33,8 +34,7 @@ public class serverExecutor {
     public void sendMess(Vector mess) throws InterruptedException, ClassNotFoundException, SQLException{
             
         Vector receiver;
-        Vector participants;
-        databaseQueries query;
+        Vector participants;        
         int count,idSender;
         Object message;
         String source;
@@ -43,8 +43,7 @@ public class serverExecutor {
         source = mess.get(0).toString();
         participants = (Vector) mess.get(2);
         message = mess.get(1);
-              
-        query = new databaseQueries();
+                     
         idSender = query.selectId(source);
         /*Inviamo i messaggi a tutti i destinatari;
          * Prendiamo il vettore corrispondente ai vari utenti dall'HashMap e gli inseriamo l'oggetto del messaggio;
@@ -106,4 +105,5 @@ public class serverExecutor {
       
     private Hashtable<String,Vector> logClient;
     private generalView gv;
+    private databaseQueries query;
 }
