@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Network;
 
 
@@ -20,10 +15,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 
-
-/**
- *
- * @author enrico
+/*
+ * Classe per gestire la creazione e l'invio di e-mail
  */
 public class Mail extends Thread{
 
@@ -34,7 +27,7 @@ public class Mail extends Thread{
         this.mex = sender.concat(" "+mex);
         this.subject = subject;
     }
-
+    
     public Mail(String sender,String receiver){
 
         this.sender = sender;
@@ -43,6 +36,7 @@ public class Mail extends Thread{
         this.subject = sender.concat(" "+std_subj);
     }
 
+    //metodi d'accesso agli attributi
     public String getMex() {
         return mex;
     }
@@ -55,17 +49,19 @@ public class Mail extends Thread{
         return subject;
     }
 
+    //thread per l'invio del messagio
     @Override
     public void run(){
+        
         try {
             sendMail();
-        } catch (Exception ex) {
-            
-            
-    }
+        }
+        catch (Exception ex) {
+         
+        }
     }
 
-
+    //metodo per la configurazione dei parametri, la crazione e l'invio del messaggio
     private void sendMail() throws UnknownHostException, IOException, MessagingException{
 
             //settiamo le proprietà del sistema ospitante per poter permettere l'invio della mail: smtp,porta
@@ -105,7 +101,7 @@ public class Mail extends Thread{
 
     }
 
-
+    //metodo che controlla se la stringa dell'indirizzo e-mail è ben formata
     public static boolean checkMail(String email){
 
        return email.matches("^[_.0-9a-z-]+@([0-9a-z][0-9a-z-]+.)+[a-z]{2,3}$");
