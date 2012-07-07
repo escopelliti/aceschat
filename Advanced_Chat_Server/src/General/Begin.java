@@ -1,51 +1,33 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * Begin.java
- *
- * Created on 17-ott-2011, 17.25.19
- */
-
 package General;
 
-import Database.Database;
+import Database.databaseQueries;
 import Network.Server;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author enrico
- */
 
-//classe del SERVER da cui partono tutte le attivita del server
+/*Classe da cui partono le attività dal server*/
 public class Begin extends javax.swing.JFrame {
 
-    /** inizializza componenti swing */
+    /**Nel costruttore inizializzamo i componenti swing */
     public Begin() {
         initComponents();
-        serverStateField.setText("Stopped");
-        
+        serverStateField.setText("Stopped");        
     }
-
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         startButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        logoLabel = new javax.swing.JLabel();
+        welcomeTitle = new javax.swing.JTextField();
+        loginTextField = new javax.swing.JTextField();
         pswAdmin = new javax.swing.JPasswordField();
         userAdmin = new javax.swing.JTextField();
         serverStateField = new javax.swing.JTextField();
-        serverState = new javax.swing.JLabel();
+        serverStateLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,24 +38,24 @@ public class Begin extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/General/Images/logo2.png"))); // NOI18N
+        logoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        logoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/General/Images/logo2.png"))); // NOI18N
 
-        jTextField1.setEditable(false);
-        jTextField1.setFont(new java.awt.Font("SansSerif", 1, 15));
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setText("Welcome Administrator!");
+        welcomeTitle.setEditable(false);
+        welcomeTitle.setFont(new java.awt.Font("SansSerif", 1, 15));
+        welcomeTitle.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        welcomeTitle.setText("Welcome Administrator!");
 
-        jTextField2.setEditable(false);
-        jTextField2.setFont(new java.awt.Font("SansSerif", 1, 15));
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField2.setText("Login:");
+        loginTextField.setEditable(false);
+        loginTextField.setFont(new java.awt.Font("SansSerif", 1, 15));
+        loginTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        loginTextField.setText("Login:");
 
         serverStateField.setEditable(false);
         serverStateField.setFont(new java.awt.Font("SansSerif", 1, 15));
 
-        serverState.setFont(new java.awt.Font("SansSerif", 1, 15));
-        serverState.setText("Stato del Server:");
+        serverStateLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
+        serverStateLabel.setText("Stato del Server:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,14 +63,14 @@ public class Begin extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(logoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(201, 201, 201)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(welcomeTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(loginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(userAdmin)
@@ -97,7 +79,7 @@ public class Begin extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(170, 170, 170)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(serverState, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(serverStateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(serverStateField, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
@@ -110,18 +92,18 @@ public class Begin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE))
+                        .addComponent(logoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(126, 126, 126)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(welcomeTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(loginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(userAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(28, 28, 28)
                         .addComponent(pswAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 240, Short.MAX_VALUE)
-                        .addComponent(serverState, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(serverStateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(startButton)
@@ -132,36 +114,30 @@ public class Begin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
-    //start del server;
+    //Parte il Server;
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
 
-        if(userAdmin.getText()!="" && pswAdmin.getText()!=""){
-        try {
+        try{
+            databaseQueries query;            
+            generalView gv;
+            Server server;
 
-            Database.connectDb();
-
-            generalView gv = new generalView(this);
+            query = new databaseQueries();
+            gv = new generalView(this);
             gv.setVisible(true);
-            try {              
-                Server server = new Server(gv);
-                server.start();
-            } catch (IOException ex) {
-                Logger.getLogger(Begin.class.getName()).log(Level.SEVERE, null, ex);
+            server = new Server(gv,query);
+            server.start();
+            }catch(IOException ex){
+                JOptionPane.showMessageDialog(null,"Errore di connessione: "+ ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);          
+            }catch(ClassNotFoundException ex){
+                JOptionPane.showMessageDialog(null,"Errore di caricamente classe: "+ ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
+            }catch(SQLException ex){
+                JOptionPane.showMessageDialog(null,"Errore SQL: "+ ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
             }
-
-        } catch (ClassNotFoundException ex) {//da sistemare
-            Logger.getLogger(Begin.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(Begin.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        //controllo credenziali via DB ed eventuale gestione dell'accesso
+                
         startButton.setEnabled(false);
-        serverStateField.setText("Running");
-        
-        this.setVisible(false);
-        }
+        serverStateField.setText("Running");       
+        this.setVisible(false);      
     }//GEN-LAST:event_startButtonActionPerformed
 
     /**
@@ -174,23 +150,16 @@ public class Begin extends javax.swing.JFrame {
             }
         });
     }
-
-
-
-
-
-
-
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField loginTextField;
+    private javax.swing.JLabel logoLabel;
     private javax.swing.JPasswordField pswAdmin;
-    private javax.swing.JLabel serverState;
     private javax.swing.JTextField serverStateField;
+    private javax.swing.JLabel serverStateLabel;
     private javax.swing.JButton startButton;
     private javax.swing.JTextField userAdmin;
+    private javax.swing.JTextField welcomeTitle;
     // End of variables declaration//GEN-END:variables
 
 }
