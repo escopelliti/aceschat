@@ -1,15 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package General;
 
 import java.io.Serializable;
 
-/**
- *
- * @author enrico
+/*
+ * Classe per la gestione dei pacchetti = header + payload
  */
 public class Packet implements Serializable{
 
@@ -23,11 +17,12 @@ public class Packet implements Serializable{
         this.payload = payload;
 
     }
-
+    //metodo per l'accesso a header
     public int getHeader() {
         return header;
     }
 
+    //metodo per l'accesso al payload
     public Object getPayload() {
         return payload;
     }
