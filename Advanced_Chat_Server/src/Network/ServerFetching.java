@@ -1,5 +1,6 @@
 package Network;
 
+import Database.databaseQueries;
 import General.Packet;
 import General.generalView;
 import java.io.IOException;
@@ -18,10 +19,10 @@ public class ServerFetching extends Thread{
     /*Costruttore con Socket su cui "ascoltiamo", serverExecutor per interazioni con altri utenti e generalView
      * per poter visualizzare gli eventi a schermo.
      */
-    public ServerFetching(Socket clientSocket,serverExecutor responder,generalView gv) throws IOException{
+    public ServerFetching(Socket clientSocket,generalView gv,databaseQueries query) throws IOException{
 
             this.socket = clientSocket;           
-            this.accepted = new Client(socket,responder,gv);
+            this.accepted = new Clients(socket,responder,gv,query);
             this.responder = responder;
     }
 
@@ -83,7 +84,7 @@ public class ServerFetching extends Thread{
             }
      }
 
-    private Client accepted;
+    private Clients accepted;
     private Socket socket;
     private serverExecutor responder;
 
