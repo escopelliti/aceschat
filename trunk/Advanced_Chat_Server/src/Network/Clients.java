@@ -183,14 +183,14 @@ public class Clients{
                }
                       
             }else{
-                response = "La e-mail da te inserita è presente nella nostra blacklist.";
+                response = "Non puoi accedere alla community.";
                 this.out.writeObject(response);
             }
 
            
         }catch(Exception ex){
             this.out.writeChars("Abbiamo dei problemi tecnici. Riprova più tardi.");
-            JOptionPane.showMessageDialog(null,"Errore durante la registrazione di un utente:\n"+ ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Errore durante la registrazione di un utente:\n"+ ex.getMessage() , "ACES - Server", JOptionPane.ERROR_MESSAGE);
         }
     }
  
