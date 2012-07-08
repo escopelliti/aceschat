@@ -106,7 +106,7 @@ public class serverExecutor {
             comunication = "Invito inviato con successo.";
         }
         catch(Exception ex){
-            JOptionPane.showMessageDialog(null,"Errore di invio Mail:"+ ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Errore di invio Mail:"+ ex , "ACES - Server", JOptionPane.ERROR_MESSAGE);
             comunication = "Errore!!";
         }
 
