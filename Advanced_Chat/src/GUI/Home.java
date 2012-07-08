@@ -1004,7 +1004,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
         
         try{            
-            toCon.logout(loggedUser.getIdPerson());
+            toCon.logout(loggedUser.getIdPerson());        
             this.toCon.close();
         }catch(IOException ex){           
             JOptionPane.showMessageDialog(null,"Problemi tecnici. Riprova più tardi." , "ACES", JOptionPane.ERROR_MESSAGE);
