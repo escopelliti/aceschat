@@ -29,7 +29,7 @@ public class Server extends Thread{
 
         while(true){
             Socket clientSocket = server_socket.accept();                       
-            ServerFetching fetch = new ServerFetching(clientSocket,this.gv,this.query);
+            ServerFetching fetch = new ServerFetching(clientSocket,this.gv,this.query,this.responder);
             fetch.start();
         }
     }
@@ -39,7 +39,7 @@ public class Server extends Thread{
         try{
             acceptClient();
         }catch(IOException ex){
-            JOptionPane.showMessageDialog(null,"Errore di connessione: "+ ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Errore di connessione: "+ ex , "ACES - Server", JOptionPane.ERROR_MESSAGE);
         }
     }
 
