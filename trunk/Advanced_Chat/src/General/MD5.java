@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Formatter;
+import javax.swing.JOptionPane;
 
 /*
  * classe che implementa l'algoritmo di crittografia MD5
@@ -27,10 +28,12 @@ public class MD5 {
          }
          
          catch (UnsupportedEncodingException ex) {
-         
+             
+             JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
          }
          catch (NoSuchAlgorithmException ex) {
-
+    
+             JOptionPane.showMessageDialog(null,"Problemi tecnici. Ci scusiamo per l'inconveniente." , "ACES", JOptionPane.ERROR_MESSAGE);
          }
 
          return s;
