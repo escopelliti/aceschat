@@ -426,7 +426,7 @@ public class InputForm extends javax.swing.JFrame {
                 if(Mail.checkMail(mailField.getText())){ 
                     this.setVisible(false);
                     String year = (String) yearComboBox.getSelectedItem();
-                    int month = monthComboBox.getSelectedIndex();
+                    int month = monthComboBox.getSelectedIndex() + 1;
                     String day = (String) dayComboBox.getSelectedItem();
                     String sex = (String) sexComboBox.getSelectedItem();
                     new_user = new User(nameField.getText(),surnameField.getText(),mailField.getText(),year.concat("-"+month).concat("-"+day),cityField.getText(),nationField.getText(),sex,"");
