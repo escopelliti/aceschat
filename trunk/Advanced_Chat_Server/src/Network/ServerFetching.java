@@ -6,7 +6,6 @@ import General.generalView;
 import java.io.IOException;
 import java.net.Socket;
 import java.sql.SQLException;
-import java.util.Hashtable;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 
@@ -19,7 +18,7 @@ public class ServerFetching extends Thread{
     /*Costruttore con Socket su cui "ascoltiamo", serverExecutor per interazioni con altri utenti e generalView
      * per poter visualizzare gli eventi a schermo.
      */
-    public ServerFetching(Socket clientSocket,generalView gv,databaseQueries query) throws IOException{
+    public ServerFetching(Socket clientSocket,generalView gv,databaseQueries query,serverExecutor responder) throws IOException{
 
             this.socket = clientSocket;           
             this.accepted = new Clients(socket,responder,gv,query);
@@ -32,9 +31,9 @@ public class ServerFetching extends Thread{
             Packet request;
 
             while(true){
-
+                
                 request = (Packet) accepted.getIn().readObject();
-
+                
                 switch(request.getHeader()){
                     //Richiesta registrazione
                   case 0: this.accepted.registerMe(request.getPayload()); break;
@@ -61,7 +60,7 @@ public class ServerFetching extends Thread{
                     //Richiesta di ricerca amico 
                   case 13: this.accepted.searchFriend((String)(request.getPayload()));break;
                      //Richiesta di generazione statistiche   
-                  case 15: this.accepted.getStatistics((Integer)request.getPayload());break;
+                  case 15: this.accepted.getStatistics((Integer)request.getPayload());break; 
                       
                 }
             }
@@ -74,13 +73,13 @@ public class ServerFetching extends Thread{
             try{
                 fetch();
             }catch (ClassNotFoundException ex){
-                JOptionPane.showMessageDialog(null,"Errore caricamento classe. Check it: "+ ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);    
+                JOptionPane.showMessageDialog(null,"Errore caricamento classe. Check it: "+ ex , "ACES - Server", JOptionPane.ERROR_MESSAGE);    
             }catch(IOException ex){
-                JOptionPane.showMessageDialog(null,"Errore nella ricezione dei pacchetti: "+ ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Errore nella ricezione dei pacchetti: "+ ex , "ACES - Server", JOptionPane.ERROR_MESSAGE);
             }catch(SQLException ex){
-                JOptionPane.showMessageDialog(null,"Errore SQL: "+ ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Errore SQL: "+ ex , "ACES - Server", JOptionPane.ERROR_MESSAGE);
             }catch(InterruptedException ex){
-                JOptionPane.showMessageDialog(null,"Errore runtime col thread di fetching: "+ ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Errore runtime col thread di fetching: "+ ex , "ACES - Server", JOptionPane.ERROR_MESSAGE);
             }
      }
 
