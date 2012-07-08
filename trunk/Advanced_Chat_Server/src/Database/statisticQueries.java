@@ -28,8 +28,8 @@ public class statisticQueries {
         rs.next();
         
         dateDif = rs.getInt("date_dif")+1;
-        return dateDif;    
-        }
+        return dateDif;   
+    }
 
     /*Questo metodo ritorna il numero di login effettuati fin dalla registrazione*/
     public Integer countLogin(int IdUser) throws SQLException, IOException{
