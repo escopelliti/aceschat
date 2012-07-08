@@ -36,8 +36,7 @@ public class Requests {
         return in;
     }
     
-    public void getMess(String clientUsername) throws IOException{
-        
+    public void getMess(String clientUsername) throws IOException{        
         this.out.writeObject(new Packet(9,clientUsername));        
     }
    
