@@ -1,28 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * generalView2.java
- *
- * Created on 9-mar-2012, 11.43.46
- */
 package General;
 
 import Network.serverExecutor;
 import XML.XML;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.Vector;
 import java.util.concurrent.Semaphore;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author enrico
- */
+/*Classe che implementa un interfaccia grafica per visualizzare eventi all'interno dell'applicazione*/
 public class generalView extends javax.swing.JFrame implements Runnable{
 
 
@@ -35,45 +21,42 @@ public class generalView extends javax.swing.JFrame implements Runnable{
         sem = new Semaphore(1);
         
         update = new Thread(this);
-        update.start();
-        
+        update.start();        
     }
-
     
     public void setExecutor(serverExecutor se){
         
-        this.se = se;
-        
+        this.se = se;       
     }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        textLabel = new javax.swing.JLabel();
+        textLabel1 = new javax.swing.JLabel();
         logoutButton = new javax.swing.JButton();
-        jPanel13 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        decoPanel1 = new javax.swing.JPanel();
+        logoLabel = new javax.swing.JLabel();
         DecorationFunctionPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        scoll1 = new javax.swing.JScrollPane();
         eventList = new javax.swing.JTextArea();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scoll = new javax.swing.JScrollPane();
         loggedUsersList = new javax.swing.JList();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        menuBar = new javax.swing.JMenuBar();
         dumpMenuItem = new javax.swing.JMenu();
         signUser = new javax.swing.JMenuItem();
         dumpDB = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 15));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Utenti connessi");
+        textLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
+        textLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textLabel.setText("Utenti connessi");
 
-        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 15));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Eventi");
+        textLabel1.setFont(new java.awt.Font("SansSerif", 1, 15));
+        textLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textLabel1.setText("Eventi");
 
         logoutButton.setText("Logout");
         logoutButton.addActionListener(new java.awt.event.ActionListener() {
@@ -82,20 +65,21 @@ public class generalView extends javax.swing.JFrame implements Runnable{
             }
         });
 
-        jPanel13.setBackground(new java.awt.Color(244, 167, 66));
+        decoPanel1.setBackground(new java.awt.Color(244, 167, 66));
 
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout decoPanel1Layout = new javax.swing.GroupLayout(decoPanel1);
+        decoPanel1.setLayout(decoPanel1Layout);
+        decoPanel1Layout.setHorizontalGroup(
+            decoPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 970, Short.MAX_VALUE)
         );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        decoPanel1Layout.setVerticalGroup(
+            decoPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 27, Short.MAX_VALUE)
         );
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("/home/enrico/NetBeansProjects/Advanced Chat/src/GUI/ACES.png")); // NOI18N
+        logoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        logoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/General/Images/logo2.png"))); // NOI18N
 
         DecorationFunctionPanel1.setBackground(new java.awt.Color(15, 64, 133));
 
@@ -115,9 +99,9 @@ public class generalView extends javax.swing.JFrame implements Runnable{
         eventList.setFont(new java.awt.Font("SansSerif", 1, 15));
         eventList.setForeground(new java.awt.Color(203, 31, 31));
         eventList.setRows(5);
-        jScrollPane2.setViewportView(eventList);
+        scoll1.setViewportView(eventList);
 
-        jScrollPane1.setViewportView(loggedUsersList);
+        scoll.setViewportView(loggedUsersList);
 
         dumpMenuItem.setText("Operazioni");
 
@@ -137,9 +121,9 @@ public class generalView extends javax.swing.JFrame implements Runnable{
         });
         dumpMenuItem.add(dumpDB);
 
-        jMenuBar1.add(dumpMenuItem);
+        menuBar.add(dumpMenuItem);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -150,22 +134,18 @@ public class generalView extends javax.swing.JFrame implements Runnable{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(textLabel)
+                            .addComponent(scoll, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(290, 290, 290)
+                                .addComponent(textLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 531, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGap(241, 241, 241)
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
-                                        .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 808, Short.MAX_VALUE)))
-                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(logoLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(logoutButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(scoll1, javax.swing.GroupLayout.DEFAULT_SIZE, 808, Short.MAX_VALUE)))
+                    .addComponent(decoPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(DecorationFunctionPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -176,33 +156,33 @@ public class generalView extends javax.swing.JFrame implements Runnable{
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(scoll1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(36, 36, 36)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                                .addComponent(logoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(scoll, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)))
+                        .addComponent(textLabel)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(decoPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
 private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
-
-        //logout dell'amministratore via DB, il server continua a girare;
+        
         this.dispose();
         starter.setVisible(true);
 }//GEN-LAST:event_logoutButtonActionPerformed
 
+    /*Possibilità di Dump Xml del DB*/
     private void dumpDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dumpDBActionPerformed
         
         XML xml = new XML();
@@ -210,14 +190,16 @@ private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         
     }//GEN-LAST:event_dumpDBActionPerformed
 
+    /*Possibilità dell'amministratore di segnalare un utente in modo definitivo
+     * aggiungendolo alla blacklist
+     */
     private void signUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUserActionPerformed
         
         if(!loggedUsersList.isSelectionEmpty()){
             try{
-                int idtoSign = this.se.selectId(loggedUsersList.getSelectedValue().toString());
+                int idtoSign = this.se.selectId(loggedUsersList.getSelectedValue().toString(),"");
                 this.se.addToBlackList(idtoSign);
-            }
-            catch(SQLException ex){
+            }catch(SQLException ex){
                 
                 JOptionPane.showMessageDialog(null,"Problema riscontrato:\n"+ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
             }
@@ -234,15 +216,17 @@ private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         this.loggedUsers.remove(username);
     }
     
-
+    /*Inserisce eventi nella "coda" degli eventi che verranno visualizzati
+     Per evitare problemi di concorrenza è previsto l'uso di un semaforo anche se gli ArrayList sono
+     strutture sincronizzate*/
     public void enqueueEvent(String incomingEvent) throws InterruptedException{
         
         sem.acquire(1);
         events.add(incomingEvent);
-        sem.release(1);
-        
+        sem.release(1);       
     }
     
+    /*Visualizza eventi a schermo presi dalla "coda" di eventi*/
     private void dequeueEvent() throws InterruptedException{
         
         if(!events.isEmpty()){
@@ -254,32 +238,25 @@ private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             
         }
     }
-    
-    
+       
     private void updateLoggedUsers(){
         
-        loggedUsersList.setListData(loggedUsers);
-        
+        loggedUsersList.setListData(loggedUsers);        
     }
     
-    
+    /*Thread che aggiorna a schermo gli eventi che avvengono nell'applicazione*/
     public void run(){
         
         while(true){    
             
             try{
-                
                 dequeueEvent();
                 updateLoggedUsers();
                 update.sleep(2000);
+            }catch(InterruptedException ex){
+                JOptionPane.showMessageDialog(null,"Errore Runtime durante la visualizzazione dei messaggi:\n"+ ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);    
             }
-            catch(InterruptedException ex){
-                
-                System.out.println(ex.getMessage());
-            }
-        
         }
-        
     }
     
     private serverExecutor se;
@@ -290,18 +267,18 @@ private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private Begin starter;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel DecorationFunctionPanel1;
+    private javax.swing.JPanel decoPanel1;
     private javax.swing.JMenuItem dumpDB;
     private javax.swing.JMenu dumpMenuItem;
     private javax.swing.JTextArea eventList;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList loggedUsersList;
+    private javax.swing.JLabel logoLabel;
     private javax.swing.JButton logoutButton;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JScrollPane scoll;
+    private javax.swing.JScrollPane scoll1;
     private javax.swing.JMenuItem signUser;
+    private javax.swing.JLabel textLabel;
+    private javax.swing.JLabel textLabel1;
     // End of variables declaration//GEN-END:variables
 }
