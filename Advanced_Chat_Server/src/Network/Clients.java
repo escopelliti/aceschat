@@ -58,12 +58,12 @@ public class Clients{
                 this.out.writeObject(response);
             }
         }catch(IOException ex){
-            JOptionPane.showMessageDialog(null,"Errore IO nell'aggiornamento delle info personali:\n"+ ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Errore IO nell'aggiornamento delle info personali:\n"+ ex , "ACES", JOptionPane.ERROR_MESSAGE);
             response = new Packet(666,"Problemi tecnici. Riprova più tardi.");
             this.out.writeObject(response);
         }
         catch(SQLException ex){
-            JOptionPane.showMessageDialog(null,"Errore SQL nell'aggiornamento delle info personali:\n"+ ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Errore SQL nell'aggiornamento delle info personali:\n"+ ex, "ACES", JOptionPane.ERROR_MESSAGE);
             response = new Packet(666,"Problemi tecnici. Riprova più tardi.");
             this.out.writeObject(response);
         }
@@ -121,7 +121,7 @@ public class Clients{
                 }
                 catch(SQLException ex){
                     
-                    JOptionPane.showMessageDialog(null,"Errore SQL nell'inserimento di un Abuse:\n"+ ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Errore SQL nell'inserimento di un Abuse:\n"+ ex , "ACES - Server", JOptionPane.ERROR_MESSAGE);
                     response = new Packet(666, "Problemi tecnici. Riprova più tardi."); 
                     this.out.writeObject(response);                                                        
                 }
@@ -130,10 +130,8 @@ public class Clients{
     //Inviamo i messaggi per l'utente dopo aver ricevuto la richiesta di lettura di essi;
     public void getMyMess(String username) throws IOException{
         
-        Vector mess;
-        System.out.println("uno");
-        mess = this.responder.getVector(username);
-        System.out.println("due");
+        Vector mess;        
+        mess = this.responder.getVector(username);        
         while(!mess.isEmpty())                        
             this.out.writeObject(new Packet(1,mess.remove(mess.size() - 1)));
         this.out.flush();                 
@@ -255,13 +253,13 @@ public class Clients{
 
                     response = new Packet(666,"Servizio temporaneamente non disponibile.\n");
                     this.out.writeObject(response);
-                    JOptionPane.showMessageDialog(null,"Errore IO in doFriendship:\n"+ ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Errore IO in doFriendship:\n"+ ex, "ACES", JOptionPane.ERROR_MESSAGE);
                 }
                 catch(SQLException ex){
 
                     response = new Packet(666,"Servizio temporaneamente non disponibile.\n\nErrore:\n"+ex.getMessage());
                     this.out.writeObject(response);
-                    JOptionPane.showMessageDialog(null,"Errore SQL in doFriendship:\n"+ ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Errore SQL in doFriendship:\n"+ ex, "ACES", JOptionPane.ERROR_MESSAGE);
                 }
     }
     
@@ -320,14 +318,14 @@ public class Clients{
              }
              
         }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null,"Errore SQL nel login:\n"+ ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Errore SQL nel login:\n"+ ex , "ACES - Server", JOptionPane.ERROR_MESSAGE);
             response = "Problemi tecnici. Riprova più tardi.";
             this.out.writeObject(response);      
         }catch(NullPointerException ex){
             response = "Informazioni di Login errate.";
             this.out.writeObject(response);
         }catch(InterruptedException ex){
-            JOptionPane.showMessageDialog(null,"Errore runtime:\n"+ ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Errore runtime:\n"+ ex, "ACES - Server", JOptionPane.ERROR_MESSAGE);
             response = "Problemi tecnici. Riprova più tardi.";
             this.out.writeObject(response); 
         }       
@@ -350,12 +348,12 @@ public class Clients{
         }catch(IOException ex){
             
             packet = new Packet(666, "\nCi sono dei problemi tecnici. Riprova tra qualche minuto.\n");
-            JOptionPane.showMessageDialog(null,"Problema riscontrato IO per il cerca amico:\n"+ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Problema riscontrato IO per il cerca amico:\n"+ex , "ACES -Server", JOptionPane.ERROR_MESSAGE);
             this.out.writeObject(packet);
         }catch(SQLException ex){
             
             packet = new Packet(666,"\nCi sono dei problemi tecnici. Riprova tra qualche minuto.\n");
-            JOptionPane.showMessageDialog(null,"Problema riscontrato SQL per il cerca amico:\n"+ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Problema riscontrato SQL per il cerca amico:\n"+ex , "ACES - Server", JOptionPane.ERROR_MESSAGE);
             this.out.writeObject(packet);
         }        
     }
@@ -371,11 +369,11 @@ public class Clients{
             this.out.writeObject(packet);
         }catch(IOException ex){
             packet = new Packet(666, "\nCi sono dei problemi tecnici. Riprova tra qualche minuto.\n");
-            JOptionPane.showMessageDialog(null,"Problema riscontrato IO per la lista amici:\n"+ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Problema riscontrato IO per la lista amici:\n"+ex , "ACES - Server", JOptionPane.ERROR_MESSAGE);
             this.out.writeObject(packet);
         }catch(SQLException ex){
             packet = new Packet(666,"\nCi sono dei problemi tecnici. Riprova tra qualche minuto.\n");
-            JOptionPane.showMessageDialog(null,"Problema riscontrato SQL per la lista amici:\n"+ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Problema riscontrato SQL per la lista amici:\n"+ex , "ACES - Server", JOptionPane.ERROR_MESSAGE);
             this.out.writeObject(packet);
         }
     }
