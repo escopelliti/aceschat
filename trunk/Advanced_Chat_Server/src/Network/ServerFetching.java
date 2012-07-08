@@ -61,7 +61,7 @@ public class ServerFetching extends Thread{
                     //Richiesta di ricerca amico 
                   case 13: this.accepted.searchFriend((String)(request.getPayload()));break;
                      //Richiesta di generazione statistiche   
-                  case 15: this.accepted.statistic((Integer)request.getPayload());break;
+                  case 15: this.accepted.getStatistics((Integer)request.getPayload());break;
                       
                 }
             }
@@ -80,7 +80,7 @@ public class ServerFetching extends Thread{
             }catch(SQLException ex){
                 JOptionPane.showMessageDialog(null,"Errore SQL: "+ ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
             }catch(InterruptedException ex){
-                JOptionPane.showMessageDialog(null,"Errore runtime col thread di fetcing: "+ ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Errore runtime col thread di fetching: "+ ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
             }
      }
 

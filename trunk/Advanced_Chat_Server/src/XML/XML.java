@@ -6,10 +6,6 @@
 package XML;
 
 
-/**
- *
- * @author enrico
- */
 public class XML {
 
         

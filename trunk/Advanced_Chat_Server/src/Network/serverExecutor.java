@@ -44,7 +44,7 @@ public class serverExecutor {
         participants = (Vector) mess.get(2);
         message = mess.get(1);
                      
-        idSender = query.selectId(source);
+        idSender = query.selectId(source,"");
         /*Inviamo i messaggi a tutti i destinatari;
          * Prendiamo il vettore corrispondente ai vari utenti dall'HashMap e gli inseriamo l'oggetto del messaggio;
          * Successivamente questi messaggi saranno richiesti (Stimolazione da parte del Client) di modo
@@ -75,6 +75,11 @@ public class serverExecutor {
         return this.logClient.get(username);
     }
     
+    public int selectId(String username,String email) throws SQLException{
+        
+        return this.query.selectId(username, email);
+    }
+    
     /*Aggiunge un vettore all'hashmap dei clienti loggati con chiave username;
      * in questo modo riusciremo sempre ad identificare quanti e quali sono i messaggi/file per gli utenti
      * che hanno effettuato il logina ll'applicazione
@@ -82,6 +87,12 @@ public class serverExecutor {
     public void addMe(Vector toAdd, String username){
         
         this.logClient.put(username, toAdd);
+    }
+    
+    /*Permette all'amministratore di inserire nella blacklist un utente*/
+    public void addToBlackList(int id) throws SQLException{
+        
+        this.query.addToBlackList(id);
     }
     
     /*Permette l'invio di una mail attraverso la classe Mail*/
@@ -102,6 +113,8 @@ public class serverExecutor {
 
         return comunication;
     }
+    
+    
       
     private Hashtable<String,Vector> logClient;
     private generalView gv;
