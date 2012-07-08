@@ -1,7 +1,6 @@
 package General;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 /*
  * Classe per la gestione delle date e ora locale del client
