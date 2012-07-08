@@ -131,7 +131,9 @@ public class Clients{
     public void getMyMess(String username) throws IOException{
         
         Vector mess;
+        System.out.println("uno");
         mess = this.responder.getVector(username);
+        System.out.println("due");
         while(!mess.isEmpty())                        
             this.out.writeObject(new Packet(1,mess.remove(mess.size() - 1)));
         this.out.flush();                 
@@ -173,10 +175,10 @@ public class Clients{
                     this.query.insertActivation(new_user.getIdPerson());
                     this.query.insertLevel(new_user.getIdPerson());                          
                     
-                    this.out.writeObject(new_user);
-                    this.responder.addMe(new Vector(),new_user.getUsername());
+                    this.responder.addMe(new Vector(),new_user.getUsername());                                       
                     gv.enqueueEvent("L'utente "+new_user.getUsername()+" <"+new_user.getEmail()+"> si è registrato con successo. - IP: "+new_user.getIp());
                     gv.addLoggedUsers(new_user.getUsername());
+                    this.out.writeObject(new_user);
                }else{
                     response = "Username e/o email già utilizzati da un altro utente.";
                     this.out.writeObject(response);
@@ -188,9 +190,12 @@ public class Clients{
             }
 
            
-        }catch(Exception ex){
+        }catch(NullPointerException ex){
             this.out.writeChars("Abbiamo dei problemi tecnici. Riprova più tardi.");
-            JOptionPane.showMessageDialog(null,"Errore durante la registrazione di un utente:\n"+ ex.getMessage() , "ACES - Server", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Errore durante la registrazione di un utente:\n"+ ex , "ACES - Server", JOptionPane.ERROR_MESSAGE);
+        }catch(InterruptedException ex){
+            this.out.writeChars("Abbiamo dei problemi tecnici. Riprova più tardi.");
+            JOptionPane.showMessageDialog(null,"Errore durante la registrazione di un utente:\n"+ ex , "ACES - Server", JOptionPane.ERROR_MESSAGE);
         }
     }
  
@@ -299,11 +304,11 @@ public class Clients{
                     user.setIp(this.clientSocket.getInetAddress().toString());
                     personalImage = getImage(user.getIdPerson());
                     if(!(personalImage == null))//da modificare
-                        user.setPersonalImage(personalImage);
-                    this.out.writeObject(user);                
+                        user.setPersonalImage(personalImage);               
                     gv.enqueueEvent("L'utente "+user.getUsername()+" <"+user.getEmail()+"> ha effettuato l'accesso. - IP: "+user.getIp());
                     gv.addLoggedUsers(user.getUsername());
                     this.responder.addMe(new Vector(),user.getUsername());
+                    this.out.writeObject(user); 
                 }else{
                     response = "Non sei più parte della comunity.";
                     this.out.writeObject(response);                                                               
