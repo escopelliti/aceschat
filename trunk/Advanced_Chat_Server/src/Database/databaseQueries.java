@@ -460,7 +460,7 @@ public class databaseQueries extends Database{
     /*Inserisce informazioni personali relativi ad un utente nella tabella Person*/
     public void insertPerson(User new_user) throws SQLException{
         
-        query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Person` (`IdPerson`,`Name`,`Surname`,`Birthday`,`City`,`Nation`,`Sex`,`Job`) VALUES (? , ? , ? , ? , ? , ? , ?, ?)");
+        query = con.prepareStatement("INSERT INTO `AdvancedChat`.`Person` (`IdPerson`,`Name`,`Surname`,`Birthday`,`City`,`Nation`,`Sex`) VALUES (? , ? , ? , ? , ? , ? , ?)");
         query.setInt(1,new_user.getIdPerson());
         query.setString(2,new_user.getName());
         query.setString(3,new_user.getSurname());
@@ -468,7 +468,7 @@ public class databaseQueries extends Database{
         query.setString(5,new_user.getCity());
         query.setString(6,new_user.getNation());
         query.setString(7,new_user.getSex());
-        query.setString(8,new_user.getJob());
+        //query.setString(8,new_user.getJob());
         query.execute();
     }
     
