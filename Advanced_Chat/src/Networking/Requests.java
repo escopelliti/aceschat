@@ -230,7 +230,7 @@ public class Requests {
         this.socket.close();
     }
     
-    /*Richiede le statistiche riguardanti l'utente fin dalla registrazione del'utente.*/
+    /*Richiede le statistiche riguardanti l'utente fin dalla registrazione dell'utente.*/
     public void getStatistics(int IdUser) throws IOException{
         
         Packet packet;
