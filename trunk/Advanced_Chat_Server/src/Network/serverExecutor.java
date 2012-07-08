@@ -23,7 +23,7 @@ public class serverExecutor {
         this.logClient = new Hashtable<String, Vector>();
         this.query = query;
         this.gv = gv;
-        this.gv.setExecutor(this);
+        this.gv.setExecutor(this);        
     }
      
     /*Metodo che invia il messaggio;Il vector mess è composto da tre elementi:
@@ -84,8 +84,7 @@ public class serverExecutor {
      * in questo modo riusciremo sempre ad identificare quanti e quali sono i messaggi/file per gli utenti
      * che hanno effettuato il logina ll'applicazione
      */
-    public void addMe(Vector toAdd, String username){
-        
+    public void addMe(Vector toAdd,String username){       
         this.logClient.put(username, toAdd);
     }
     
