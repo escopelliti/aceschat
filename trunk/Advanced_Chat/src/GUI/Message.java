@@ -76,14 +76,14 @@ public class Message extends javax.swing.JFrame {
         ConversationArea.setBackground(new java.awt.Color(252, 241, 173));
         ConversationArea.setColumns(20);
         ConversationArea.setEditable(false);
-        ConversationArea.setFont(new java.awt.Font("SansSerif", 1, 10));
+        ConversationArea.setFont(new java.awt.Font("SansSerif", 1, 10)); // NOI18N
         ConversationArea.setForeground(new java.awt.Color(6, 6, 6));
         ConversationArea.setRows(5);
         scroll1.setViewportView(ConversationArea);
 
         friendLabel.setText("Partecipanti:");
 
-        sendFile.setText("Invia un file");
+        sendFile.setText("Invia file");
         sendFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sendFileActionPerformed(evt);
@@ -106,10 +106,12 @@ public class Message extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scroll3, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-                    .addComponent(sendMess, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sendFile, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(abuseButton)
-                    .addComponent(friendLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))
+                    .addComponent(friendLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                    .addComponent(sendFile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(backgroundPanelLayout.createSequentialGroup()
+                        .addComponent(sendMess, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(abuseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         backgroundPanelLayout.setVerticalGroup(
@@ -142,7 +144,7 @@ public class Message extends javax.swing.JFrame {
         decoPanel.setBackground(new java.awt.Color(238, 162, 30));
         decoPanel.setAutoscrolls(true);
 
-        acesLabel.setFont(new java.awt.Font("SansSerif", 1, 28));
+        acesLabel.setFont(new java.awt.Font("SansSerif", 1, 28)); // NOI18N
         acesLabel.setForeground(new java.awt.Color(15, 64, 133));
         acesLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         acesLabel.setText("ACES");
