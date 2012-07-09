@@ -1,5 +1,6 @@
 package Database;
 
+import com.mysql.jdbc.ResultSetMetaData;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,27 +14,56 @@ public class dumpQueries{
         this.con = con;
     }
   
-    public ArrayList dumpUserTable() throws SQLException{
+    public ArrayList dumpTable(String nameTable) throws SQLException{
         
-        ArrayList userTable;
-        int index;
+        ArrayList Table;
+        int index=0;
+        Table = new ArrayList();
+        String sql="SELECT * FROM "+ nameTable;
         
-        index = 0;
-        userTable = new ArrayList(10000);
-        query = con.prepareStatement("SELECT * FROM User");
+        
+        query = con.prepareStatement(sql);
         rs = query.executeQuery();
+        ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
+        int column= rsmd.getColumnCount();
         
         while(rs.next()){
             index = 0;
-            while(index < 5){
-                userTable.add(rs.getObject(index+1));
+            while(index < column){
+                Table.add(rs.getObject(index+1));
                 index++;
             }
         }        
-        return userTable;
+        return Table;
+    }
+    
+    public ArrayList dumpTable(String arg, int i) throws SQLException {
+        ArrayList Table;
+        int index=0;
+        Table = new ArrayList();
+        
+         switch(i){  
+             case 0 : query = con.prepareStatement("SELECT * FROM `Friend`ORDER BY `Friend`.`IdUser` ASC");break;
+             case 1 : query = con.prepareStatement("SELECT * FROM `User`");break;
+         }
+        
+        rs = query.executeQuery();
+        ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
+        int column= rsmd.getColumnCount();
+        
+        while(rs.next()){
+            index = 0;
+            while(index < column){
+                Table.add(rs.getObject(index+1));
+                index++;
+            }
+        }    
+         return Table;
     }
     
     private ResultSet rs;
     private PreparedStatement query;
     private Connection con;
+
+    
 }
