@@ -104,6 +104,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
         chronoSearchButton = new javax.swing.JButton();
         historyScroll = new javax.swing.JScrollPane();
         historyTextArea = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
         searchTabPanel = new javax.swing.JPanel();
         logoLabel2 = new javax.swing.JLabel();
         searchFriendButton = new javax.swing.JButton();
@@ -134,13 +135,13 @@ public class Home extends javax.swing.JFrame implements Runnable{
 
         decorationFeedPanel.setBackground(new java.awt.Color(15, 64, 133));
         decorationFeedPanel.setEditable(false);
-        decorationFeedPanel.setFont(new java.awt.Font("SansSerif", 1, 22));
+        decorationFeedPanel.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
         decorationFeedPanel.setForeground(new java.awt.Color(254, 254, 254));
         decorationFeedPanel.setText("          LE NEWS CHE TI INTERESSANO");
         decoScroll.setViewportView(decorationFeedPanel);
 
         FeedView.setEditable(false);
-        FeedView.setFont(new java.awt.Font("SansSerif", 1, 15));
+        FeedView.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         FeedView.setForeground(new java.awt.Color(6, 6, 6));
         FeedScroll.setViewportView(FeedView);
 
@@ -156,7 +157,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
             .addGroup(FeedPanelLayout.createSequentialGroup()
                 .addComponent(decoScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FeedScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                .addComponent(FeedScroll)
                 .addContainerGap())
         );
 
@@ -192,16 +193,16 @@ public class Home extends javax.swing.JFrame implements Runnable{
                 .addComponent(thirdStarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        infoView.setFont(new java.awt.Font("SansSerif", 1, 8));
+        infoView.setFont(new java.awt.Font("SansSerif", 1, 8)); // NOI18N
         infoView.setForeground(new java.awt.Color(6, 6, 6));
-        infoView.setText("Visualizza le tue informazioni personali");
+        infoView.setText("Visualizza informazioni personali");
         infoView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 infoViewActionPerformed(evt);
             }
         });
 
-        usernameLabel.setFont(new java.awt.Font("SansSerif", 1, 12));
+        usernameLabel.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         usernameLabel.setForeground(new java.awt.Color(6, 6, 6));
         usernameLabel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
 
@@ -220,7 +221,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
             .addGap(0, 23, Short.MAX_VALUE)
         );
 
-        photoLoadButton.setFont(new java.awt.Font("SansSerif", 1, 15));
+        photoLoadButton.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         photoLoadButton.setForeground(new java.awt.Color(6, 6, 6));
         photoLoadButton.setText("Carica una foto");
         photoLoadButton.addActionListener(new java.awt.event.ActionListener() {
@@ -245,7 +246,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                             .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(infoView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(emailLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(usernameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                                .addComponent(usernameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(photoLoadButton)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -283,13 +284,13 @@ public class Home extends javax.swing.JFrame implements Runnable{
         );
 
         TabPanel.setForeground(new java.awt.Color(6, 6, 6));
-        TabPanel.setFont(new java.awt.Font("SansSerif", 1, 16));
+        TabPanel.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
 
         logoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/logo2.png"))); // NOI18N
 
         infoText.setBackground(new java.awt.Color(254, 254, 254));
         infoText.setEditable(false);
-        infoText.setFont(new java.awt.Font("SansSerif", 1, 14));
+        infoText.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         infoText.setForeground(new java.awt.Color(6, 6, 6));
         infoText.setText("\n\n\n\n\nScopri tutte le funzionalità di \"ACES \".\n\nCon l'utilizzo della barra soprastante potrai accedere a tutti i servizi.");
         infoTextScroll.setViewportView(infoText);
@@ -303,7 +304,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                 .addComponent(infoTextScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(155, 155, 155)
                 .addComponent(logoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         firstTabPanelLayout.setVerticalGroup(
             firstTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -311,7 +312,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                 .addGroup(firstTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(firstTabPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(logoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE))
+                        .addComponent(logoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE))
                     .addGroup(firstTabPanelLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(infoTextScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -320,7 +321,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
 
         TabPanel.addTab("Pagina iniziale", firstTabPanel);
 
-        contactList.setFont(new java.awt.Font("Purisa", 1, 18));
+        contactList.setFont(new java.awt.Font("Purisa", 1, 18)); // NOI18N
         contactList.setForeground(new java.awt.Color(234, 29, 29));
         contactList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -329,7 +330,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
         });
         contactListScroll.setViewportView(contactList);
 
-        contactButton.setFont(new java.awt.Font("SansSerif", 1, 15));
+        contactButton.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         contactButton.setForeground(new java.awt.Color(6, 6, 6));
         contactButton.setText("Contatta");
         contactButton.setEnabled(false);
@@ -340,39 +341,39 @@ public class Home extends javax.swing.JFrame implements Runnable{
         });
 
         nLoginField.setEditable(false);
-        nLoginField.setFont(new java.awt.Font("SansSerif", 1, 12));
+        nLoginField.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         nLoginField.setForeground(new java.awt.Color(6, 6, 6));
 
         nFriendsField.setEditable(false);
-        nFriendsField.setFont(new java.awt.Font("SansSerif", 1, 12));
+        nFriendsField.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         nFriendsField.setForeground(new java.awt.Color(6, 6, 6));
 
         nMessField.setEditable(false);
-        nMessField.setFont(new java.awt.Font("SansSerif", 1, 12));
+        nMessField.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         nMessField.setForeground(new java.awt.Color(6, 6, 6));
 
         dateTimeField.setEditable(false);
-        dateTimeField.setFont(new java.awt.Font("SansSerif", 1, 12));
+        dateTimeField.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         dateTimeField.setForeground(new java.awt.Color(6, 6, 6));
 
-        friendsLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
+        friendsLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         friendsLabel.setForeground(new java.awt.Color(6, 6, 6));
         friendsLabel.setText("Amici : ");
         friendsLabel.setFocusCycleRoot(true);
 
-        loginLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
+        loginLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         loginLabel.setForeground(new java.awt.Color(6, 6, 6));
         loginLabel.setText("Login : ");
 
-        messLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
+        messLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         messLabel.setForeground(new java.awt.Color(6, 6, 6));
         messLabel.setText("Messaggi : ");
 
-        dateLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
+        dateLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         dateLabel.setForeground(new java.awt.Color(6, 6, 6));
         dateLabel.setText("Giorni su ACES :");
 
-        statisticsButton.setFont(new java.awt.Font("SansSerif", 1, 15));
+        statisticsButton.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         statisticsButton.setForeground(new java.awt.Color(6, 6, 6));
         statisticsButton.setText("Statistiche");
         statisticsButton.addActionListener(new java.awt.event.ActionListener() {
@@ -391,9 +392,12 @@ public class Home extends javax.swing.JFrame implements Runnable{
         friendTabPanelLayout.setHorizontalGroup(
             friendTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(friendTabPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(friendTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(friendTabPanelLayout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(12, 12, 12)
+                        .addComponent(contactButton, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(friendTabPanelLayout.createSequentialGroup()
                         .addComponent(contactListScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(122, 122, 122)
                         .addGroup(friendTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -410,14 +414,11 @@ public class Home extends javax.swing.JFrame implements Runnable{
                             .addGroup(friendTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(nMessField, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(nLoginField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(nFriendsField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                                .addComponent(nFriendsField, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(statisticsButton))
                             .addGroup(friendTabPanelLayout.createSequentialGroup()
                                 .addGap(60, 60, 60)
-                                .addComponent(dateTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(friendTabPanelLayout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(contactButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(dateTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(174, 174, 174))
         );
         friendTabPanelLayout.setVerticalGroup(
@@ -453,13 +454,13 @@ public class Home extends javax.swing.JFrame implements Runnable{
                                     .addComponent(dateTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addComponent(statisticsButton))
-                            .addComponent(iconAcesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))))
+                            .addComponent(iconAcesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(12, 12, 12))
         );
 
         TabPanel.addTab("Lista Amici", friendTabPanel);
 
-        friendList.setFont(new java.awt.Font("Purisa", 1, 18));
+        friendList.setFont(new java.awt.Font("Purisa", 1, 18)); // NOI18N
         friendList.setForeground(new java.awt.Color(234, 29, 29));
         friendList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -469,7 +470,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
         friendListScroll.setViewportView(friendList);
 
         contactMultiUsers.setBackground(new java.awt.Color(254, 254, 254));
-        contactMultiUsers.setFont(new java.awt.Font("SansSerif", 1, 15));
+        contactMultiUsers.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         contactMultiUsers.setForeground(new java.awt.Color(6, 6, 6));
         contactMultiUsers.setText("Contatta");
         contactMultiUsers.addActionListener(new java.awt.event.ActionListener() {
@@ -478,7 +479,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
             }
         });
 
-        addtoMultiChat.setFont(new java.awt.Font("SansSerif", 1, 15));
+        addtoMultiChat.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         addtoMultiChat.setForeground(new java.awt.Color(6, 6, 6));
         addtoMultiChat.setText("Aggiungi");
         addtoMultiChat.setEnabled(false);
@@ -490,14 +491,14 @@ public class Home extends javax.swing.JFrame implements Runnable{
 
         multichatList.setColumns(20);
         multichatList.setEditable(false);
-        multichatList.setFont(new java.awt.Font("Purisa", 1, 18));
+        multichatList.setFont(new java.awt.Font("Purisa", 1, 18)); // NOI18N
         multichatList.setForeground(new java.awt.Color(234, 29, 29));
         multichatList.setRows(5);
         multiChatScroll.setViewportView(multichatList);
 
         textAreaInfo.setColumns(20);
         textAreaInfo.setEditable(false);
-        textAreaInfo.setFont(new java.awt.Font("SansSerif", 1, 15));
+        textAreaInfo.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         textAreaInfo.setRows(5);
         textAreaInfo.setText("Seleziona un amico,e \"Aggiungilo\" \nalla lista dei partecipanti alla \nconversazione. Quando avrai \nselezionato tutti i partecipanti \n\"contatta\" i tuoi amici.\n");
         textAreaInfoScroll.setViewportView(textAreaInfo);
@@ -524,8 +525,8 @@ public class Home extends javax.swing.JFrame implements Runnable{
                         .addComponent(iconAcesLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(39, 39, 39)
                 .addGroup(chatroomTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(contactMultiUsers, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(multiChatScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(multiChatScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(contactMultiUsers, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(163, 163, 163))
         );
         chatroomTabPanelLayout.setVerticalGroup(
@@ -540,20 +541,20 @@ public class Home extends javax.swing.JFrame implements Runnable{
                                 .addComponent(multiChatScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(contactMultiUsers))
-                            .addComponent(friendListScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)))
+                            .addComponent(friendListScroll)))
                     .addGroup(chatroomTabPanelLayout.createSequentialGroup()
                         .addGap(44, 44, 44)
                         .addComponent(textAreaInfoScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(addtoMultiChat)
                         .addGap(18, 18, 18)
-                        .addComponent(iconAcesLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)))
+                        .addComponent(iconAcesLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         TabPanel.addTab("ChatRoom", chatroomTabPanel);
 
-        addFriendButton.setFont(new java.awt.Font("SansSerif", 1, 15));
+        addFriendButton.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         addFriendButton.setForeground(new java.awt.Color(6, 6, 6));
         addFriendButton.setText("Aggiungi");
         addFriendButton.addActionListener(new java.awt.event.ActionListener() {
@@ -563,12 +564,12 @@ public class Home extends javax.swing.JFrame implements Runnable{
         });
 
         addFriendTitle.setEditable(false);
-        addFriendTitle.setFont(new java.awt.Font("SansSerif", 1, 18));
+        addFriendTitle.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         addFriendTitle.setForeground(new java.awt.Color(6, 6, 6));
         addFriendTitle.setText("Aggiungi una persona all'elenco dei tuoi contatti.");
 
         toAddLabel.setEditable(false);
-        toAddLabel.setFont(new java.awt.Font("SansSerif", 1, 12));
+        toAddLabel.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         toAddLabel.setForeground(new java.awt.Color(6, 6, 6));
         toAddLabel.setText("Username dell'utente da inserire:");
 
@@ -590,7 +591,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                         .addComponent(addFriendTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(103, 103, 103)
                 .addComponent(logoLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         addTabPanelLayout.setVerticalGroup(
             addTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -603,28 +604,28 @@ public class Home extends javax.swing.JFrame implements Runnable{
                         .addGap(35, 35, 35)
                         .addGroup(addTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(friendtoAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(toAddLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(toAddLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(52, 52, 52)
                 .addComponent(addFriendButton)
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         TabPanel.addTab("Aggiungi un amico", addTabPanel);
 
         inviteTextArea.setColumns(20);
         inviteTextArea.setEditable(false);
-        inviteTextArea.setFont(new java.awt.Font("SansSerif", 1, 18));
+        inviteTextArea.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         inviteTextArea.setForeground(new java.awt.Color(6, 6, 6));
         inviteTextArea.setRows(5);
         inviteTextArea.setText("Riempiendo il campo sottostante potrai invitare i tuoi amici ad usare ACES.\nCon ACES puoi sempre rimanere in contatto con le persone a te più care.\nInvita tutti i tuoi amici per poter far crescere la comunity ACES.");
         inviteTextScroll.setViewportView(inviteTextArea);
 
         emailInviteLabel.setEditable(false);
-        emailInviteLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
+        emailInviteLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         emailInviteLabel.setForeground(new java.awt.Color(6, 6, 6));
         emailInviteLabel.setText("Indirizzo Email a cui mandare l'invito:");
 
-        emailToInvite.setFont(new java.awt.Font("SansSerif", 1, 15));
+        emailToInvite.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         emailToInvite.setForeground(new java.awt.Color(6, 6, 6));
 
         decoInvitePanel.setBackground(new java.awt.Color(244, 167, 66));
@@ -646,14 +647,14 @@ public class Home extends javax.swing.JFrame implements Runnable{
         DecoInvitePanel1.setLayout(DecoInvitePanel1Layout);
         DecoInvitePanel1Layout.setHorizontalGroup(
             DecoInvitePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 917, Short.MAX_VALUE)
+            .addGap(0, 921, Short.MAX_VALUE)
         );
         DecoInvitePanel1Layout.setVerticalGroup(
             DecoInvitePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 28, Short.MAX_VALUE)
         );
 
-        inviteButton.setFont(new java.awt.Font("SansSerif", 1, 15));
+        inviteButton.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         inviteButton.setForeground(new java.awt.Color(6, 6, 6));
         inviteButton.setText("Invita");
         inviteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -692,22 +693,22 @@ public class Home extends javax.swing.JFrame implements Runnable{
                     .addComponent(inviteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(emailToInvite)
                     .addComponent(emailInviteLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                 .addComponent(DecoInvitePanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         TabPanel.addTab("Invita un amico", inviteTabPanel);
 
-        infoChronoLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
+        infoChronoLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         infoChronoLabel.setForeground(new java.awt.Color(15, 64, 133));
         infoChronoLabel.setText("Visualizza le tue conversazioni passate.");
 
-        usernameChronoLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
+        usernameChronoLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         usernameChronoLabel.setForeground(new java.awt.Color(15, 64, 133));
         usernameChronoLabel.setText("Inserisci l'username:");
 
-        chronoSearchButton.setFont(new java.awt.Font("SansSerif", 1, 15));
+        chronoSearchButton.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         chronoSearchButton.setForeground(new java.awt.Color(6, 6, 6));
         chronoSearchButton.setText("Cerca");
         chronoSearchButton.addActionListener(new java.awt.event.ActionListener() {
@@ -718,10 +719,12 @@ public class Home extends javax.swing.JFrame implements Runnable{
 
         historyTextArea.setColumns(20);
         historyTextArea.setEditable(false);
-        historyTextArea.setFont(new java.awt.Font("SansSerif", 1, 15));
+        historyTextArea.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         historyTextArea.setForeground(new java.awt.Color(15, 64, 133));
         historyTextArea.setRows(5);
         historyScroll.setViewportView(historyTextArea);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/icona_archivio_150.png"))); // NOI18N
 
         javax.swing.GroupLayout chronoTabPanelLayout = new javax.swing.GroupLayout(chronoTabPanel);
         chronoTabPanel.setLayout(chronoTabPanelLayout);
@@ -729,10 +732,19 @@ public class Home extends javax.swing.JFrame implements Runnable{
             chronoTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(chronoTabPanelLayout.createSequentialGroup()
                 .addGroup(chronoTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(infoChronoLabel)
-                    .addComponent(usernameChronoLabel)
-                    .addComponent(userHistoryField, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(chronoSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(chronoTabPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(chronoTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(infoChronoLabel)
+                            .addComponent(usernameChronoLabel)
+                            .addGroup(chronoTabPanelLayout.createSequentialGroup()
+                                .addComponent(userHistoryField, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(chronoSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31))))
+                    .addGroup(chronoTabPanelLayout.createSequentialGroup()
+                        .addGap(84, 84, 84)
+                        .addComponent(jLabel1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(historyScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -742,14 +754,16 @@ public class Home extends javax.swing.JFrame implements Runnable{
             .addGroup(chronoTabPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(infoChronoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(usernameChronoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(userHistoryField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(usernameChronoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addGroup(chronoTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(userHistoryField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chronoSearchButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(chronoSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(133, Short.MAX_VALUE))
-            .addComponent(historyScroll, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap(30, Short.MAX_VALUE))
+            .addComponent(historyScroll, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         TabPanel.addTab("Cronologia", chronoTabPanel);
@@ -757,7 +771,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
         logoLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logoLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/logo1.png"))); // NOI18N
 
-        searchFriendButton.setFont(new java.awt.Font("SansSerif", 1, 15));
+        searchFriendButton.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         searchFriendButton.setForeground(new java.awt.Color(6, 6, 6));
         searchFriendButton.setText("Cerca");
         searchFriendButton.addActionListener(new java.awt.event.ActionListener() {
@@ -766,49 +780,49 @@ public class Home extends javax.swing.JFrame implements Runnable{
             }
         });
 
-        nameField.setFont(new java.awt.Font("SansSerif", 1, 12));
+        nameField.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         nameField.setForeground(new java.awt.Color(6, 6, 6));
 
-        usernameSearchLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
+        usernameSearchLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         usernameSearchLabel.setForeground(new java.awt.Color(6, 6, 6));
         usernameSearchLabel.setText("Username dell'utente da cercare : ");
 
-        usernameFriendLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
+        usernameFriendLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         usernameFriendLabel.setText("Username :");
 
-        nameFriendLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
+        nameFriendLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         nameFriendLabel.setForeground(new java.awt.Color(6, 6, 6));
         nameFriendLabel.setText("Name : ");
 
-        surnameFriendLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
+        surnameFriendLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         surnameFriendLabel.setForeground(new java.awt.Color(6, 6, 6));
         surnameFriendLabel.setText("Surname : ");
 
-        cityFriendLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
+        cityFriendLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         cityFriendLabel.setForeground(new java.awt.Color(6, 6, 6));
         cityFriendLabel.setText("City : ");
 
-        emailFriendLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
+        emailFriendLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         emailFriendLabel.setForeground(new java.awt.Color(6, 6, 6));
         emailFriendLabel.setText("E-mail : ");
 
-        levelFriendLabel.setFont(new java.awt.Font("SansSerif", 1, 15));
+        levelFriendLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         levelFriendLabel.setForeground(new java.awt.Color(6, 6, 6));
         levelFriendLabel.setText("Level : ");
 
-        surnameField.setFont(new java.awt.Font("SansSerif", 1, 12));
+        surnameField.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         surnameField.setForeground(new java.awt.Color(6, 6, 6));
 
-        cityField.setFont(new java.awt.Font("SansSerif", 1, 12));
+        cityField.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         cityField.setForeground(new java.awt.Color(6, 6, 6));
 
-        usernameFriendField.setFont(new java.awt.Font("SansSerif", 0, 12));
+        usernameFriendField.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         usernameFriendField.setForeground(new java.awt.Color(6, 6, 6));
 
-        levelField.setFont(new java.awt.Font("SansSerif", 1, 12));
+        levelField.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         levelField.setForeground(new java.awt.Color(6, 6, 6));
 
-        emailField.setFont(new java.awt.Font("SansSerif", 1, 12));
+        emailField.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         emailField.setForeground(new java.awt.Color(6, 6, 6));
 
         javax.swing.GroupLayout searchTabPanelLayout = new javax.swing.GroupLayout(searchTabPanel);
@@ -820,7 +834,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                 .addGroup(searchTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(searchTabPanelLayout.createSequentialGroup()
                         .addComponent(logoLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                         .addGroup(searchTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchTabPanelLayout.createSequentialGroup()
                                 .addComponent(levelFriendLabel)
@@ -843,7 +857,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                                     .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cityField, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(usernameFriendField, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                         .addComponent(imageFriendLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(102, 102, 102))
                     .addGroup(searchTabPanelLayout.createSequentialGroup()
@@ -864,7 +878,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
                     .addComponent(usertoSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(searchTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(searchTabPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(logoLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(67, 67, 67))
                     .addGroup(searchTabPanelLayout.createSequentialGroup()
@@ -896,7 +910,7 @@ public class Home extends javax.swing.JFrame implements Runnable{
             .addGroup(searchTabPanelLayout.createSequentialGroup()
                 .addGap(96, 96, 96)
                 .addComponent(imageFriendLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         TabPanel.addTab("Cerca", searchTabPanel);
@@ -1402,6 +1416,7 @@ private void searchFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JPanel inviteTabPanel;
     private javax.swing.JTextArea inviteTextArea;
     private javax.swing.JScrollPane inviteTextScroll;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField levelField;
     private javax.swing.JLabel levelFriendLabel;
     private javax.swing.JLabel loginLabel;
