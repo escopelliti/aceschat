@@ -1,7 +1,9 @@
 package General;
 
+import Database.databaseQueries;
 import Network.serverExecutor;
 import XML.XML;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -12,9 +14,10 @@ import javax.swing.JOptionPane;
 public class generalView extends javax.swing.JFrame implements Runnable{
 
 
-    public generalView(Begin starter) {
+    public generalView(Begin starter,databaseQueries query) {
         
         initComponents();
+        this.query = query;
         this.starter = starter;
         events = new ArrayList<String>();
         loggedUsers = new Vector();
@@ -184,10 +187,16 @@ private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 
     /*Possibilità di Dump Xml del DB*/
     private void dumpDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dumpDBActionPerformed
-        
-        XML xml = new XML();
-        xml.dumpDB();
-        
+        try{
+            XML xml = new XML(this.query);
+            xml.dumpDB();
+        }catch(SQLException ex){
+            
+            JOptionPane.showMessageDialog(null,"Problema riscontrato durante il dump:\n"+ex , "ACES - Server", JOptionPane.ERROR_MESSAGE);
+        }catch(IOException ex){
+         
+            JOptionPane.showMessageDialog(null,"Problema riscontrato durante il dump:\n"+ex , "ACES - Server", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_dumpDBActionPerformed
 
     /*Possibilità dell'amministratore di segnalare un utente in modo definitivo
@@ -259,6 +268,7 @@ private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         }
     }
     
+    private databaseQueries query; 
     private serverExecutor se;
     private Semaphore sem;
     private ArrayList<String> events;
