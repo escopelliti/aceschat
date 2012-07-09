@@ -123,7 +123,7 @@ public class Begin extends javax.swing.JFrame {
             Server server;
 
             query = new databaseQueries();
-            gv = new generalView(this);
+            gv = new generalView(this,query);
             gv.setVisible(true);
             server = new Server(gv,query);
             server.start();
