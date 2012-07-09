@@ -286,7 +286,7 @@ public class databaseQueries extends Database{
                 
         String description = fileExchange.getName() ;
             
-        query=con.prepareStatement("INSERT INTO `AdvancedChat`.`File`(`Description`) VALUE (?)");
+        query=con.prepareStatement("INSERT INTO `AdvancedChat`.`File`(`Description`) VALUE (?)",1);
         query.setString(1,"NAME : "+ description);
         query.execute();
         rs=query.getGeneratedKeys();
