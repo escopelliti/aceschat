@@ -3,9 +3,7 @@ package XML;
 import Database.databaseQueries;
 import Database.dumpQueries;
 import General.DateTime;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -26,23 +24,23 @@ public class XML {
     
     //metodo che avvia la routine di dump del DB
     public void dumpDB() throws SQLException, IOException{
-       
-       dumpAbuse();
-       dumpActivation();
-       dumpBlackList();
-       dumpChat();
-       dumpConversation();
-       dumpFile();
-       dumpFriend();
-       dumpInterest();
-       dumpLevel();
-       dumpLevelDescription();
-       dumpLogin();
-       dumpOffense();
-       dumpUser();
-       dumpPerson();
-       dumpStatus();
-       dumpStatusDescription();
+             
+        dumpAbuse();
+        dumpActivation();
+        dumpBlackList();
+        dumpChat();
+        dumpConversation();
+        dumpFile();
+        dumpFriend();
+        dumpInterest();
+        dumpLevel();
+        dumpLevelDescription();
+        dumpLogin();
+        dumpOffense();
+        dumpUser();
+        dumpPerson();
+        dumpStatus();
+        dumpStatusDescription();
     }
     
     
