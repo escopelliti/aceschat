@@ -61,7 +61,7 @@ public class ServerFetching extends Thread{
                   case 13: this.accepted.searchFriend((String)(request.getPayload()));break;
                      //Richiesta di generazione statistiche   
                   case 15: this.accepted.getStatistics((Integer)request.getPayload());break; 
-                      
+                  
                 }
             }
     }
@@ -73,13 +73,13 @@ public class ServerFetching extends Thread{
             try{
                 fetch();
             }catch (ClassNotFoundException ex){
-                JOptionPane.showMessageDialog(null,"Errore caricamento classe. Check it: "+ ex , "ACES - Server", JOptionPane.ERROR_MESSAGE);    
+                JOptionPane.showMessageDialog(null,"Errore caricamento classe. Check it:\n"+ ex , "ACES - Server", JOptionPane.ERROR_MESSAGE);    
             }catch(IOException ex){
-                JOptionPane.showMessageDialog(null,"Errore nella ricezione dei pacchetti: "+ ex , "ACES - Server", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Errore nella ricezione dei pacchetti:\n"+ ex , "ACES - Server", JOptionPane.ERROR_MESSAGE);
             }catch(SQLException ex){
-                JOptionPane.showMessageDialog(null,"Errore SQL: "+ ex , "ACES - Server", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Errore SQL:\n"+ ex , "ACES - Server", JOptionPane.ERROR_MESSAGE);
             }catch(InterruptedException ex){
-                JOptionPane.showMessageDialog(null,"Errore runtime col thread di fetching: "+ ex , "ACES - Server", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Errore runtime col thread di fetching:\n"+ ex , "ACES - Server", JOptionPane.ERROR_MESSAGE);
             }
      }
 
