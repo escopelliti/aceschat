@@ -190,7 +190,7 @@ private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         try{
             XML xml = new XML(this.query);
             xml.dumpDB();
-            JOptionPane.showMessageDialog(null,"Backup effettuato con successo!", "ACES - Server", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Backup effettuato con successo!", "ACES - Server", JOptionPane.INFORMATION_MESSAGE);
         }catch(SQLException ex){
             
             JOptionPane.showMessageDialog(null,"Problema riscontrato durante il dump:\n"+ex , "ACES - Server", JOptionPane.ERROR_MESSAGE);
