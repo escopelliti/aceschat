@@ -24,23 +24,23 @@ public class XML {
     
     //metodo che avvia la routine di dump del DB
     public void dumpDB() throws SQLException, IOException{
-             
-        dumpAbuse();
-        dumpActivation();
-        dumpBlackList();
-        dumpChat();
-        dumpConversation();
-        dumpFile();
-        dumpFriend();
-        dumpInterest();
-        dumpLevel();
-        dumpLevelDescription();
-        dumpLogin();
-        dumpOffense();
-        dumpUser();
-        dumpPerson();
-        dumpStatus();
-        dumpStatusDescription();
+
+        
+       try{
+           
+            dumpAbuse();
+            dumpActivation();
+            dumpBlackList();
+            dumpChat();
+            dumpConversation();
+            dumpFile();
+            dumpFriend();
+            dumpUser();
+            dumpPerson();
+            dumpLogin();
+       }catch(Exception ex){
+            JOptionPane.showMessageDialog(null,"Problemi nella generazione del backup database\n"+ex , "ACES", JOptionPane.ERROR_MESSAGE);
+       }
     }
     
     
