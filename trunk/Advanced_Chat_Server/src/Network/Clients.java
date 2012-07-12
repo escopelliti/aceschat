@@ -82,7 +82,7 @@ public class Clients{
         response = new Packet(666, comunication);
         
         this.out.writeObject(response);
-        gv.enqueueEvent("L'utente "+vect.get(0).toString()+"ha inviato un invito via mail a "+vect.get(1).toString());
+        gv.enqueueEvent("L'utente "+vect.get(0).toString()+" ha inviato un invito via mail a "+vect.get(1).toString());
     }
     
     /*Segnalazione abuso; il client invia un struttura dati contenente: 0) id di chi ha inviato l'abuso
@@ -240,7 +240,7 @@ public class Clients{
                             this.query.insertFriend(idUser, idFriend);
                             response = new Packet(666,"L'aggiunta dell'utente da te selezionato è avvenuta con successo!");
                             this.out.writeObject(response);
-                            gv.enqueueEvent("L'utente "+this.query.selectUsername(idUser) +"ha fatto amicizia con "+info.get(1).toString());
+                            gv.enqueueEvent("L'utente "+this.query.selectUsername(idUser) +" ha fatto amicizia con "+info.get(1).toString());
                         }else{
                             response = new Packet(666, "L'utente è già tuo amico!");
                             this.out.writeObject(response);
@@ -379,7 +379,7 @@ public class Clients{
     }
     
     /*Calcola le statistiche per l'utente che ne ha fatto richiesta*/
-    public void getStatistics(int idUser) throws IOException{
+    public void getStatistics(int idUser) throws IOException, InterruptedException{
         
         statisticQueries stat;
         Vector statistics;
@@ -401,14 +401,15 @@ public class Clients{
             statistics.add(3,stat.timeInAces(idUser));
     
             packet = new Packet(9,statistics);
-            this.out.writeObject(packet);                
+            this.out.writeObject(packet);
+            gv.enqueueEvent("L'utente "+this.query.selectUsername(idUser)+" ha richiesto la visualizzazione di statistiche");
         }catch(SQLException ex){
             packet = new Packet(666, "\nCi sono dei problemi tecnici. Riprova tra qualche minuto.\n");
-            JOptionPane.showMessageDialog(null,"Problema riscontrato SQL per la generazione di statistiche:\n"+ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Problema riscontrato SQL per la generazione di statistiche:\n"+ex , "ACES", JOptionPane.ERROR_MESSAGE);
             this.out.writeObject(packet);            
         }catch(IOException ex){
             packet = new Packet(666, "\nCi sono dei problemi tecnici. Riprova tra qualche minuto.\n");
-            JOptionPane.showMessageDialog(null,"Problema riscontrato IO per la generazione di statistiche:\n"+ex.getMessage() , "ACES", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Problema riscontrato IO per la generazione di statistiche:\n"+ex, "ACES", JOptionPane.ERROR_MESSAGE);
             this.out.writeObject(packet);           
         }
     }
