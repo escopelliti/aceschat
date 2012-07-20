@@ -79,7 +79,7 @@ public class Mail extends Thread{
             Session session = Session.getDefaultInstance(props,new javax.mail.Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-            return new PasswordAuthentication("teamprojectinfo@gmail.com","ramadaletitbe");
+            return new PasswordAuthentication("email","password");
             }
             });
 
@@ -110,7 +110,7 @@ public class Mail extends Thread{
 
 
     final String link = "http://www.projectnotesmore.blogspot.com/";
-    final String admin = "teamprojectinfo@gmail.com";
+    final String admin = "email";
     private String sender;//username
     private String receiver;//indirizzo
     private String mex;
